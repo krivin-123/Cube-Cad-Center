@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Explore Courses - Cube Cad Center</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    
+    <script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "on-secondary-container": "#636263",
+                "secondary-fixed-dim": "#c8c6c7",
+                "surface-tint": "#9a4600",
+                "inverse-on-surface": "#f0f0f2",
+                "primary-fixed": "#ffdbc9",
+                "outline": "#8c7263",
+                "on-primary-fixed-variant": "#753400",
+                "surface": "#f9f9fb",
+                "background": "#f9f9fb",
+                "surface-container-highest": "#e2e2e4",
+                "secondary": "#5f5e5f",
+                "surface-dim": "#d9dadc",
+                "on-tertiary-container": "#363637",
+                "surface-variant": "#e2e2e4",
+                "tertiary": "#5e5e5f",
+                "on-tertiary-fixed": "#1b1c1c",
+                "on-background": "#1a1c1d",
+                "on-error-container": "#93000a",
+                "on-tertiary-fixed-variant": "#474748",
+                "on-error": "#ffffff",
+                "on-surface-variant": "#584235",
+                "tertiary-container": "#a09fa0",
+                "on-surface": "#1a1c1d",
+                "primary-container": "#ff7900",
+                "on-primary-container": "#5c2700",
+                "on-primary": "#ffffff",
+                "on-primary-fixed": "#321200",
+                "primary": "#9a4600",
+                "on-secondary-fixed": "#1b1b1c",
+                "surface-container-lowest": "#ffffff",
+                "error": "#ba1a1a",
+                "on-tertiary": "#ffffff",
+                "surface-container-low": "#f3f3f5",
+                "on-secondary": "#ffffff",
+                "outline-variant": "#e0c0af",
+                "surface-container": "#eeeef0",
+                "inverse-primary": "#ffb68c",
+                "error-container": "#ffdad6",
+                "on-secondary-fixed-variant": "#474647",
+                "primary-fixed-dim": "#ffb68c",
+                "tertiary-fixed-dim": "#c8c6c7",
+                "surface-container-high": "#e8e8ea",
+                "tertiary-fixed": "#e4e2e3",
+                "surface-bright": "#f9f9fb",
+                "inverse-surface": "#2f3132",
+                "secondary-fixed": "#e5e2e3",
+                "secondary-container": "#e2dfe0"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+        },
+        "fontFamily": {
+                "headline-lg-mobile": ["Hanken Grotesk"],
+                "body-sm": ["Inter"],
+                "headline-md": ["Hanken Grotesk"],
+                "button": ["Hanken Grotesk"],
+                "headline-xl": ["Hanken Grotesk"],
+                "body-lg": ["Inter"],
+                "body-md": ["Inter"],
+                "label-caps": ["JetBrains Mono"],
+                "headline-lg": ["Hanken Grotesk"],
+                "nav-label-sm": ["Inter", "sans-serif"],
+                "nav-label": ["Inter", "sans-serif"],
+                "body": ["Inter", "sans-serif"],
+                "subtext-sm": ["Inter", "sans-serif"],
+                "subtext-cta": ["Inter", "sans-serif"]
+        }
+      }
+    }
+  }
+    </script>
+    
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .blueprint-grid {
+                background-image: 
+                    linear-gradient(to right, theme('colors.surface-variant') 1px, transparent 1px),
+                    linear-gradient(to bottom, theme('colors.surface-variant') 1px, transparent 1px);
+                background-size: 24px 24px;
+            }
+        }
+    </style>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+        
+        body {
+            background-color: #F5F5F7;
+            color: #1a1c1d;
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        .surface-card {
+            background-color: #FFFFFF;
+            border: 1px solid #E2E2E5;
+            transition: all 0.3s ease;
+        }
+        
+        .surface-card:hover {
+            border: 2px solid #1A1A1B;
+            margin: -1px;
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+    <!-- GSAP for Smooth Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+</head>
+<body class="bg-background antialiased text-on-surface flex flex-col min-h-screen">
+<!-- Preloader -->
+    <div id="preloader" class="fixed inset-0 z-[100] bg-background blueprint-grid flex flex-col items-center justify-center">
+        <div class="flex flex-col items-center gap-8 w-full max-w-xs px-6">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKCrhMzNfEEdGqUu8quzzlAOM8DwiGTTLfLwvo-skFKRjuthr09qq_LtnTyC-H5OkixEfm8ORvIWw9uc8CMyVjY436mAH5zbl1Qlq75uEwh9jJlha7mKlS04e3RwoxDddjY4DhM0Rz9rbM31ighMHsFFgU8W5WNlSwTnjkKKuagyOhtK2iIln4sWkNLHgPXXvBy5Fy0OaLqz85qavxnsPezJEhQHG-5ooPG1YAE33Ov7Vm23YezmLW7pbfTQaua1uT" alt="Cube Cad Center Logo" class="h-14 w-auto animate-pulse">
+            
+            <div class="w-full">
+                <div class="flex justify-between items-end mb-3">
+                    <span class="font-label-caps text-label-caps text-on-surface-variant tracking-widest">INITIALIZING ASSETS</span>
+                    <span id="loader-percentage" class="font-label-caps text-label-caps text-primary tracking-widest font-bold">0%</span>
+                </div>
+                <!-- Progress Bar Container -->
+                <div class="w-full h-[2px] bg-outline/20 relative overflow-hidden">
+                    <!-- Progress Bar Fill -->
+                    <div id="loader-progress" class="absolute top-0 left-0 h-full bg-primary w-0 transition-all duration-300 ease-out"></div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+<!-- Global Background Animation -->
+    <div class="fixed inset-0 w-full h-full pointer-events-none z-0 flex items-center justify-center" id="global-animation">
+        <canvas id="hero-canvas" class="w-full h-full object-contain mix-blend-multiply opacity-0 blur-sm transform-gpu will-change-[filter,transform]"></canvas>
+    </div>
+
+    
+    <!-- Top Navigation -->
+    <header class="w-full bg-surface/90 backdrop-blur-md border-b border-outline/20 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3">
+                <div class="font-headline-md text-xl font-bold text-on-surface tracking-tight">Cube Cad Center</div>
+            </a>
+            <div class="flex items-center gap-4">
+                <a href="index.html" class="font-button text-sm font-semibold text-on-surface-variant hover:text-primary transition-colors flex items-center gap-1">
+                    <span class="material-symbols-outlined text-[18px]">arrow_back</span> Back to Home
+                </a>
+                <a href="index.html#book-appointment" class="px-4 py-2 rounded-full bg-primary text-white font-semibold text-xs tracking-wide flex items-center gap-1.5 hover:bg-on-primary-container shadow-sm transition-all hover:scale-105 active:scale-95 no-underline">
+                    <span class="material-symbols-outlined text-[16px]">calendar_month</span>
+                    Book Appointment
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <!-- Hero Section -->
+        <section class="bg-surface-container-highest py-20 px-6 md:px-12 blueprint-grid relative border-b border-outline/20">
+            <div class="max-w-7xl mx-auto relative z-10 text-center">
+                <span class="inline-block bg-primary text-on-primary font-label-caps text-xs px-3 py-1 mb-4 rounded-sm tracking-widest">COURSE CATALOG</span>
+                <h1 class="font-headline-xl text-5xl md:text-6xl font-extrabold text-on-surface mb-6">Explore Our Disciplines</h1>
+                <p class="font-body-lg text-lg text-on-surface-variant max-w-2xl mx-auto">Select a discipline below to view the detailed syllabus, core modules, and career paths.</p>
+            </div>
+        </section>
+
+        <!-- Course Listings Grid -->
+        <section class="max-w-7xl mx-auto px-6 md:px-12 py-16">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <!-- Architectural & Interior Design -->
+                <a href="syllabus-architectural.html" class="surface-card p-8 md:p-12 border-t-4 border-t-primary flex flex-col h-full group hover:shadow-xl transition-all">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="material-symbols-outlined text-primary text-4xl" style="font-variation-settings: 'FILL' 1;">architecture</span>
+                        <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">arrow_forward</span>
+                    </div>
+                    <h2 class="font-headline-lg text-3xl text-on-surface mb-2">Architectural & Interior Design</h2>
+                    <h3 class="font-label-caps text-xs tracking-widest text-primary mb-4 uppercase font-semibold">AutoCAD • Revit • SketchUp • V-Ray & Lumion • 3ds Max</h3>
+                    <p class="font-body-md text-on-surface-variant mb-6">Master 2D/3D architectural drafting, BIM documentation, spatial planning, and high-end photorealistic rendering.</p>
+                    <ul class="text-sm text-on-surface-variant space-y-2 mb-8 flex-grow">
+                        <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[16px]">check_circle</span> AutoCAD – 2D & 3D Drafting & Layouts</li>
+                        <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[16px]">check_circle</span> Revit Architecture – BIM Design & Documentation</li>
+                        <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[16px]">check_circle</span> SketchUp – 3D Interior & Architectural Modeling</li>
+                        <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[16px]">check_circle</span> V-Ray & Lumion – Photorealistic Visualizations</li>
+                        <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[16px]">check_circle</span> 3ds Max – Advanced Interior Modeling & Lighting</li>
+                    </ul>
+                    <div class="inline-flex items-center font-button font-bold text-primary group-hover:underline mt-auto">
+                        View Architectural Syllabus &rarr;
+                    </div>
+                </a>
+
+                <!-- Structural & Civil Engineering -->
+                <a href="syllabus-structural.html" class="surface-card p-8 md:p-12 border-t-4 border-t-primary flex flex-col h-full group hover:shadow-xl transition-all">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="material-symbols-outlined text-primary text-4xl" style="font-variation-settings: 'FILL' 1;">engineering</span>
+                        <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">arrow_forward</span>
+                    </div>
+                    <h2 class="font-headline-lg text-3xl text-on-surface mb-2">Structural & Civil Engineering</h2>
+                    <h3 class="font-label-caps text-xs tracking-widest text-primary mb-4 uppercase font-semibold">Revit Structure • ETABS & STAAD.Pro • Navisworks • MS Project</h3>
+                    <p class="font-body-md text-on-surface-variant mb-6">Advanced structural framing, finite element analysis, code compliance, clash auditing, and 4D/5D project scheduling.</p>
+                    <ul class="text-sm text-on-surface-variant space-y-2 mb-8 flex-grow">
+                        <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[16px]">check_circle</span> Revit Structure – BIM Structural Modeling & Rebar</li>
+                        <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[16px]">check_circle</span> ETABS & STAAD.Pro – Building Analysis & Seismic Design</li>
+                        <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[16px]">check_circle</span> Navisworks – Clash Detection & 4D Simulation</li>
+                        <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[16px]">check_circle</span> MS Project & BIM – Project Planning & Management</li>
+                    </ul>
+                    <div class="inline-flex items-center font-button font-bold text-primary group-hover:underline mt-auto">
+                        View Structural Syllabus &rarr;
+                    </div>
+                </a>
+
+                <!-- Mechanical & Product Design -->
+                <a href="syllabus-mechanical.html" class="surface-card p-8 md:p-12 border-t-4 border-t-primary flex flex-col h-full group hover:shadow-xl transition-all">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="material-symbols-outlined text-primary text-4xl" style="font-variation-settings: 'FILL' 1;">settings</span>
+                        <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">arrow_forward</span>
+                    </div>
+                    <h2 class="font-headline-lg text-3xl text-on-surface mb-2">Mechanical & Product Design</h2>
+                    <h3 class="font-label-caps text-xs tracking-widest text-primary mb-4 uppercase font-semibold">AutoCAD Mech • SolidWorks • Creo • CATIA • NX • ANSYS • GD&T</h3>
+                    <p class="font-body-md text-on-surface-variant mb-6">Parametric solid modeling, complex assemblies, FEA/CFD simulation, precision GD&T, and computerized manufacturing.</p>
+                    <ul class="text-sm text-on-surface-variant space-y-2 mb-8 flex-grow">
+                        <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[16px]">check_circle</span> AutoCAD Mechanical – Standard Machine Drawing & 3D</li>
+                        <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[16px]">check_circle</span> SolidWorks, Creo, Fusion 360 – 3D CAD & Product Design</li>
+                        <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[16px]">check_circle</span> NX CAD CAM, CATIA, Inventor – Advanced Design & CAM</li>
+                        <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[16px]">check_circle</span> ANSYS – FEA Structural & CFD Thermal Analysis</li>
+                        <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[16px]">check_circle</span> GD&T & Reverse Engineering – Precision ASME Y14.5</li>
+                    </ul>
+                    <div class="inline-flex items-center font-button font-bold text-primary group-hover:underline mt-auto">
+                        View Mechanical Syllabus &rarr;
+                    </div>
+                </a>
+
+                <!-- HVAC & MEPF Design -->
+                <a href="syllabus-mep.html" class="surface-card p-8 md:p-12 border-t-4 border-t-primary flex flex-col h-full group hover:shadow-xl transition-all">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="material-symbols-outlined text-primary text-4xl" style="font-variation-settings: 'FILL' 1;">hvac</span>
+                        <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">arrow_forward</span>
+                    </div>
+                    <h2 class="font-headline-lg text-3xl text-on-surface mb-2">HVAC & MEPF Design</h2>
+                    <h3 class="font-label-caps text-xs tracking-widest text-primary mb-4 uppercase font-semibold">Revit MEP • Navisworks • HVAC Design & Calculations</h3>
+                    <p class="font-body-md text-on-surface-variant mb-6">Design and coordinate building mechanical, electrical, and plumbing systems. Master thermal load calculations and clash auditing.</p>
+                    <ul class="text-sm text-on-surface-variant space-y-2 mb-8 flex-grow">
+                        <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[16px]">check_circle</span> Revit MEP – Ducting, Piping & Electrical BIM</li>
+                        <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[16px]">check_circle</span> Navisworks – MEP Coordination & Clash Detection</li>
+                        <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[16px]">check_circle</span> HVAC Design – Load Calculations (HAP), Duct Sizing & ASHRAE</li>
+                    </ul>
+                    <div class="inline-flex items-center font-button font-bold text-primary group-hover:underline mt-auto">
+                        View MEP Syllabus &rarr;
+                    </div>
+                </a>
+
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-surface dark:bg-surface-dim w-full py-16 bg-surface-container-low dark:bg-surface-container-lowest mt-auto border-t border-E2E2E5">
+        <div class="max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div class="col-span-1 md:col-span-2">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="font-headline-md text-xl font-bold text-on-surface tracking-tight">Cube Cad Center</div>
+                </div>
+                <p class="text-on-surface-variant font-body-lg max-w-sm mb-6 leading-relaxed">Gujarat's leading authorized CAD training institute.</p>
+            </div>
+            <div>
+                <h4 class="font-label-caps text-xs font-semibold text-on-surface mb-4 tracking-widest uppercase">Quick Links</h4>
+                <ul class="flex flex-col gap-3">
+                    <li><a href="explore.html" class="text-on-surface-variant hover:text-primary font-body-md transition-colors">Courses &amp; Syllabus</a></li>
+                    <li><a href="index.html#about" class="text-on-surface-variant hover:text-primary font-body-md transition-colors">Our Story</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-label-caps text-xs font-semibold text-on-surface mb-4 tracking-widest uppercase">Contact</h4>
+                <ul class="flex flex-col gap-2">
+                    <li class="text-on-surface-variant font-body-sm font-semibold text-on-surface">Satellite (HQ):</li>
+                    <li class="text-on-surface-variant font-body-sm">310, Iscon Emporio, Near Jodhpur Cross Road</li>
+                    <li class="text-on-surface-variant font-body-sm font-semibold text-on-surface mt-2">South Bopal:</li>
+                    <li class="text-on-surface-variant font-body-sm">C449, 4th Floor, SoBo Center</li>
+                    <li class="text-on-surface-variant font-body-sm mt-3"><a href="tel:+919978999694" class="hover:text-primary transition-colors font-semibold flex items-center gap-2"><span class="material-symbols-outlined text-[18px]">call</span> +91 9978999694</a></li>
+                    <li class="text-on-surface-variant font-body-sm"><a href="tel:+919909996285" class="hover:text-primary transition-colors font-semibold flex items-center gap-2"><span class="material-symbols-outlined text-[18px]">call</span> +91 9909996285</a></li>
+                    <li class="text-on-surface-variant font-body-sm"><a href="tel:+919909997285" class="hover:text-primary transition-colors font-semibold flex items-center gap-2"><span class="material-symbols-outlined text-[18px]">call</span> +91 9909997285</a></li>
+                    <li class="text-on-surface-variant font-body-sm mt-1"><a href="mailto:info@cubecadcenter.co" class="hover:text-primary transition-colors font-semibold flex items-center gap-2"><span class="material-symbols-outlined text-[18px]">email</span> info@cubecadcenter.co</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+<script>
+        // GSAP Animations
+        document.addEventListener('DOMContentLoaded', () => {
+              
+            // Canvas Image Sequence Animation
+            const canvas = document.getElementById("hero-canvas");
+            if (!canvas) return;
+            const context = canvas.getContext("2d");
+            
+            // Mobile Optimization: Load fewer frames to save memory and bandwidth
+            const isMobile = window.innerWidth < 768;
+            const frameStep = isMobile ? 5 : 1; // Load every 5th frame on mobile for extreme performance
+            const totalOriginalFrames = 300;
+            const frameCount = Math.floor(totalOriginalFrames / frameStep);
+            
+            const currentFrame = index => {
+                const actualIndex = Math.min((index * frameStep) + 1, totalOriginalFrames);
+                return `../cube.cad/ezgif-frame-${actualIndex.toString().padStart(3, '0')}.jpg`;
+            };
+
+            const images = [];
+            const imageSequence = { frame: 0 };
+            
+            let loadedCount = 0;
+            const loadingState = { visual: 0 };
+            
+            const preloader = document.getElementById('preloader');
+            const loaderPercentage = document.getElementById('loader-percentage');
+            const loaderProgress = document.getElementById('loader-progress');
+
+            function checkLoadProgress() {
+                loadedCount++;
+                const actualProgress = (loadedCount / frameCount) * 100;
+                
+                // Calculate duration based on remaining distance.
+                // 100% progress over 1 second = 0.01 seconds per 1%
+                const duration = Math.max(0, (actualProgress - loadingState.visual) * 0.01);
+
+                gsap.to(loadingState, {
+                    visual: actualProgress,
+                    duration: duration,
+                    ease: "none", // Linear ease ensures numbers count up consistently
+                    overwrite: "auto",
+                    onUpdate: () => {
+                        const displayPercent = Math.floor(loadingState.visual);
+                        if(loaderPercentage) loaderPercentage.innerText = `${displayPercent}%`;
+                        if(loaderProgress) loaderProgress.style.width = `${displayPercent}%`;
+                    },
+                    onComplete: () => {
+                        if (actualProgress === 100 && Math.floor(loadingState.visual) === 100) {
+                            if (preloader) {
+                                gsap.to(preloader, {
+                                    opacity: 0,
+                                    duration: 0.8,
+                                    ease: "power2.inOut",
+                                    delay: 0.1, // Very brief pause
+                                    onComplete: () => {
+                                        sessionStorage.setItem('loaderPlayed', 'true');
+                                        preloader.style.display = 'none';
+                                    }
+                                });
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Preload
+            const loaderPlayed = sessionStorage.getItem('loaderPlayed') === 'true';
+            
+            if (loaderPlayed && preloader) {
+                preloader.style.display = 'none';
+            }
+
+            for (let i = 0; i < frameCount; i++) {
+                const img = new Image();
+                img.onload = () => {
+                    if (i === 0) {
+                        canvas.width = img.naturalWidth;
+                        canvas.height = img.naturalHeight;
+                        // Enable high-quality rendering to improve perceived video quality
+                        context.imageSmoothingEnabled = true;
+                        context.imageSmoothingQuality = 'high';
+                        render();
+                    }
+                    if (!loaderPlayed) {
+                        checkLoadProgress();
+                    }
+                };
+                if (!loaderPlayed) {
+                    img.onerror = checkLoadProgress;
+                }
+                img.src = currentFrame(i);
+                images.push(img);
+            }
+
+            function render() {
+                // Ensure image is loaded before drawing to avoid blank flashes
+                if (images[imageSequence.frame] && images[imageSequence.frame].complete) {
+                    // Turn off smoothing during rapid scroll to boost FPS on mobile
+                    context.imageSmoothingEnabled = !isMobile;
+                    context.clearRect(0, 0, canvas.width, canvas.height);
+                    context.drawImage(images[imageSequence.frame], 0, 0, canvas.width, canvas.height);
+                }
+            }
+
+            // Global Canvas Visibility (Fade in as we leave hero)
+            gsap.to("#hero-canvas", {
+                opacity: 1,
+                scrollTrigger: {
+                    trigger: "main",
+                    start: "top 80%",
+                    end: "top 20%",
+                    scrub: true
+                }
+            });
+
+            // Global Canvas Scroll Animation
+            gsap.to(imageSequence, {
+                frame: frameCount - 1,
+                snap: "frame",
+                ease: "none",
+                scrollTrigger: {
+                    trigger: "body",
+                    start: "top top",
+                    end: "bottom bottom",
+                    scrub: isMobile ? 1.5 : 0.5 // Smoother scrub on mobile
+                },
+                onUpdate: render
+            });
+
+            // Scroll animations for sections
+            gsap.utils.toArray('section').forEach(section => {
+                gsap.from(section, {
+                    scrollTrigger: {
+                        trigger: section,
+                        start: "top 80%"
+                    },
+                    opacity: 0,
+                    y: 50,
+                    duration: 0.8,
+                    ease: "power3.out"
+                });
+            });
+        });
+    </script>
+</body>
+</html>

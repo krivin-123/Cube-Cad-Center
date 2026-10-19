@@ -1,0 +1,78 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions for Role-Based Access Control
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    function isAdmin() {
+      return isAuthenticated() && (
+        request.auth.token.email == 'cubecadcenter0711@gmail.com' ||
+        ('role' in request.auth.token && request.auth.token.role == 'admin') ||
+        ('isAdmin' in request.auth.token && request.auth.token.isAdmin == true)
+      );
+    }
+    function isCaller() {
+      return isAuthenticated() && (
+        ('role' in request.auth.token && request.auth.token.role == 'caller') ||
+        ('isCaller' in request.auth.token && request.auth.token.isCaller == true)
+      );
+    }
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // ─── 1. USERS COLLECTION ───
+    match /users/{userId} {
+      // Students can create and read/update their own profile document; Admins have full access
+      allow create: if isAuthenticated() && (request.auth.uid == userId || isAdmin());
+      allow read: if isAdmin() || isOwner(userId) || (isAuthenticated() && resource.data.email == request.auth.token.email);
+      allow update: if isAdmin() || isOwner(userId);
+      allow delete: if isAdmin();
+    }
+
+    // ─── 2. BOOKINGS COLLECTION ───
+    match /bookings/{bookingId} {
+      // Students can create their own booking; Callers can only view/update assigned bookings; Admins full access
+      allow create: if isAuthenticated() && (
+        request.resource.data.user_id == request.auth.uid ||
+        request.resource.data.email == request.auth.token.email ||
+        isAdmin()
+      );
+      allow read: if isAdmin() ||
+        (isAuthenticated() && (resource.data.user_id == request.auth.uid || resource.data.email == request.auth.token.email)) ||
+        (isAuthenticated() && (resource.data.assigned_caller_id == request.auth.uid || resource.data.assigned_caller_email == request.auth.token.email));
+      allow update: if isAdmin() ||
+        (isAuthenticated() && (resource.data.user_id == request.auth.uid || resource.data.email == request.auth.token.email)) ||
+        (isAuthenticated() && (resource.data.assigned_caller_id == request.auth.uid || resource.data.assigned_caller_email == request.auth.token.email));
+      allow delete: if isAdmin();
+    }
+
+    // ─── 3. CUSTOMERS COLLECTION ───
+    match /customers/{customerId} {
+      // Callers can only read & update customers assigned to them; Admins have full access
+      allow read: if isAdmin() || (
+        isAuthenticated() && (
+          resource.data.assigned_caller_id == request.auth.uid ||
+          resource.data.assigned_caller_email == request.auth.token.email
+        )
+      );
+      allow create: if isAdmin();
+      allow update: if isAdmin() || (
+        isAuthenticated() && (
+          resource.data.assigned_caller_id == request.auth.uid ||
+          resource.data.assigned_caller_email == request.auth.token.email
+        )
+      );
+      allow delete: if isAdmin();
+    }
+
+    // ─── 4. CALLER ACTIVITIES COLLECTION ───
+    match /caller_activities/{activityId} {
+      allow read: if isAdmin();
+      allow create: if isAuthenticated();
+      allow update, delete: if isAdmin();
+    }
+  }
+}

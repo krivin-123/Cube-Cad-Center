@@ -1,0 +1,3092 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Cube Cad Center</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    
+    <script id="tailwind-config">
+        
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "on-secondary-container": "#636263",
+                "secondary-fixed-dim": "#c8c6c7",
+                "surface-tint": "#9a4600",
+                "inverse-on-surface": "#f0f0f2",
+                "primary-fixed": "#ffdbc9",
+                "outline": "#8c7263",
+                "on-primary-fixed-variant": "#753400",
+                "surface": "#f9f9fb",
+                "background": "#f9f9fb",
+                "surface-container-highest": "#e2e2e4",
+                "secondary": "#5f5e5f",
+                "surface-dim": "#d9dadc",
+                "on-tertiary-container": "#363637",
+                "surface-variant": "#e2e2e4",
+                "tertiary": "#5e5e5f",
+                "on-tertiary-fixed": "#1b1c1c",
+                "on-background": "#1a1c1d",
+                "on-error-container": "#93000a",
+                "on-tertiary-fixed-variant": "#474748",
+                "on-error": "#ffffff",
+                "on-surface-variant": "#584235",
+                "tertiary-container": "#a09fa0",
+                "on-surface": "#1a1c1d",
+                "primary-container": "#ff7900",
+                "on-primary-container": "#5c2700",
+                "on-primary": "#ffffff",
+                "on-primary-fixed": "#321200",
+                "primary": "#9a4600",
+                "on-secondary-fixed": "#1b1b1c",
+                "surface-container-lowest": "#ffffff",
+                "error": "#ba1a1a",
+                "on-tertiary": "#ffffff",
+                "surface-container-low": "#f3f3f5",
+                "on-secondary": "#ffffff",
+                "outline-variant": "#e0c0af",
+                "surface-container": "#eeeef0",
+                "inverse-primary": "#ffb68c",
+                "error-container": "#ffdad6",
+                "on-secondary-fixed-variant": "#474647",
+                "primary-fixed-dim": "#ffb68c",
+                "tertiary-fixed-dim": "#c8c6c7",
+                "surface-container-high": "#e8e8ea",
+                "tertiary-fixed": "#e4e2e3",
+                "surface-bright": "#f9f9fb",
+                "inverse-surface": "#2f3132",
+                "secondary-fixed": "#e5e2e3",
+                "secondary-container": "#e2dfe0"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+        },
+        "spacing": {
+                "xs": "4px",
+                "gutter": "24px",
+                "margin-mobile": "16px",
+                "lg": "48px",
+                "sm": "12px",
+                "margin-desktop": "64px",
+                "xl": "80px",
+                "md": "24px",
+                "base": "8px"
+        },
+        "fontFamily": {
+                "headline-lg-mobile": [
+                        "Hanken Grotesk"
+                ],
+                "body-sm": [
+                        "Inter"
+                ],
+                "headline-md": [
+                        "Hanken Grotesk"
+                ],
+                "button": [
+                        "Hanken Grotesk"
+                ],
+                "headline-xl": [
+                        "Hanken Grotesk", "Inter", "system-ui", "-apple-system", "sans-serif"
+                ],
+                "body-lg": [
+                        "Inter", "system-ui", "-apple-system", "sans-serif"
+                ],
+                "body-md": [
+                        "Inter"
+                ],
+                "label-caps": [
+                        "JetBrains Mono"
+                ],
+                "headline-lg": [
+                        "Hanken Grotesk"
+                ],
+                "nav-label-sm": ["Inter", "sans-serif"],
+                "nav-label": ["Inter", "sans-serif"],
+                "body": ["Inter", "sans-serif"],
+                "subtext-sm": ["Inter", "sans-serif"],
+                "subtext-cta": ["Inter", "sans-serif"]
+        },
+        "fontSize": {
+                "headline-lg-mobile": [
+                        "28px",
+                        {
+                                "lineHeight": "34px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "body-sm": [
+                        "14px",
+                        {
+                                "lineHeight": "20px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-md": [
+                        "24px",
+                        {
+                                "lineHeight": "32px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "button": [
+                        "16px",
+                        {
+                                "lineHeight": "16px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "headline-xl": [
+                        "48px",
+                        {
+                                "lineHeight": "56px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "body-lg": [
+                        "18px",
+                        {
+                                "lineHeight": "28px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "body-md": [
+                        "16px",
+                        {
+                                "lineHeight": "24px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "label-caps": [
+                        "12px",
+                        {
+                                "lineHeight": "16px",
+                                "letterSpacing": "0.05em",
+                                "fontWeight": "500"
+                        }
+                ],
+                "headline-lg": [
+                        "32px",
+                        {
+                                "lineHeight": "40px",
+                                "letterSpacing": "-0.01em",
+                                "fontWeight": "600"
+                        }
+                ],
+                "nav-label-sm": ["12px", {"lineHeight": "1.5", "letterSpacing": "0em", "fontWeight": "500"}],
+                "nav-label": ["14px", {"lineHeight": "1.5", "letterSpacing": "0em", "fontWeight": "500"}],
+                "body": ["16px", {"lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400"}],
+                "subtext-sm": ["11.5px", {"lineHeight": "1.4", "letterSpacing": "0em", "fontWeight": "400"}],
+                "subtext-cta": ["13px", {"lineHeight": "1.4", "letterSpacing": "0em", "fontWeight": "400"}]
+        }
+},
+    },
+  }
+
+    </script>
+    
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .blueprint-grid {
+                background-image: 
+                    linear-gradient(to right, theme('colors.surface-variant') 1px, transparent 1px),
+                    linear-gradient(to bottom, theme('colors.surface-variant') 1px, transparent 1px);
+                background-size: 24px 24px;
+            }
+        }
+    </style>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap');
+        
+        body {
+            background-color: #F8F9FA;
+            color: #1a1c1d;
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .hero-title, .hero-subtitle {
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+
+        .fade-up-card {
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+        .fade-up-card.is-revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .accordion-item.is-open .accordion-content {
+            max-height: 500px;
+        }
+
+        .accordion-icon {
+            transition: transform 0.3s ease;
+        }
+        .accordion-item.is-open .accordion-icon {
+            transform: rotate(45deg);
+        }
+
+        .nav-pill {
+            background-color: rgba(255, 255, 255, 0.96);
+            border: 1px solid rgba(229, 231, 235, 0.9);
+            box-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .architectural-grid {
+            background-image: 
+                linear-gradient(to right, #E5E7EB 1px, transparent 1px),
+                linear-gradient(to bottom, #E5E7EB 1px, transparent 1px);
+            background-size: 28px 28px;
+        }
+
+        .surface-card {
+            background-color: #FFFFFF !important;
+            border: 1px solid #E5E7EB !important;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.04);
+            transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+        }
+        
+        .surface-card:hover {
+            border-color: #FF7900 !important;
+            box-shadow: 0 10px 24px -4px rgba(0, 0, 0, 0.06);
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background-color: #FF7900;
+            color: #ffffff;
+            border-radius: 9999px;
+            padding: 13px 26px;
+            font-family: 'Hanken Grotesk', sans-serif;
+            font-weight: 600;
+            font-size: 15px;
+            line-height: 1.2;
+            text-align: center;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(255, 121, 0, 0.2);
+            text-decoration: none;
+        }
+        
+        .btn-primary:hover {
+            background-color: #e66d00;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(255, 121, 0, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: #1a1c1d;
+            border: 1.5px solid #1A1A1B;
+            border-radius: 9999px;
+            padding: 12px 24px;
+            font-family: 'Hanken Grotesk', sans-serif;
+            font-weight: 600;
+            font-size: 15px;
+            line-height: 1.2;
+            text-align: center;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .btn-secondary:hover {
+            background-color: #1A1A1B;
+            color: #ffffff;
+            transform: translateY(-1px);
+        }
+
+        .input-field {
+            border: 1px solid #D1D5DB;
+            border-radius: 0.75rem;
+            padding: 12px 16px;
+            width: 100%;
+            background-color: #FFFFFF;
+            font-family: 'Inter', sans-serif;
+            transition: border-color 0.2s ease;
+        }
+        .input-field:focus {
+            border-color: #FF7900;
+            outline: none;
+        }
+
+        .input-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: #4B5563;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .chip {
+            background-color: #1A1A1B;
+            color: #ffffff;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            padding: 4px 10px;
+            border-radius: 9999px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+    </style>
+</head>
+<body class="bg-background antialiased text-on-surface blueprint-grid min-h-screen relative z-0">
+    <!-- Top Scroll Progress Bar -->
+    <div id="scroll-progress-bar" class="fixed top-0 left-0 h-[3px] bg-gradient-to-r from-primary via-amber-500 to-primary-container z-[9999] transition-all duration-75 pointer-events-none w-0 shadow-sm"></div>
+
+    <!-- 1. Sticky Navigation -->
+    <nav class="fixed top-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-6xl flex justify-between items-center z-[100]">
+        <!-- Left: Logo Box -->
+        <a class="nav-pill rounded-full px-5 py-2.5 flex items-center gap-3 transition-transform hover:scale-[0.99] no-underline" href="index.html">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKCrhMzNfEEdGqUu8quzzlAOM8DwiGTTLfLwvo-skFKRjuthr09qq_LtnTyC-H5OkixEfm8ORvIWw9uc8CMyVjY436mAH5zbl1Qlq75uEwh9jJlha7mKlS04e3RwoxDddjY4DhM0Rz9rbM31ighMHsFFgU8W5WNlSwTnjkKKuagyOhtK2iIln4sWkNLHgPXXvBy5Fy0OaLqz85qavxnsPezJEhQHG-5ooPG1YAE33Ov7Vm23YezmLW7pbfTQaua1uT" alt="Cube Cad Center Logo" class="h-8 w-auto object-contain">
+            <span class="font-headline-md text-base font-bold text-on-surface tracking-tight">Cube Cad Center</span>
+        </a>
+        
+        <div class="nav-pill rounded-full px-5 py-2 hidden md:flex items-center gap-5">
+            <a class="font-nav-label text-sm text-on-surface-variant hover:text-primary transition-colors font-medium flex items-center gap-1.5 no-underline" href="#courses">
+                <span class="material-symbols-outlined text-[17px]">school</span>
+                Explore Courses
+            </a>
+            <a class="font-nav-label text-sm text-on-surface-variant hover:text-primary transition-colors font-medium no-underline" href="#about">About</a>
+            <a class="font-nav-label text-sm text-on-surface-variant hover:text-primary transition-colors font-medium no-underline" href="#why-choose-us">Why Us</a>
+            <a class="font-nav-label text-sm text-on-surface-variant hover:text-primary transition-colors font-medium no-underline" href="#faq">FAQ</a>
+
+            <div class="h-4 w-[1px] bg-neutral-200"></div>
+
+            <!-- Book Appointment Action -->
+            <a href="#book-appointment" class="btn-primary text-xs !py-2 !px-4 shadow-sm no-underline">
+                <span class="material-symbols-outlined text-[16px]">calendar_month</span>
+                Book Appointment
+            </a>
+
+            <!-- Auth Container (Signed In / Out dynamic) -->
+            <div id="auth-nav-container" class="relative">
+                <!-- Logged Out State -->
+                <button id="nav-signin-btn" onclick="openAuthModal('signin')" class="text-on-surface hover:text-primary font-semibold text-xs px-3.5 py-1.5 rounded-full border border-neutral-300 hover:border-primary transition-colors flex items-center gap-1.5 bg-white">
+                    <span class="material-symbols-outlined text-[16px]">account_circle</span>
+                    Sign In
+                </button>
+                <!-- Logged In State (Hidden by default) -->
+                <div id="nav-user-menu" class="hidden relative">
+                    <button id="user-profile-btn" onclick="toggleUserDropdown(event)" class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-variant text-on-surface hover:bg-neutral-200 transition-all text-xs font-semibold">
+                        <div class="w-6 h-6 rounded-full bg-primary text-white flex items-center justify-center text-[11px] font-bold" id="user-avatar-initials">U</div>
+                        <span id="nav-user-name" class="max-w-[90px] truncate">User</span>
+                        <span class="material-symbols-outlined text-[14px]">expand_more</span>
+                    </button>
+                    <!-- User Dropdown Menu -->
+                    <div id="user-dropdown" class="hidden absolute right-0 mt-2 w-56 bg-surface border border-neutral-200 rounded-xl shadow-xl py-2 z-50">
+                        <div class="px-4 py-2 border-b border-neutral-100">
+                            <p class="text-[11px] text-on-surface-variant">Signed in as</p>
+                            <p class="text-xs font-bold text-on-surface truncate" id="dropdown-user-email">user@example.com</p>
+                        </div>
+                        <button onclick="openMyAppointmentsModal()" class="w-full px-4 py-2 text-left text-xs font-semibold text-on-surface hover:bg-surface-variant flex items-center gap-2 transition-colors">
+                            <span class="material-symbols-outlined text-primary text-[18px]">event_note</span>
+                            My Appointments
+                        </button>
+                        <button onclick="openBookingModal()" class="w-full px-4 py-2 text-left text-xs font-semibold text-on-surface hover:bg-surface-variant flex items-center gap-2 transition-colors">
+                            <span class="material-symbols-outlined text-primary text-[18px]">add_circle</span>
+                            New Appointment
+                        </button>
+                        <a href="admin.html" id="dropdown-admin-link" class="hidden w-full px-4 py-2 text-left text-xs font-semibold text-amber-500 hover:bg-surface-variant flex items-center gap-2 transition-colors no-underline">
+                            <span class="material-symbols-outlined text-amber-500 text-[18px]">admin_panel_settings</span>
+                            Admin Panel
+                        </a>
+                        <div class="my-1 border-t border-neutral-100"></div>
+                        <button onclick="logoutUser()" class="w-full px-4 py-2 text-left text-xs font-semibold text-error hover:bg-error/10 flex items-center gap-2 transition-colors">
+                            <span class="material-symbols-outlined text-[18px]">logout</span>
+                            Sign Out
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Buttons -->
+        <div class="flex items-center gap-2 md:hidden">
+            <a href="#book-appointment" class="btn-primary !p-2 rounded-full shadow-sm no-underline flex items-center justify-center">
+                <span class="material-symbols-outlined text-[18px]">calendar_month</span>
+            </a>
+            <button class="nav-pill rounded-full p-2.5 text-on-surface flex items-center justify-center" id="mobile-menu-btn" aria-label="Toggle mobile menu">
+                <span class="material-symbols-outlined text-xl">menu</span>
+            </button>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden absolute top-16 left-0 w-full bg-white/95 backdrop-blur-md border border-neutral-200 flex-col items-center py-6 px-4 gap-3.5 shadow-xl rounded-2xl transition-all">
+            <a href="#courses" class="font-headline-md text-base text-on-surface hover:text-primary transition-colors mobile-link flex items-center gap-2 no-underline">
+                <span class="material-symbols-outlined text-primary text-xl">school</span>
+                Explore Courses
+            </a>
+            <a href="#about" class="font-headline-md text-base text-on-surface hover:text-primary transition-colors mobile-link no-underline">About Us</a>
+            <a href="#why-choose-us" class="font-headline-md text-base text-on-surface hover:text-primary transition-colors mobile-link no-underline">Why Choose Us</a>
+            <a href="#faq" class="font-headline-md text-base text-on-surface hover:text-primary transition-colors mobile-link no-underline">FAQ</a>
+            
+            <div class="w-4/5 h-[1px] bg-neutral-200 my-1"></div>
+
+            <a href="#book-appointment" onclick="closeMobileMenu();" class="btn-primary w-4/5 py-2.5 text-sm flex items-center justify-center gap-2 shadow-md no-underline text-center">
+                <span class="material-symbols-outlined text-lg">calendar_month</span>
+                Book Appointment
+            </a>
+
+            <!-- Mobile Auth Section -->
+            <div id="mobile-auth-container" class="w-4/5">
+                <button id="mobile-signin-btn" onclick="openAuthModal('signin'); closeMobileMenu();" class="w-full py-2.5 rounded-full border border-neutral-300 text-on-surface font-semibold text-sm flex items-center justify-center gap-2 bg-white">
+                    <span class="material-symbols-outlined text-lg">login</span>
+                    Sign In / Sign Up
+                </button>
+                <div id="mobile-user-profile" class="hidden flex-col gap-2">
+                    <div class="p-3 rounded-xl bg-surface-variant text-center">
+                        <p class="text-xs text-on-surface-variant">Signed in as</p>
+                        <p class="text-sm font-bold text-on-surface" id="mobile-user-name">User Name</p>
+                    </div>
+                    <button onclick="openMyAppointmentsModal(); closeMobileMenu();" class="w-full py-2 rounded-xl bg-surface-variant font-semibold text-xs flex items-center justify-center gap-2">
+                        <span class="material-symbols-outlined text-sm">event_note</span> My Appointments
+                    </button>
+                    <button onclick="logoutUser(); closeMobileMenu();" class="w-full py-2 rounded-xl text-error font-semibold text-xs flex items-center justify-center gap-2">
+                        <span class="material-symbols-outlined text-sm">logout</span> Sign Out
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 2. Hero Section -->
+    <section id="hero" class="relative min-h-[85vh] flex flex-col justify-center overflow-hidden bg-background pt-32 pb-16 z-20">
+        <canvas id="waves-canvas" class="absolute inset-0 w-full h-full z-0 opacity-30 pointer-events-none"></canvas>
+        <div class="absolute inset-0 bg-gradient-to-br from-surface-container-low/40 to-background pointer-events-none z-0"></div>
+        
+        <div class="relative z-10 px-4 sm:px-6 md:px-12 max-w-4xl mx-auto text-center flex flex-col items-center mt-6">
+            <div class="flex flex-col items-center gap-6">
+                <!-- Architecture Category Chip -->
+                <div class="chip">
+                    <span class="material-symbols-outlined text-[15px]">architecture</span>
+                    <span>ARCHITECTURAL, CAD &amp; BIM INSTITUTE</span>
+                </div>
+                <!-- Headline -->
+                <h1 class="font-headline-xl text-4xl sm:text-5xl md:text-6xl lg:text-[68px] leading-[1.12] font-extrabold tracking-tight text-on-surface hero-title">
+                    Master Architecture, BIM &amp; CAD to Elevate Your Career.
+                </h1>
+                <!-- Subtext -->
+                <p class="font-body-lg text-base sm:text-lg md:text-xl text-on-surface-variant max-w-2xl mx-auto hero-subtitle leading-relaxed">
+                    Ahmedabad's Premier Authorized Training Institute, specializing in Architectural Design, BIM Modeling, Interior Drafting, and Engineering CAD.
+                </p>
+                <!-- CTA -->
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-3.5 mt-2">
+                    <a href="#courses" class="btn-primary no-underline">
+                        <span class="material-symbols-outlined text-lg">school</span>
+                        <span>Explore Courses</span>
+                        <span class="material-symbols-outlined text-base">arrow_forward</span>
+                    </a>
+                    <a href="#book-appointment" class="btn-secondary no-underline">
+                        <span class="material-symbols-outlined text-lg text-primary">calendar_month</span>
+                        <span>Book Appointment</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Trust / Statistics Section -->
+    <section class="relative z-30 -mt-8 max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="surface-card p-6 sm:p-8 rounded-2xl grid grid-cols-2 md:grid-cols-4 gap-6 sm:divide-x sm:divide-neutral-200 text-center shadow-sm">
+            <div class="flex flex-col items-center">
+                <span class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-primary mb-1">5000+</span>
+                <span class="font-label-caps text-xs sm:text-sm text-on-surface-variant uppercase tracking-wider">Students Trained</span>
+            </div>
+            <div class="flex flex-col items-center">
+                <span class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-primary mb-1">10+</span>
+                <span class="font-label-caps text-xs sm:text-sm text-on-surface-variant uppercase tracking-wider">Industry Programs</span>
+            </div>
+            <div class="flex flex-col items-center">
+                <span class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-primary mb-1">10+</span>
+                <span class="font-label-caps text-xs sm:text-sm text-on-surface-variant uppercase tracking-wider">Years Experience</span>
+            </div>
+            <div class="flex flex-col items-center">
+                <span class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-primary mb-1">90%+</span>
+                <span class="font-label-caps text-xs sm:text-sm text-on-surface-variant uppercase tracking-wider">Practical Learning</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Courses Section -->
+    <section id="courses" class="py-20 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 scroll-mt-24">
+        <div class="text-center mb-12 max-w-3xl mx-auto">
+            <div class="chip mb-3 inline-flex items-center gap-1.5"><span class="material-symbols-outlined text-[15px]">school</span> EXPLORE OUR COURSES</div>
+            <h2 class="font-headline-xl text-3xl sm:text-4xl md:text-5xl text-on-surface mb-4 font-bold tracking-tight">Explore Industry-Ready CAD, BIM &amp; Engineering Programs</h2>
+            <p class="font-body-lg text-base sm:text-lg text-on-surface-variant mb-6 leading-relaxed">Master the exact software suites, drafting standards, and simulation workflows demanded by top architecture, engineering, and manufacturing firms worldwide.</p>
+            <div class="flex items-center justify-center gap-3">
+                <a href="explore.html" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary/10 hover:bg-primary text-primary hover:text-white font-bold text-xs uppercase tracking-wider transition-all duration-200 border border-primary/20 no-underline">
+                    <span class="material-symbols-outlined text-[17px]">menu_book</span>
+                    View Full Discipline Catalog (4 Disciplines) &rarr;
+                </a>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="course-grid">
+            <!-- Course Card 1: AutoCAD -->
+            <div class="course-card surface-card flex flex-col rounded-2xl overflow-hidden group cursor-pointer transition-all duration-300" data-category="architecture">
+                <div class="h-52 overflow-hidden relative">
+                    <img src="assets/images/architectural_render.jpg" alt="AutoCAD" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                    <div class="absolute top-4 left-4 bg-surface/90 backdrop-blur text-xs font-bold px-3 py-1 rounded-full text-on-surface border border-outline/20">Architectural & Interior</div>
+                    <div class="absolute top-4 right-4 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full shadow-sm">Beginner Friendly</div>
+                </div>
+                <div class="p-6 flex-grow flex flex-col">
+                    <h3 class="text-2xl font-bold text-on-surface mb-1 group-hover:text-primary transition-colors">AutoCAD</h3>
+                    <p class="text-primary text-xs font-semibold uppercase tracking-wider mb-2.5">Architectural Plans & Layouts</p>
+                    <p class="text-on-surface-variant mb-5 text-sm leading-relaxed">2D & 3D drafting for architectural plans, elevations, sections & construction layouts.</p>
+                    <div class="mb-6">
+                        <p class="text-xs font-bold text-on-surface uppercase tracking-wider mb-2.5">Key Highlights:</p>
+                        <ul class="text-sm text-on-surface-variant space-y-1.5">
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[16px]">check_circle</span> 2D Architectural Drafting & Detailing</li>
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[16px]">check_circle</span> 3D Isometric Views & Modeling</li>
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[16px]">check_circle</span> Floor Plans & Section Detailing</li>
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[16px]">check_circle</span> Sheet Layouts & Plotting Standards</li>
+                        </ul>
+                    </div>
+                    <div class="mt-auto">
+                        <a href="syllabus-architectural.html" class="w-full py-2.5 rounded-full border border-primary text-primary font-semibold text-xs sm:text-sm flex items-center justify-center gap-1.5 transition-all hover:bg-primary hover:text-white no-underline">Explore Syllabus <span class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Course Card 2: Revit Architecture -->
+            <div class="course-card surface-card flex flex-col rounded-2xl overflow-hidden group cursor-pointer transition-all duration-300" data-category="architecture">
+                <div class="h-52 overflow-hidden relative">
+                    <img src="assets/images/architecture_hero.jpg" alt="Revit Architecture" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                    <div class="absolute top-4 left-4 bg-surface/90 backdrop-blur text-xs font-bold px-3 py-1 rounded-full text-on-surface border border-outline/20">Architectural & Interior</div>
+                    <div class="absolute top-4 right-4 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full shadow-sm">Intermediate</div>
+                </div>
+                <div class="p-6 flex-grow flex flex-col">
+                    <h3 class="text-2xl font-bold text-on-surface mb-1 group-hover:text-primary transition-colors">Revit Architecture</h3>
+                    <p class="text-primary text-xs font-semibold uppercase tracking-wider mb-2.5">BIM Building Design</p>
+                    <p class="text-on-surface-variant mb-5 text-sm leading-relaxed">BIM-based building design, parametric modeling & comprehensive construction documentation.</p>
+                    <div class="mb-6">
+                        <p class="text-xs font-bold text-on-surface uppercase tracking-wider mb-2.5">Key Highlights:</p>
+                        <ul class="text-sm text-on-surface-variant space-y-1.5">
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[16px]">check_circle</span> BIM Modeling Fundamentals</li>
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[16px]">check_circle</span> Parametric Family Creation</li>
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[16px]">check_circle</span> Construction Documentation & Sheets</li>
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[16px]">check_circle</span> Material Schedules & BOQ</li>
+                        </ul>
+                    </div>
+                    <div class="mt-auto">
+                        <a href="syllabus-architectural.html" class="w-full py-2.5 rounded-full border border-primary text-primary font-semibold text-xs sm:text-sm flex items-center justify-center gap-1.5 transition-all hover:bg-primary hover:text-white no-underline">Explore Syllabus <span class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Course Card 3: SketchUp & Interior Design -->
+            <div class="course-card surface-card flex flex-col rounded-2xl overflow-hidden group cursor-pointer transition-all duration-300" data-category="architecture">
+                <div class="h-52 overflow-hidden relative">
+                    <img src="assets/images/interior_design.jpg" alt="SketchUp & Interior 3D" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                    <div class="absolute top-4 left-4 bg-surface/90 backdrop-blur text-xs font-bold px-3 py-1 rounded-full text-on-surface border border-outline/20">Architectural & Interior</div>
+                    <div class="absolute top-4 right-4 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full shadow-sm">Beginner to Advanced</div>
+                </div>
+                <div class="p-6 flex-grow flex flex-col">
+                    <h3 class="text-2xl font-bold text-on-surface mb-1 group-hover:text-primary transition-colors">SketchUp & Interior Design</h3>
+                    <p class="text-primary text-xs font-semibold uppercase tracking-wider mb-2.5">3D Architectural & Interior Modeling</p>
+                    <p class="text-on-surface-variant mb-5 text-sm leading-relaxed">3D modeling for architecture & interior design, rapid concept massing & client presentations.</p>
+                    <div class="mb-6">
+                        <p class="text-xs font-bold text-on-surface uppercase tracking-wider mb-2.5">Key Highlights:</p>
+                        <ul class="text-sm text-on-surface-variant space-y-1.5">
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[16px]">check_circle</span> Rapid 3D Form Generation & Massing</li>
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[16px]">check_circle</span> Interior Space Planning & Detailing</li>
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[16px]">check_circle</span> Materials, Textures & Realistic Styles</li>
+                            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[16px]">check_circle</span> Client Walkthroughs & Renders</li>
+                        </ul>
+                    </div>
+                    <div class="mt-auto">
+                        <a href="syllabus-architectural.html" class="w-full py-2.5 rounded-full border border-primary text-primary font-semibold text-xs sm:text-sm flex items-center justify-center gap-1.5 transition-all hover:bg-primary hover:text-white no-underline">Explore Syllabus <span class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- View All Programs Callout -->
+        <div class="mt-12 text-center flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a href="explore.html" class="btn-primary inline-flex items-center gap-2 text-sm sm:text-base">
+                <span class="material-symbols-outlined text-[18px]">menu_book</span>
+                View All 17 Programs in Full Catalog &rarr;
+            </a>
+            <a href="#book-appointment" class="btn-secondary inline-flex items-center gap-2 text-sm sm:text-base">
+                <span class="material-symbols-outlined text-[18px]">calendar_month</span>
+                Book Counseling Session
+            </a>
+        </div>
+    </section>
+
+    <!-- 5. Why Choose Us -->
+    <section id="why-choose-us" class="py-24 bg-surface-variant/30 border-y border-outline/10">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 max-w-3xl mx-auto">
+                <h2 class="font-headline-xl text-4xl md:text-5xl text-on-surface mb-6 font-bold">Why Choose Cube Cad Center</h2>
+                <p class="font-body-lg text-lg text-on-surface-variant">We don't just teach software. We build industry-ready professionals through hands-on methodology.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Benefit 1 -->
+                <div class="surface-card p-6 rounded-2xl group">
+                    <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-5 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+                        <span class="material-symbols-outlined text-2xl">build</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-on-surface mb-2.5">Practical Learning</h3>
+                    <p class="text-on-surface-variant text-sm leading-relaxed">Focus on real-world projects rather than only theoretical instruction. Apply commands to actual architectural and mechanical challenges.</p>
+                </div>
+                <!-- Benefit 2 -->
+                <div class="surface-card p-6 rounded-2xl group">
+                    <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-5 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+                        <span class="material-symbols-outlined text-2xl">precision_manufacturing</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-on-surface mb-2.5">Industry-Relevant Skills</h3>
+                    <p class="text-on-surface-variant text-sm leading-relaxed">Learn the exact tools, plugins, and workflows used in professional engineering and design environments worldwide.</p>
+                </div>
+                <!-- Benefit 3 -->
+                <div class="surface-card p-6 rounded-2xl group">
+                    <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-5 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+                        <span class="material-symbols-outlined text-2xl">school</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-on-surface mb-2.5">Experienced Trainers</h3>
+                    <p class="text-on-surface-variant text-sm leading-relaxed">Learn directly from instructors with practical industry knowledge and years of hands-on technical design experience.</p>
+                </div>
+                <!-- Benefit 4 -->
+                <div class="surface-card p-6 rounded-2xl group">
+                    <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-5 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+                        <span class="material-symbols-outlined text-2xl">architecture</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-on-surface mb-2.5">Project-Based Training</h3>
+                    <p class="text-on-surface-variant text-sm leading-relaxed">Develop a robust portfolio through realistic projects that you can showcase to future employers during interviews.</p>
+                </div>
+                <!-- Benefit 5 -->
+                <div class="surface-card p-6 rounded-2xl group">
+                    <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-5 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+                        <span class="material-symbols-outlined text-2xl">work</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-on-surface mb-2.5">Career Support</h3>
+                    <p class="text-on-surface-variant text-sm leading-relaxed">We help students understand how to apply their skills professionally and assist with placement opportunities.</p>
+                </div>
+                <!-- Benefit 6 -->
+                <div class="surface-card p-6 rounded-2xl group">
+                    <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-5 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+                        <span class="material-symbols-outlined text-2xl">verified</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-on-surface mb-2.5">Certification</h3>
+                    <p class="text-on-surface-variant text-sm leading-relaxed">Earn industry-recognized certificates that validate your technical software proficiency to global organizations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. How It Works Section -->
+    <section class="py-24 max-w-7xl mx-auto px-6">
+        <div class="text-center mb-16 max-w-3xl mx-auto">
+            <div class="chip mb-4">THE PROCESS</div>
+            <h2 class="font-headline-xl text-4xl md:text-5xl text-on-surface mb-6 font-bold">Your Path to Mastery</h2>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
+            <!-- Connecting Line (Desktop) -->
+            <div class="hidden md:block absolute top-12 left-[10%] right-[10%] h-0.5 bg-outline/20 z-0"></div>
+            
+            <!-- Step 1 -->
+            <div class="relative z-10 flex flex-col items-center text-center group">
+                <div class="w-24 h-24 rounded-full bg-surface border-4 border-surface-variant flex items-center justify-center mb-6 text-2xl font-bold text-primary group-hover:border-primary transition-colors shadow-lg">01</div>
+                <h3 class="text-xl font-bold text-on-surface mb-2">Choose Your Course</h3>
+                <p class="text-on-surface-variant text-sm">Select a program based on your specific career goals in engineering or design.</p>
+            </div>
+            <!-- Step 2 -->
+            <div class="relative z-10 flex flex-col items-center text-center group">
+                <div class="w-24 h-24 rounded-full bg-surface border-4 border-surface-variant flex items-center justify-center mb-6 text-2xl font-bold text-primary group-hover:border-primary transition-colors shadow-lg">02</div>
+                <h3 class="text-xl font-bold text-on-surface mb-2">Learn the Software</h3>
+                <p class="text-on-surface-variant text-sm">Develop practical software skills with guided, step-by-step expert instruction.</p>
+            </div>
+            <!-- Step 3 -->
+            <div class="relative z-10 flex flex-col items-center text-center group">
+                <div class="w-24 h-24 rounded-full bg-surface border-4 border-surface-variant flex items-center justify-center mb-6 text-2xl font-bold text-primary group-hover:border-primary transition-colors shadow-lg">03</div>
+                <h3 class="text-xl font-bold text-on-surface mb-2">Build Real Projects</h3>
+                <p class="text-on-surface-variant text-sm">Apply your newly acquired knowledge by modeling and drafting realistic scenarios.</p>
+            </div>
+            <!-- Step 4 -->
+            <div class="relative z-10 flex flex-col items-center text-center group">
+                <div class="w-24 h-24 rounded-full bg-surface border-4 border-surface-variant flex items-center justify-center mb-6 text-2xl font-bold text-primary group-hover:border-primary transition-colors shadow-lg">04</div>
+                <h3 class="text-xl font-bold text-on-surface mb-2">Grow Your Career</h3>
+                <p class="text-on-surface-variant text-sm">Use your skills and polished portfolio to unlock professional job opportunities.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. Project Showcase -->
+    <section class="py-24 bg-on-surface text-surface">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+                <div class="max-w-2xl">
+                    <h2 class="font-headline-xl text-4xl md:text-5xl mb-6 font-bold">Learn by Building Real Projects</h2>
+                    <p class="text-surface-variant text-lg">Don't just memorize menus. You will create production-ready deliverables that prove your capability.</p>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Project 1 -->
+                <div class="group relative overflow-hidden rounded-xl h-80 cursor-pointer">
+                    <img src="assets/images/architecture_hero.jpg" alt="Architectural BIM Design" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-6">
+                        <span class="text-primary font-bold text-xs uppercase tracking-widest mb-1 block">Revit Architecture</span>
+                        <h3 class="text-2xl font-bold">Commercial Tower BIM</h3>
+                    </div>
+                </div>
+                <!-- Project 2 -->
+                <div class="group relative overflow-hidden rounded-xl h-80 cursor-pointer">
+                    <img src="assets/images/hvac_render.jpg" alt="Mechanical Component" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-6">
+                        <span class="text-primary font-bold text-xs uppercase tracking-widest mb-1 block">SolidWorks</span>
+                        <h3 class="text-2xl font-bold">Industrial HVAC System</h3>
+                    </div>
+                </div>
+                <!-- Project 3 -->
+                <div class="group relative overflow-hidden rounded-xl h-80 cursor-pointer">
+                    <img src="assets/images/interior_design.jpg" alt="Spatial Interior Design" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-6">
+                        <span class="text-primary font-bold text-xs uppercase tracking-widest mb-1 block">3ds Max & Interior BIM</span>
+                        <h3 class="text-2xl font-bold">Luxury Interior Visualization</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. About Us Section -->
+    <section id="about" class="py-24 max-w-7xl mx-auto px-6 overflow-hidden">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <div class="relative group">
+                <div class="absolute inset-0 architectural-grid opacity-20 -z-10 translate-x-4 translate-y-4 rounded-2xl"></div>
+                <img class="w-full h-auto object-cover rounded-2xl border border-outline/20 shadow-2xl transition-transform duration-700 group-hover:scale-[1.02]" src="assets/images/architecture_hero.jpg" alt="Cube Cad Center Studio">
+            </div>
+            <div>
+                <div class="chip mb-6">OUR STORY</div>
+                <h2 class="font-headline-xl text-4xl md:text-5xl text-on-surface mb-8 font-bold leading-tight">Building the Architects, Engineers & Designers of Tomorrow.</h2>
+                <div class="space-y-6 border-l-4 border-primary pl-6">
+                    <p class="font-body-lg text-lg text-on-surface-variant">
+                        We are Ahmedabad's leading authorized CAD training institute. Our mission is to elevate careers through precision, structure, and mastery of industry-standard software.
+                    </p>
+                    <p class="text-base text-on-surface-variant leading-relaxed">
+                        We bridge the gap between academic theory and industry practice. We provide rigorous, hands-on training that transforms students into highly sought-after professionals capable of executing complex technical designs with absolute precision. Our modern software training and real-world projects prepare you directly for the workforce.
+                    </p>
+                </div>
+                <a href="#contact" class="btn-primary mt-8 inline-flex items-center gap-2">Learn More About Us <span class="material-symbols-outlined text-sm">arrow_forward</span></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. Career / Skills Section -->
+    <section class="py-24 bg-primary text-white">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="text-4xl md:text-5xl font-bold mb-8">Turn Software Skills Into Career-Ready Skills</h2>
+            <p class="text-xl opacity-90 leading-relaxed mb-12">
+                Knowing how to use a tool isn't enough. We teach you industry workflows, project portfolio development, and professional methodologies so you step into interviews with absolute confidence.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+                <div class="bg-white/10 p-6 rounded-xl backdrop-blur-sm border border-white/20">
+                    <span class="material-symbols-outlined text-3xl mb-4">design_services</span>
+                    <h4 class="text-xl font-bold mb-2">Practical Knowledge</h4>
+                    <p class="text-sm opacity-80">Transition from basic theory to applied engineering design.</p>
+                </div>
+                <div class="bg-white/10 p-6 rounded-xl backdrop-blur-sm border border-white/20">
+                    <span class="material-symbols-outlined text-3xl mb-4">folder_special</span>
+                    <h4 class="text-xl font-bold mb-2">Portfolio Building</h4>
+                    <p class="text-sm opacity-80">Graduate with tangible assets to prove your software competency.</p>
+                </div>
+                <div class="bg-white/10 p-6 rounded-xl backdrop-blur-sm border border-white/20">
+                    <span class="material-symbols-outlined text-3xl mb-4">psychology</span>
+                    <h4 class="text-xl font-bold mb-2">Workflow Mastery</h4>
+                    <p class="text-sm opacity-80">Understand how large firms manage massive CAD assemblies.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- 11. FAQ Section -->
+    <section id="faq" class="py-24 max-w-4xl mx-auto px-6">
+        <!-- FAQs Section -->
+<div class="max-w-4xl mx-auto w-full">
+    <div class="text-center mb-16">
+        <div class="chip mb-4">GOT QUESTIONS?</div>
+        <h2 class="font-headline-xl text-4xl md:text-5xl text-on-surface mb-6 font-bold">Frequently Asked Questions</h2>
+        <p class="font-body-lg text-lg text-on-surface-variant">Find quick answers to common questions about our CAD and BIM training programs.</p>
+    </div>
+    
+    <div class="flex flex-col gap-4">
+        <!-- FAQ 1 -->
+        <div class="surface-card rounded-2xl overflow-hidden accordion-item border border-outline/20 group">
+            <button class="w-full flex items-center justify-between p-6 md:p-8 font-headline-md font-medium text-left text-lg text-on-surface hover:text-primary transition-all accordion-trigger bg-surface-variant/30">
+                Which course is best for beginners?
+                <div class="w-8 h-8 rounded-full bg-surface flex items-center justify-center shrink-0 border border-outline/20 group-hover:border-primary transition-colors">
+                    <span class="material-symbols-outlined transition-transform duration-300 accordion-icon">add</span>
+                </div>
+            </button>
+            <div class="accordion-content">
+                <div class="p-6 md:p-8 pt-0 border-t border-outline/10 text-on-surface-variant leading-relaxed">
+                    If you are new to design software, we highly recommend starting with our <strong>AutoCAD 2D & 3D Drafting</strong> course. It builds the fundamental understanding of coordinates, dimensions, and technical drawing that translates to all other advanced software.
+                </div>
+            </div>
+        </div>
+        
+        <!-- FAQ 2 -->
+        <div class="surface-card rounded-2xl overflow-hidden accordion-item border border-outline/20 group">
+            <button class="w-full flex items-center justify-between p-6 md:p-8 font-headline-md font-medium text-left text-lg text-on-surface hover:text-primary transition-all accordion-trigger bg-surface-variant/30">
+                Do you provide placement assistance?
+                <div class="w-8 h-8 rounded-full bg-surface flex items-center justify-center shrink-0 border border-outline/20 group-hover:border-primary transition-colors">
+                    <span class="material-symbols-outlined transition-transform duration-300 accordion-icon">add</span>
+                </div>
+            </button>
+            <div class="accordion-content">
+                <div class="p-6 md:p-8 pt-0 border-t border-outline/10 text-on-surface-variant leading-relaxed">
+                    Yes! We provide 100% placement assistance and career guidance to our students. Our strong industry ties with top architectural and engineering firms help our graduates land excellent opportunities.
+                </div>
+            </div>
+        </div>
+        
+        <!-- FAQ 3 -->
+        <div class="surface-card rounded-2xl overflow-hidden accordion-item border border-outline/20 group">
+            <button class="w-full flex items-center justify-between p-6 md:p-8 font-headline-md font-medium text-left text-lg text-on-surface hover:text-primary transition-all accordion-trigger bg-surface-variant/30">
+                Are the software licenses provided for practice?
+                <div class="w-8 h-8 rounded-full bg-surface flex items-center justify-center shrink-0 border border-outline/20 group-hover:border-primary transition-colors">
+                    <span class="material-symbols-outlined transition-transform duration-300 accordion-icon">add</span>
+                </div>
+            </button>
+            <div class="accordion-content">
+                <div class="p-6 md:p-8 pt-0 border-t border-outline/10 text-on-surface-variant leading-relaxed">
+                    Yes, we provide student versions of all required software (AutoCAD, SolidWorks, Revit, etc.) for you to practice on your personal laptops during the duration of the course.
+                </div>
+            </div>
+        </div>
+        
+        <!-- FAQ 4 -->
+        <div class="surface-card rounded-2xl overflow-hidden accordion-item border border-outline/20 group">
+            <button class="w-full flex items-center justify-between p-6 md:p-8 font-headline-md font-medium text-left text-lg text-on-surface hover:text-primary transition-all accordion-trigger bg-surface-variant/30">
+                Do you offer weekend batches for working professionals?
+                <div class="w-8 h-8 rounded-full bg-surface flex items-center justify-center shrink-0 border border-outline/20 group-hover:border-primary transition-colors">
+                    <span class="material-symbols-outlined transition-transform duration-300 accordion-icon">add</span>
+                </div>
+            </button>
+            <div class="accordion-content">
+                <div class="p-6 md:p-8 pt-0 border-t border-outline/10 text-on-surface-variant leading-relaxed">
+                    Absolutely. We have flexible timings including dedicated weekend batches designed specifically for working professionals who want to upskill without interrupting their career.
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </section>
+
+    <!-- ─── BOOK AN APPOINTMENT SECTION ─── -->
+    <section id="book-appointment" class="py-20 md:py-28 max-w-5xl mx-auto px-4 sm:px-6">
+        <div class="text-center mb-10 max-w-2xl mx-auto">
+            <div class="chip mb-3">SCHEDULE A VISIT</div>
+            <h2 class="font-headline-xl text-3xl md:text-5xl text-on-surface mb-3 font-extrabold tracking-tight">Book an Appointment</h2>
+            <p class="font-body-lg text-base md:text-lg text-on-surface-variant">Quick & simple — select your service, choose a date & time slot, and get confirmed in under 1 minute.</p>
+        </div>
+
+        <!-- Appointment Container -->
+        <div class="max-w-2xl mx-auto">
+
+            <!-- ── ERROR / WARNING / SUCCESS ALERT BANNER ── -->
+            <div id="appt-alert" class="hidden mb-6 p-4 rounded-2xl border text-sm flex items-start gap-3 transition-all animate-fade-in" role="alert">
+                <span id="appt-alert-icon" class="material-symbols-outlined text-xl flex-shrink-0 mt-0.5">error</span>
+                <div class="flex-1">
+                    <p id="appt-alert-title" class="font-bold text-sm leading-tight"></p>
+                    <p id="appt-alert-message" class="text-xs mt-1 opacity-90"></p>
+                </div>
+                <button type="button" onclick="dismissApptAlert()" class="opacity-60 hover:opacity-100 p-1 -mr-1 text-inherit" aria-label="Close message">
+                    <span class="material-symbols-outlined text-base">close</span>
+                </button>
+            </div>
+
+            <!-- ── FORM VIEW (Streamlined Single View for < 1 min booking) ── -->
+            <div id="appt-form-view" class="surface-card rounded-3xl p-6 sm:p-9 border border-outline/10 shadow-xl bg-surface-container-lowest">
+                
+                <!-- Mandatory Account / Login Requirement Banner -->
+                <div id="booking-auth-banner" class="mb-6 p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-between flex-wrap gap-3 transition-all">
+                    <div id="booking-auth-text" class="flex items-center gap-2.5 text-xs sm:text-sm font-medium text-amber-300">
+                        <span class="material-symbols-outlined text-amber-400 text-xl">lock</span>
+                        <span><strong>Account Required:</strong> You must create an account and log in before scheduling an appointment.</span>
+                    </div>
+                    <div id="booking-auth-actions" class="flex items-center gap-2">
+                        <button type="button" onclick="openAuthModal('signin')" class="px-3.5 py-1.5 rounded-xl bg-surface border border-outline/20 text-xs font-bold text-on-surface hover:text-primary transition-all">
+                            Log In
+                        </button>
+                        <button type="button" onclick="openAuthModal('signup')" class="px-3.5 py-1.5 rounded-xl bg-primary text-white text-xs font-bold hover:bg-primary-dark transition-all">
+                            Create Account
+                        </button>
+                    </div>
+                </div>
+
+                <form id="appt-booking-form" onsubmit="event.preventDefault(); submitAppointment();" novalidate>
+                    
+                    <!-- 1. Select Service -->
+                    <div class="mb-6">
+                        <label for="appt-service" class="block text-sm font-bold text-on-surface mb-2 flex items-center justify-between">
+                            <span class="flex items-center gap-1.5">
+                                <span class="material-symbols-outlined text-primary text-[19px]">category</span>
+                                1. Select Service <span class="text-error text-xs">*</span>
+                            </span>
+                            <span class="text-xs font-normal text-on-surface-variant">1-on-1 Guidance</span>
+                        </label>
+                        <div class="relative">
+                            <select id="appt-service" required class="w-full px-4 py-3.5 bg-surface-container-low rounded-2xl border border-outline/20 text-on-surface text-sm sm:text-base font-medium focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all appearance-none cursor-pointer">
+                                <option value="" disabled selected>Choose a counseling program or demo…</option>
+                                <option value="Architectural & Interior Design Consultation">📐 Architectural & Interior Design Consultation</option>
+                                <option value="Structural & Civil Engineering Consultation">🏗️ Structural & Civil Engineering Consultation</option>
+                                <option value="Mechanical & Product Design Consultation">⚙️ Mechanical & Product Design Consultation</option>
+                                <option value="HVAC & MEPF Design Consultation">❄️ HVAC & MEPF Design Consultation</option>
+                                <option value="General Career & Course Counseling">🎯 General Career & Course Counseling</option>
+                                <option value="Free Demo Class">🖥️ Free Demo Class</option>
+                                <option value="Campus Tour">🏢 Campus Tour & Lab Visit</option>
+                            </select>
+                            <span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none text-xl">expand_more</span>
+                        </div>
+                    </div>
+
+                    <!-- 2. Select Date (Next 7 Days, Sundays Closed) -->
+                    <div class="mb-6">
+                        <div class="flex items-center justify-between mb-2">
+                            <label class="block text-sm font-bold text-on-surface flex items-center gap-1.5">
+                                <span class="material-symbols-outlined text-primary text-[19px]">calendar_today</span>
+                                2. Select Date <span class="text-error text-xs">*</span>
+                            </label>
+                            <span class="text-xs text-on-surface-variant font-medium">Next 7 days (Sundays closed)</span>
+                        </div>
+
+                        <!-- Date Quick Pills (Horizontal scrollable on mobile) -->
+                        <div id="appt-date-pills" class="flex gap-2 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-outline/20 mb-2.5">
+                            <!-- Injected by JS: 8 pills (Today -> Today+7) -->
+                        </div>
+
+                        <!-- Native Date Picker Input for manual selection/accessibility -->
+                        <div class="flex items-center gap-2">
+                            <div class="relative w-full">
+                                <input type="date" id="appt-date" required class="w-full px-4 py-2.5 bg-surface-container-low rounded-xl border border-outline/20 text-on-surface text-sm font-medium focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all cursor-pointer">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. Select Available Time Slot -->
+                    <div class="mb-7">
+                        <div class="flex items-center justify-between mb-2.5">
+                            <label class="block text-sm font-bold text-on-surface flex items-center gap-1.5">
+                                <span class="material-symbols-outlined text-primary text-[19px]">schedule</span>
+                                3. Select Available Time Slot <span class="text-error text-xs">*</span>
+                            </label>
+                            <span id="appt-slots-summary" class="text-xs text-on-surface-variant font-medium">Max 3 users / slot</span>
+                        </div>
+
+                        <!-- Slot Grid -->
+                        <div id="appt-time-slots" class="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+                            <!-- Slots rendered dynamically with capacity badges -->
+                        </div>
+                        <input type="hidden" id="appt-time" required>
+                    </div>
+
+                    <!-- 4. Contact Details -->
+                    <div class="p-5 rounded-2xl bg-surface-container-low/60 border border-outline/10 mb-7">
+                        <h4 class="text-xs font-bold text-on-surface uppercase tracking-wider mb-3.5 flex items-center gap-1.5">
+                            <span class="material-symbols-outlined text-primary text-base">person</span>
+                            4. Your Contact Information
+                        </h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 mb-3.5">
+                            <div>
+                                <label for="appt-name" class="block text-xs font-bold text-on-surface mb-1.5">
+                                    Full Name <span class="text-error">*</span>
+                                </label>
+                                <input type="text" id="appt-name" required placeholder="e.g. Rahul Sharma" autocomplete="name" class="w-full px-4 py-3 bg-surface rounded-xl border border-outline/20 text-on-surface text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
+                            </div>
+
+                            <div>
+                                <label for="appt-phone" class="block text-xs font-bold text-on-surface mb-1.5">
+                                    Phone Number (10 digits) <span class="text-error">*</span>
+                                </label>
+                                <input type="tel" id="appt-phone" required maxlength="10" placeholder="e.g. 9978999694" autocomplete="tel" class="w-full px-4 py-3 bg-surface rounded-xl border border-outline/20 text-on-surface text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all font-mono">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="appt-email" class="block text-xs font-bold text-on-surface mb-1.5">
+                                Email Address <span class="text-xs font-normal text-on-surface-variant">(Optional)</span>
+                            </label>
+                            <input type="email" id="appt-email" placeholder="e.g. rahul@example.com" autocomplete="email" class="w-full px-4 py-3 bg-surface rounded-xl border border-outline/20 text-on-surface text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" id="appt-submit-btn" class="w-full py-4 px-6 bg-primary text-white rounded-2xl font-bold text-base hover:bg-on-primary-container transition-all flex items-center justify-center gap-2 shadow-lg shadow-primary/20 hover:scale-[1.005] active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100">
+                        <span class="material-symbols-outlined text-xl">check_circle</span>
+                        <span id="appt-submit-btn-text">Confirm & Book Appointment</span>
+                    </button>
+                    <p class="text-center text-xs text-on-surface-variant mt-3 flex items-center justify-center gap-1.5">
+                        <span class="material-symbols-outlined text-[15px] text-primary">verified_user</span>
+                        <span>Free consultation • Max 3 seats per slot • Instant confirmation</span>
+                    </p>
+                </form>
+            </div>
+
+            <!-- ── CONFIRMATION VIEW ── -->
+            <div id="appt-confirm-view" class="hidden surface-card rounded-3xl p-8 md:p-10 border border-outline/10 shadow-xl text-center bg-surface-container-lowest animate-fade-in">
+                <div class="w-20 h-20 rounded-full bg-amber-500/15 text-amber-500 mx-auto flex items-center justify-center mb-5">
+                    <span class="material-symbols-outlined text-5xl">schedule</span>
+                </div>
+
+                <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-500/15 text-amber-500 border border-amber-500/25 mb-3" id="confirm-status">
+                    <span class="material-symbols-outlined text-[14px]">pending</span> Pending Approval
+                </div>
+
+                <h3 class="font-headline-md text-2xl sm:text-3xl font-bold text-on-surface mb-2">Appointment Request Submitted!</h3>
+                <p class="text-on-surface-variant text-sm mb-6 max-w-md mx-auto">Thank you for scheduling with Cube Cad Center. Your appointment request has been recorded and will be reviewed shortly by our admissions team.</p>
+
+                <div class="bg-surface-container-low rounded-2xl p-5 text-left space-y-3.5 mb-7 border border-outline/10 max-w-md mx-auto">
+                    <div class="flex justify-between items-center pb-3 border-b border-outline/10">
+                        <span class="text-xs text-on-surface-variant font-medium">Appointment ID</span>
+                        <span class="font-bold text-primary font-mono text-base" id="confirm-id">CCC-000000</span>
+                    </div>
+                    <div class="flex justify-between items-start gap-4">
+                        <span class="text-xs text-on-surface-variant font-medium">Service</span>
+                        <span class="font-semibold text-on-surface text-xs sm:text-sm text-right flex-1" id="confirm-service">–</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs text-on-surface-variant font-medium">Date</span>
+                        <span class="font-semibold text-on-surface text-xs sm:text-sm" id="confirm-date">–</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs text-on-surface-variant font-medium">Time Slot</span>
+                        <span class="font-semibold text-on-surface text-xs sm:text-sm" id="confirm-time">–</span>
+                    </div>
+                    <div class="flex justify-between items-center pt-3 border-t border-outline/10">
+                        <span class="text-xs text-on-surface-variant font-medium">Student Name</span>
+                        <span class="font-semibold text-on-surface text-xs sm:text-sm" id="confirm-name">–</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs text-on-surface-variant font-medium">Contact Phone</span>
+                        <span class="font-semibold text-on-surface text-xs sm:text-sm font-mono" id="confirm-phone">–</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+                    <button onclick="resetAppointmentForm()" class="w-full sm:w-auto px-6 py-3 rounded-2xl bg-primary text-white font-bold text-sm hover:bg-on-primary-container transition-all inline-flex items-center justify-center gap-2 shadow-sm">
+                        <span class="material-symbols-outlined text-lg">add_circle</span>
+                        Book Another Appointment
+                    </button>
+                    <button onclick="scrollToTop()" class="w-full sm:w-auto px-6 py-3 rounded-2xl border border-outline/20 text-on-surface font-semibold text-sm hover:bg-surface-container-low transition-all">
+                        Return to Homepage
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 12. Final CTA -->
+    <section class="py-24 max-w-7xl mx-auto px-6 mb-12">
+        <div class="bg-on-surface rounded-3xl p-12 md:p-20 text-center relative overflow-hidden">
+            <!-- Grid overlay -->
+            <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none"></div>
+            
+            <div class="relative z-10 max-w-3xl mx-auto">
+                <h2 class="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">Ready to Build Your Future With CAD & BIM?</h2>
+                <p class="text-xl text-surface-variant opacity-90 mb-10">Choose a course, develop practical skills, and take the next step toward your engineering or design career today.</p>
+                
+                <div class="flex flex-col sm:flex-row justify-center gap-3.5 max-w-xl mx-auto">
+                    <a href="#courses" class="btn-primary text-sm sm:text-base flex items-center justify-center gap-2">
+                        Explore All Courses <span class="material-symbols-outlined text-[17px]">arrow_forward</span>
+                    </a>
+                    <a href="#book-appointment" class="px-7 py-3.5 rounded-full bg-white text-on-surface font-semibold text-sm sm:text-base hover:bg-surface-variant transition-all flex items-center justify-center gap-2 no-underline shadow-sm">
+                        <span class="material-symbols-outlined text-primary text-[17px]">calendar_month</span>
+                        Book Appointment
+                    </a>
+                    <a href="#contact" class="px-7 py-3.5 rounded-full border border-white/30 text-white font-semibold text-sm sm:text-base hover:bg-white/10 transition-colors flex items-center justify-center no-underline">
+                        Contact Us
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 13. Footer Redesign -->
+    <footer id="contact" class="bg-surface-variant/50 border-t border-outline/20 pt-20 pb-10">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                
+                <!-- Column 1: Brand -->
+                <div>
+                    <a href="#" class="flex items-center gap-3 mb-6">
+                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKCrhMzNfEEdGqUu8quzzlAOM8DwiGTTLfLwvo-skFKRjuthr09qq_LtnTyC-H5OkixEfm8ORvIWw9uc8CMyVjY436mAH5zbl1Qlq75uEwh9jJlha7mKlS04e3RwoxDddjY4DhM0Rz9rbM31ighMHsFFgU8W5WNlSwTnjkKKuagyOhtK2iIln4sWkNLHgPXXvBy5Fy0OaLqz85qavxnsPezJEhQHG-5ooPG1YAE33Ov7Vm23YezmLW7pbfTQaua1uT" alt="Cube Cad Center" class="h-10 w-auto grayscale contrast-200">
+                        <span class="font-bold text-xl text-on-surface">Cube Cad Center</span>
+                    </a>
+                    <p class="text-on-surface-variant text-sm leading-relaxed">
+                        Ahmedabad's premier CAD & BIM training institute. We bridge the gap between academic theory and professional industry practice.
+                    </p>
+                </div>
+
+                <!-- Column 2: Courses -->
+                <div>
+                    <h4 class="font-bold text-on-surface mb-6 uppercase tracking-wider text-sm">Programs</h4>
+                    <ul class="space-y-4 text-sm text-on-surface-variant">
+                        <li><a href="syllabus-architectural.html" class="hover:text-primary transition-colors">Architectural & Interior Design</a></li>
+                        <li><a href="syllabus-structural.html" class="hover:text-primary transition-colors">Structural & Civil Engineering</a></li>
+                        <li><a href="syllabus-mechanical.html" class="hover:text-primary transition-colors">Mechanical & Product Design</a></li>
+                        <li><a href="syllabus-mep.html" class="hover:text-primary transition-colors">HVAC & MEPF Engineering</a></li>
+                        <li><a href="explore.html" class="hover:text-primary transition-colors font-semibold text-primary">View All 17 Programs &rarr;</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Company -->
+                <div>
+                    <h4 class="font-bold text-on-surface mb-6 uppercase tracking-wider text-sm">Company</h4>
+                    <ul class="space-y-4 text-sm text-on-surface-variant">
+                        <li><a href="#about" class="hover:text-primary transition-colors">About Us</a></li>
+                        <li><a href="#why-choose-us" class="hover:text-primary transition-colors">Why Choose Us</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Student Projects</a></li>
+                        <li><a href="#faq" class="hover:text-primary transition-colors">FAQ</a></li>
+                        <li><a href="#contact" class="hover:text-primary transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: Contact -->
+                <div>
+                    <h4 class="font-bold text-on-surface mb-6 uppercase tracking-wider text-sm">Contact Us</h4>
+                    <ul class="space-y-4 text-sm text-on-surface-variant">
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-outlined text-[18px] text-primary mt-0.5">location_on</span>
+                            <div>
+                                <strong class="block text-on-surface">Satellite (HQ):</strong>
+                                310, Iscon Emporio, Near Jodhpur Cross Road
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-outlined text-[18px] text-primary mt-0.5">location_on</span>
+                            <div>
+                                <strong class="block text-on-surface">South Bopal:</strong>
+                                C449, 4th Floor, SoBo Center
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-outlined text-[18px] text-primary mt-0.5">call</span>
+                            <div class="flex flex-col gap-1.5">
+                                <a href="tel:+919978999694" class="hover:text-primary transition-colors font-medium">+91 9978999694</a>
+                                <a href="tel:+919909996285" class="hover:text-primary transition-colors font-medium">+91 9909996285</a>
+                                <a href="tel:+919909997285" class="hover:text-primary transition-colors font-medium">+91 9909997285</a>
+                            </div>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-[18px] text-primary">email</span>
+                            <a href="mailto:info@cubecadcenter.co" class="hover:text-primary transition-colors">info@cubecadcenter.co</a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="border-t border-outline/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-sm text-on-surface-variant">&copy; 2026 Cube Cad Center. All rights reserved.</p>
+                <div class="flex gap-4 text-on-surface-variant">
+                    <a href="#" class="hover:text-primary transition-colors"><span class="material-symbols-outlined">link</span></a>
+                    <a href="#" class="hover:text-primary transition-colors"><span class="material-symbols-outlined">share</span></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Single, Clean FAQ Accordion Logic
+            const accordionItems = document.querySelectorAll('.accordion-item');
+            accordionItems.forEach(item => {
+                const trigger = item.querySelector('.accordion-trigger');
+                if (!trigger) return;
+
+                trigger.addEventListener('click', () => {
+                    const isOpen = item.classList.contains('is-open');
+
+                    // Close all other accordion items
+                    accordionItems.forEach(otherItem => {
+                        if (otherItem !== item) {
+                            otherItem.classList.remove('is-open');
+                        }
+                    });
+
+                    if (!isOpen) {
+                        item.classList.add('is-open');
+                    } else {
+                        item.classList.remove('is-open');
+                    }
+                });
+            });
+
+            // 2. Smooth In-Page Anchor Scrolling
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const targetId = this.getAttribute('href');
+                    if (!targetId || targetId === '#' || targetId.startsWith('#!')) return;
+                    const targetEl = document.querySelector(targetId);
+                    if (targetEl) {
+                        e.preventDefault();
+                        targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            });
+
+            // 3. Top Scroll Progress Bar & Floating Navbar Elevation
+            const progressBar = document.getElementById('scroll-progress-bar');
+            const navPills = document.querySelectorAll('nav .nav-pill');
+            
+            const handleScroll = () => {
+                const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+                if (progressBar) progressBar.style.width = scrolled + '%';
+
+                const isScrolled = winScroll > 30;
+                navPills.forEach(pill => {
+                    if (isScrolled) {
+                        pill.classList.add('shadow-xl', 'bg-surface/95');
+                        pill.classList.remove('shadow-md');
+                    } else {
+                        pill.classList.remove('shadow-xl', 'bg-surface/95');
+                        pill.classList.add('shadow-md');
+                    }
+                });
+            };
+
+            window.addEventListener('scroll', handleScroll, { passive: true });
+            handleScroll();
+
+            // 4. Silky-Smooth GPU Reveal for Cards (IntersectionObserver)
+            if ('IntersectionObserver' in window) {
+                const revealObserver = new IntersectionObserver((entries, obs) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-revealed');
+                            obs.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+                document.querySelectorAll('.course-card, section:not(#hero) .surface-card:not(.course-card)').forEach(card => {
+                    card.classList.add('fade-up-card');
+                    revealObserver.observe(card);
+                });
+            } else {
+                document.querySelectorAll('.course-card, .surface-card').forEach(card => {
+                    card.classList.add('is-revealed');
+                });
+            }
+        });
+
+        // 5. High-Performance Lightweight Hero Waves Canvas
+        (function() {
+            const canvas = document.getElementById('waves-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            let width, height;
+            let points = [];
+            let isHeroVisible = true;
+            let animFrameId = null;
+
+            const lineColor = "#F97316";
+            const waveSpeedX = 0.02;
+            const waveSpeedY = 0.01;
+            const waveAmpX = 24;
+            const waveAmpY = 14;
+            const xGap = 24;
+            const yGap = 48;
+
+            function resize() {
+                const dpr = Math.min(window.devicePixelRatio || 1, 2);
+                width = canvas.parentElement.clientWidth;
+                height = canvas.parentElement.clientHeight;
+                canvas.width = width * dpr;
+                canvas.height = height * dpr;
+                ctx.scale(dpr, dpr);
+                initPoints();
+            }
+
+            function initPoints() {
+                points = [];
+                const cols = Math.ceil(width / xGap) + 2;
+                const rows = Math.ceil(height / yGap) + 2;
+                for (let i = 0; i < rows; i++) {
+                    let row = [];
+                    for (let j = 0; j < cols; j++) {
+                        let x = (j - 1) * xGap;
+                        let y = (i - 1) * yGap;
+                        row.push({ baseX: x, baseY: y, x: x, y: y });
+                    }
+                    points.push(row);
+                }
+            }
+
+            window.addEventListener('resize', resize);
+
+            // Pause canvas when hero is scrolled out of view to maintain 60+ FPS
+            if ('IntersectionObserver' in window) {
+                const heroSection = document.getElementById('hero');
+                if (heroSection) {
+                    const heroObs = new IntersectionObserver(([entry]) => {
+                        isHeroVisible = entry.isIntersecting;
+                        if (isHeroVisible && !animFrameId) {
+                            animate();
+                        }
+                    }, { threshold: 0.05 });
+                    heroObs.observe(heroSection);
+                }
+            }
+
+            let time = 0;
+            function animate() {
+                if (!isHeroVisible) {
+                    animFrameId = null;
+                    return;
+                }
+                ctx.clearRect(0, 0, width, height);
+                time += 1;
+
+                ctx.strokeStyle = lineColor;
+                ctx.lineWidth = 1;
+                ctx.lineCap = 'round';
+                ctx.lineJoin = 'round';
+
+                for (let i = 0; i < points.length; i++) {
+                    ctx.beginPath();
+                    for (let j = 0; j < points[i].length; j++) {
+                        let p = points[i][j];
+                        let curX = p.baseX + Math.sin(time * waveSpeedX + p.baseY * 0.05) * waveAmpX;
+                        let curY = p.baseY + Math.sin(time * waveSpeedY + p.baseX * 0.05) * waveAmpY;
+                        if (j === 0) {
+                            ctx.moveTo(curX, curY);
+                        } else {
+                            let prev = points[i][j - 1];
+                            let prevX = prev.baseX + Math.sin(time * waveSpeedX + prev.baseY * 0.05) * waveAmpX;
+                            let prevY = prev.baseY + Math.sin(time * waveSpeedY + prev.baseX * 0.05) * waveAmpY;
+                            let cx = (curX + prevX) / 2;
+                            let cy = (curY + prevY) / 2;
+                            ctx.quadraticCurveTo(prevX, prevY, cx, cy);
+                            if (j === points[i].length - 1) {
+                                ctx.lineTo(curX, curY);
+                            }
+                        }
+                    }
+                    ctx.stroke();
+                }
+                animFrameId = requestAnimationFrame(animate);
+            }
+
+            resize();
+            animate();
+        })();
+    </script>
+    <script>
+        // Course Filter Logic
+        document.addEventListener('DOMContentLoaded', () => {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const courseCards = document.querySelectorAll('.course-card');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Update active button styling
+                    filterBtns.forEach(b => {
+                        b.classList.remove('bg-on-surface', 'text-surface');
+                        b.classList.add('bg-surface-variant', 'text-on-surface');
+                    });
+                    btn.classList.remove('bg-surface-variant', 'text-on-surface');
+                    btn.classList.add('bg-on-surface', 'text-surface');
+
+                    // Filter courses
+                    const filterValue = btn.getAttribute('data-filter');
+                    
+                    courseCards.forEach(card => {
+                        if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
+                            card.style.display = 'flex';
+                            // Add a small fade-in animation when showing
+                            card.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 300, fill: 'forwards' });
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+
+        // Mobile Menu Logic
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileLinks = document.querySelectorAll('.mobile-link');
+            
+            if(menuBtn && mobileMenu) {
+                menuBtn.addEventListener('click', () => {
+                    if (mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.remove('hidden');
+                        mobileMenu.classList.add('flex');
+                        // simple fade in
+                        mobileMenu.animate([
+                            { opacity: 0, transform: 'translateY(-10px)' },
+                            { opacity: 1, transform: 'translateY(0)' }
+                        ], { duration: 300, fill: 'forwards' });
+                    } else {
+                        mobileMenu.classList.add('hidden');
+                        mobileMenu.classList.remove('flex');
+                    }
+                });
+
+                // Close menu when a link is clicked
+                mobileLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        mobileMenu.classList.add('hidden');
+                        mobileMenu.classList.remove('flex');
+                    });
+                });
+            }
+        });
+    </script>
+
+    <!-- ========================================== -->
+    <!-- AUTHENTICATION MODAL (Sign In & Sign Up)   -->
+    <!-- ========================================== -->
+    <div id="auth-modal" class="fixed inset-0 z-[200] hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-fadeIn">
+        <div class="surface-card bg-surface w-full max-w-md rounded-3xl p-6 sm:p-8 shadow-2xl relative border border-outline/20">
+            <!-- Close Button -->
+            <button onclick="closeAuthModal()" class="absolute top-5 right-5 text-on-surface-variant hover:text-on-surface p-1 rounded-full hover:bg-surface-variant transition-colors">
+                <span class="material-symbols-outlined text-2xl">close</span>
+            </button>
+
+            <!-- Brand Header -->
+            <div class="text-center mb-6">
+                <div class="w-12 h-12 rounded-2xl bg-primary/10 text-primary mx-auto flex items-center justify-center mb-3">
+                    <span class="material-symbols-outlined text-2xl">lock</span>
+                </div>
+                <h3 class="font-headline-md text-2xl font-bold text-on-surface" id="auth-modal-title">Welcome to Cube CAD</h3>
+                <p class="text-xs text-on-surface-variant mt-1" id="auth-modal-subtitle">Sign in or create a new account to book & manage your appointments</p>
+            </div>
+
+            <!-- Tab Switcher -->
+            <div class="flex rounded-full bg-surface-variant p-1 mb-6 border border-outline/10">
+                <button id="tab-btn-signin" onclick="switchAuthTab('signin')" class="flex-1 py-2 text-xs font-bold rounded-full transition-all bg-on-surface text-surface shadow-sm">
+                    Sign In
+                </button>
+                <button id="tab-btn-signup" onclick="switchAuthTab('signup')" class="flex-1 py-2 text-xs font-bold rounded-full transition-all text-on-surface hover:text-primary">
+                    Create New / Sign Up
+                </button>
+            </div>
+
+            <!-- Alert Box for Errors/Success -->
+            <div id="auth-alert" class="hidden mb-4 p-3 rounded-xl text-xs font-medium border flex items-center gap-2"></div>
+
+            <!-- SIGN IN VIEW -->
+            <form id="signin-form" onsubmit="handleSignIn(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-on-surface mb-1.5 uppercase tracking-wider">Email Address</label>
+                    <div class="relative">
+                        <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">mail</span>
+                        <input type="email" id="signin-email" required placeholder="name@example.com" class="w-full pl-10 pr-4 py-2.5 bg-surface-container-low rounded-xl border border-outline/20 text-on-surface text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all">
+                    </div>
+                </div>
+
+                <div>
+                    <div class="flex justify-between items-center mb-1.5">
+                        <label class="block text-xs font-bold text-on-surface uppercase tracking-wider">Password</label>
+                    </div>
+                    <div class="relative">
+                        <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">lock</span>
+                        <input type="password" id="signin-password" required placeholder="••••••••" class="w-full pl-10 pr-10 py-2.5 bg-surface-container-low rounded-xl border border-outline/20 text-on-surface text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all">
+                        <button type="button" onclick="togglePasswordVisibility('signin-password', this)" class="absolute right-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-on-surface">
+                            <span class="material-symbols-outlined text-[18px]">visibility</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between text-xs text-on-surface-variant pt-1">
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="checkbox" id="signin-remember" checked class="rounded border-outline/30 text-primary focus:ring-primary">
+                        <span>Remember me</span>
+                    </label>
+                </div>
+
+                <button type="submit" id="signin-submit-btn" class="w-full py-3 bg-primary text-white rounded-xl font-bold text-sm hover:bg-on-primary-container transition-all flex items-center justify-center gap-2 shadow-md hover:scale-[1.01] active:scale-[0.99]">
+                    <span class="material-symbols-outlined text-[18px]">login</span>
+                    <span>Sign In</span>
+                </button>
+
+                <p class="text-center text-xs text-on-surface-variant pt-2">
+                    Don't have an account? 
+                    <button type="button" onclick="switchAuthTab('signup')" class="text-primary font-bold hover:underline">Create new email / Sign up</button>
+                </p>
+            </form>
+
+            <!-- SIGN UP VIEW -->
+            <form id="signup-form" onsubmit="handleSignUp(event)" class="space-y-3.5 hidden">
+                <div>
+                    <label class="block text-xs font-bold text-on-surface mb-1 uppercase tracking-wider">Full Name</label>
+                    <div class="relative">
+                        <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">person</span>
+                        <input type="text" id="signup-name" required placeholder="John Doe" class="w-full pl-10 pr-4 py-2.5 bg-surface-container-low rounded-xl border border-outline/20 text-on-surface text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-on-surface mb-1 uppercase tracking-wider">Email Address</label>
+                    <div class="relative">
+                        <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">mail</span>
+                        <input type="email" id="signup-email" required placeholder="name@example.com" class="w-full pl-10 pr-4 py-2.5 bg-surface-container-low rounded-xl border border-outline/20 text-on-surface text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-on-surface mb-1 uppercase tracking-wider">Phone Number (Optional)</label>
+                    <div class="relative">
+                        <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">call</span>
+                        <input type="tel" id="signup-phone" placeholder="+91 99789 99694" class="w-full pl-10 pr-4 py-2.5 bg-surface-container-low rounded-xl border border-outline/20 text-on-surface text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-on-surface mb-1 uppercase tracking-wider">Password</label>
+                    <div class="relative">
+                        <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">lock</span>
+                        <input type="password" id="signup-password" required minlength="6" placeholder="At least 6 characters" class="w-full pl-10 pr-10 py-2.5 bg-surface-container-low rounded-xl border border-outline/20 text-on-surface text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all">
+                        <button type="button" onclick="togglePasswordVisibility('signup-password', this)" class="absolute right-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-on-surface">
+                            <span class="material-symbols-outlined text-[18px]">visibility</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-on-surface mb-1 uppercase tracking-wider">Confirm Password</label>
+                    <div class="relative">
+                        <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">lock_reset</span>
+                        <input type="password" id="signup-confirm-password" required minlength="6" placeholder="Repeat your password" class="w-full pl-10 pr-4 py-2.5 bg-surface-container-low rounded-xl border border-outline/20 text-on-surface text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all">
+                    </div>
+                </div>
+
+                <button type="submit" id="signup-submit-btn" class="w-full py-3 bg-primary text-white rounded-xl font-bold text-sm hover:bg-on-primary-container transition-all flex items-center justify-center gap-2 shadow-md hover:scale-[1.01] active:scale-[0.99] mt-2">
+                    <span class="material-symbols-outlined text-[18px]">person_add</span>
+                    <span>Create Account & Sign In</span>
+                </button>
+
+                <p class="text-center text-xs text-on-surface-variant pt-2">
+                    Already registered? 
+                    <button type="button" onclick="switchAuthTab('signin')" class="text-primary font-bold hover:underline">Sign In</button>
+                </p>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- BOOK APPOINTMENT MODAL (scrolls to section) -->
+    <!-- ========================================== -->
+    <div id="booking-modal" class="fixed inset-0 z-[200] hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-fadeIn">
+        <div class="surface-card bg-surface w-full max-w-md rounded-3xl p-8 shadow-2xl relative border border-outline/20 text-center">
+            <button onclick="closeBookingModal()" class="absolute top-5 right-5 text-on-surface-variant hover:text-on-surface p-1 rounded-full hover:bg-surface-variant transition-colors">
+                <span class="material-symbols-outlined text-2xl">close</span>
+            </button>
+
+            <div class="w-14 h-14 rounded-2xl bg-primary/10 text-primary mx-auto flex items-center justify-center mb-4">
+                <span class="material-symbols-outlined text-3xl">calendar_month</span>
+            </div>
+            <h3 class="font-headline-md text-2xl font-bold text-on-surface mb-2">Book an Appointment</h3>
+            <p class="text-sm text-on-surface-variant mb-6 max-w-xs mx-auto">Schedule a free 1-on-1 career counseling session, campus tour, or demo class.</p>
+
+            <button onclick="closeBookingModal(); scrollToBookingSection();" class="w-full py-4 bg-primary text-white rounded-2xl font-bold text-base hover:bg-on-primary-container transition-all flex items-center justify-center gap-2 shadow-md hover:scale-[1.01] active:scale-[0.99]">
+                <span class="material-symbols-outlined text-xl">arrow_downward</span>
+                Go to Booking Form
+            </button>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- MY APPOINTMENTS MODAL                      -->
+    <!-- ========================================== -->
+    <div id="my-appointments-modal" class="fixed inset-0 z-[200] hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-fadeIn">
+        <div class="surface-card bg-surface w-full max-w-2xl rounded-3xl p-6 sm:p-8 shadow-2xl relative border border-outline/20 max-h-[90vh] flex flex-col">
+            <!-- Close Button -->
+            <button onclick="closeMyAppointmentsModal()" class="absolute top-5 right-5 text-on-surface-variant hover:text-on-surface p-1 rounded-full hover:bg-surface-variant transition-colors">
+                <span class="material-symbols-outlined text-2xl">close</span>
+            </button>
+
+            <!-- Header -->
+            <div class="mb-4">
+                <h3 class="font-headline-md text-2xl font-bold text-on-surface flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary">event_note</span>
+                    My Appointments
+                </h3>
+                <p class="text-xs text-on-surface-variant mt-1" id="my-appointments-subtitle">View and manage your scheduled sessions</p>
+            </div>
+
+            <!-- List Container -->
+            <div id="appointments-list-container" class="flex-grow overflow-y-auto space-y-3 pr-1 my-2">
+                <!-- Dynamically populated -->
+            </div>
+
+            <!-- Footer Action -->
+            <div class="pt-4 border-t border-outline/10 flex justify-between items-center mt-2">
+                <button onclick="closeMyAppointmentsModal(); openBookingModal();" class="text-xs font-bold text-primary hover:underline flex items-center gap-1">
+                    <span class="material-symbols-outlined text-[16px]">add_circle</span>
+                    Book New Appointment
+                </button>
+                <button onclick="closeMyAppointmentsModal()" class="px-5 py-2 rounded-xl bg-surface-variant text-on-surface font-semibold text-xs hover:bg-outline/20 transition-colors">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- FIREBASE SDK & SERVICE                     -->
+    <!-- ========================================== -->
+    <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-analytics-compat.js"></script>
+    <script src="firebase-service.js"></script>
+
+    <!-- ========================================== -->
+    <!-- AUTH & BOOKING JAVASCRIPT LOGIC            -->
+    <!-- ========================================== -->
+    <script>
+        const API_URL = '/api';
+
+        // Set min date for appointment picker to tomorrow
+        document.addEventListener('DOMContentLoaded', () => {
+            const dateInput = document.getElementById('book-date');
+            if (dateInput) {
+                const tomorrow = new Date();
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                dateInput.min = tomorrow.toISOString().split('T')[0];
+                dateInput.value = tomorrow.toISOString().split('T')[0];
+            }
+            initAuthState();
+
+            // Firebase Auth State Listener for real-time session persistence across page refreshes
+            if (window.FirebaseDB && window.FirebaseDB.onAuthStateChanged) {
+                window.FirebaseDB.onAuthStateChanged(async (fbUser) => {
+                    if (fbUser) {
+                        try {
+                            const token = await fbUser.getIdToken();
+                            localStorage.setItem('ccc_token', token);
+                            const cached = getCurrentUser() || {};
+                            const userObj = {
+                                id: fbUser.uid,
+                                uid: fbUser.uid,
+                                name: cached.name || fbUser.displayName || fbUser.email.split('@')[0],
+                                email: fbUser.email,
+                                phone: cached.phone || ''
+                            };
+                            localStorage.setItem('ccc_user', JSON.stringify(userObj));
+                            initAuthState();
+                        } catch (e) {
+                            console.warn('Firebase auth state sync error:', e);
+                        }
+                    }
+                });
+            }
+
+            // Hash deep-linking
+            if (window.location.hash === '#book') {
+                setTimeout(() => scrollToBookingSection(), 300);
+            } else if (window.location.hash === '#signin') {
+                setTimeout(() => openAuthModal('signin'), 150);
+            } else if (window.location.hash === '#signup') {
+                setTimeout(() => openAuthModal('signup'), 150);
+            }
+        });
+
+        // ---------------- HELPERS & AUTH STATE ----------------
+        function esc(s) {
+            const d = document.createElement('div');
+            d.textContent = s || '';
+            return d.innerHTML;
+        }
+
+        function getCurrentUser() {
+            try {
+                if (window.FirebaseDB && window.FirebaseDB.getCurrentUser) {
+                    const fbUser = window.FirebaseDB.getCurrentUser();
+                    if (fbUser) {
+                        const userJson = localStorage.getItem('ccc_user');
+                        const cached = userJson ? JSON.parse(userJson) : {};
+                        return {
+                            id: cached.id || fbUser.uid,
+                            uid: fbUser.uid,
+                            name: cached.name || fbUser.displayName || fbUser.email.split('@')[0],
+                            email: fbUser.email,
+                            phone: cached.phone || ''
+                        };
+                    }
+                }
+                const userJson = localStorage.getItem('ccc_user');
+                return userJson ? JSON.parse(userJson) : null;
+            } catch (e) {
+                return null;
+            }
+        }
+
+        async function getFreshAuthToken() {
+            if (window.FirebaseDB && window.FirebaseDB.getCurrentUser) {
+                const fbUser = window.FirebaseDB.getCurrentUser();
+                if (fbUser) {
+                    try {
+                        const token = await Promise.race([
+                            fbUser.getIdToken(),
+                            new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 1500))
+                        ]);
+                        if (token) {
+                            localStorage.setItem('ccc_token', token);
+                            return token;
+                        }
+                    } catch (e) {
+                        // Fast fallback to cached local token
+                    }
+                }
+            }
+            return localStorage.getItem('ccc_token');
+        }
+
+        function getAuthToken() {
+            return localStorage.getItem('ccc_token');
+        }
+
+        function initAuthState() {
+            const user = getCurrentUser();
+            const navSigninBtn = document.getElementById('nav-signin-btn');
+            const navUserMenu = document.getElementById('nav-user-menu');
+            const navUserName = document.getElementById('nav-user-name');
+            const dropdownUserEmail = document.getElementById('dropdown-user-email');
+            const userAvatarInitials = document.getElementById('user-avatar-initials');
+
+            const mobileSigninBtn = document.getElementById('mobile-signin-btn');
+            const mobileUserProfile = document.getElementById('mobile-user-profile');
+            const mobileUserName = document.getElementById('mobile-user-name');
+
+            const bookingAuthBanner = document.getElementById('booking-auth-banner');
+            const bookingAuthText = document.getElementById('booking-auth-text');
+            const bookingAuthActions = document.getElementById('booking-auth-actions');
+            const submitBtnText = document.getElementById('appt-submit-btn-text');
+
+            if (user && user.email) {
+                // Desktop Nav Logged In
+                if (navSigninBtn) navSigninBtn.classList.add('hidden');
+                if (navUserMenu) navUserMenu.classList.remove('hidden');
+                if (navUserName) navUserName.textContent = user.name || user.email.split('@')[0];
+                if (dropdownUserEmail) dropdownUserEmail.textContent = user.email;
+                if (userAvatarInitials) {
+                    const initial = (user.name || user.email)[0].toUpperCase();
+                    userAvatarInitials.textContent = initial;
+                }
+
+                // Mobile Nav Logged In
+                if (mobileSigninBtn) mobileSigninBtn.classList.add('hidden');
+                if (mobileUserProfile) {
+                    mobileUserProfile.classList.remove('hidden');
+                    mobileUserProfile.classList.add('flex');
+                }
+                if (mobileUserName) mobileUserName.textContent = user.name || user.email;
+
+                // Pre-fill booking form fields
+                const bookName = document.getElementById('book-name');
+                const bookEmail = document.getElementById('book-email');
+                const bookPhone = document.getElementById('book-phone');
+                if (bookName && !bookName.value) bookName.value = user.name || '';
+                if (bookEmail && !bookEmail.value) bookEmail.value = user.email || '';
+                if (bookPhone && user.phone && !bookPhone.value) bookPhone.value = user.phone;
+
+                const apptName = document.getElementById('appt-name');
+                const apptEmail = document.getElementById('appt-email');
+                const apptPhone = document.getElementById('appt-phone');
+                if (apptName && (!apptName.value || apptName.value === 'Guest Student')) apptName.value = user.name || '';
+                if (apptEmail && !apptEmail.value) apptEmail.value = user.email || '';
+                if (apptPhone && user.phone && !apptPhone.value) apptPhone.value = user.phone;
+
+                // Admin Panel Link in Dropdown
+                const adminLink = document.getElementById('dropdown-admin-link');
+                if (adminLink) {
+                    if (localStorage.getItem('ccc_admin_token') || (user && user.isAdmin)) {
+                        adminLink.classList.remove('hidden');
+                    } else {
+                        adminLink.classList.add('hidden');
+                    }
+                }
+
+                // Booking Banner - Logged In State
+                if (bookingAuthBanner) {
+                    bookingAuthBanner.className = 'mb-6 p-4 rounded-2xl bg-primary/10 border border-primary/25 flex items-center justify-between flex-wrap gap-3 transition-all';
+                }
+                if (bookingAuthText) {
+                    bookingAuthText.className = 'flex items-center gap-2.5 text-xs sm:text-sm font-semibold text-primary';
+                    bookingAuthText.innerHTML = `<span class="material-symbols-outlined text-primary text-[20px]">verified_user</span><span>Signed in as <strong>${esc(user.name || user.email)}</strong> (${esc(user.email)})</span>`;
+                }
+                if (bookingAuthActions) {
+                    bookingAuthActions.innerHTML = `<button type="button" onclick="logoutUser()" class="px-3 py-1 rounded-xl bg-surface-container-low border border-outline/20 text-xs font-semibold text-on-surface-variant hover:text-error transition-colors flex items-center gap-1"><span class="material-symbols-outlined text-sm">logout</span> Switch Account</button>`;
+                }
+                if (submitBtnText) {
+                    submitBtnText.textContent = 'Confirm & Book Appointment';
+                }
+            } else {
+                // Desktop Nav Logged Out
+                if (navSigninBtn) navSigninBtn.classList.remove('hidden');
+                if (navUserMenu) navUserMenu.classList.add('hidden');
+
+                // Mobile Nav Logged Out
+                if (mobileSigninBtn) mobileSigninBtn.classList.remove('hidden');
+                if (mobileUserProfile) {
+                    mobileUserProfile.classList.add('hidden');
+                    mobileUserProfile.classList.remove('flex');
+                }
+
+                // Booking Banner - Logged Out Mandatory State
+                if (bookingAuthBanner) {
+                    bookingAuthBanner.className = 'mb-6 p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-between flex-wrap gap-3 transition-all';
+                }
+                if (bookingAuthText) {
+                    bookingAuthText.className = 'flex items-center gap-2.5 text-xs sm:text-sm font-medium text-amber-300';
+                    bookingAuthText.innerHTML = `<span class="material-symbols-outlined text-amber-400 text-[20px]">lock</span><span><strong>Account Required:</strong> You must create an account and log in before scheduling an appointment.</span>`;
+                }
+                if (bookingAuthActions) {
+                    bookingAuthActions.innerHTML = `
+                        <button type="button" onclick="openAuthModal('signin')" class="px-3.5 py-1.5 rounded-xl bg-surface border border-outline/20 text-xs font-bold text-on-surface hover:text-primary transition-all">Log In</button>
+                        <button type="button" onclick="openAuthModal('signup')" class="px-3.5 py-1.5 rounded-xl bg-primary text-white text-xs font-bold hover:bg-primary-dark transition-all">Create Account</button>
+                    `;
+                }
+                if (submitBtnText) {
+                    submitBtnText.textContent = 'Sign In & Confirm Appointment';
+                }
+            }
+        }
+
+        function toggleUserDropdown(e) {
+            if (e) e.stopPropagation();
+            const dropdown = document.getElementById('user-dropdown');
+            if (dropdown) dropdown.classList.toggle('hidden');
+        }
+
+        // Close dropdown when clicking outside
+        window.addEventListener('click', (e) => {
+            const dropdown = document.getElementById('user-dropdown');
+            const profileBtn = document.getElementById('user-profile-btn');
+            if (dropdown && !dropdown.classList.contains('hidden')) {
+                if (profileBtn && !profileBtn.contains(e.target) && !dropdown.contains(e.target)) {
+                    dropdown.classList.add('hidden');
+                }
+            }
+        });
+
+        async function logoutUser() {
+            localStorage.removeItem('ccc_user');
+            localStorage.removeItem('ccc_token');
+            localStorage.removeItem('ccc_admin_token');
+            if (window.FirebaseDB && window.FirebaseDB.signOut) {
+                try {
+                    await window.FirebaseDB.signOut();
+                } catch (e) {
+                    console.warn('Firebase signOut note:', e);
+                }
+            }
+            const dropdown = document.getElementById('user-dropdown');
+            if (dropdown) dropdown.classList.add('hidden');
+            initAuthState();
+        }
+
+        // ---------------- AUTH MODAL ----------------
+        function openAuthModal(tab = 'signin') {
+            const modal = document.getElementById('auth-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            switchAuthTab(tab);
+            hideAuthAlert();
+        }
+
+        function closeAuthModal() {
+            const modal = document.getElementById('auth-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function switchAuthTab(tab) {
+            const signinForm = document.getElementById('signin-form');
+            const signupForm = document.getElementById('signup-form');
+            const tabBtnSignin = document.getElementById('tab-btn-signin');
+            const tabBtnSignup = document.getElementById('tab-btn-signup');
+            const modalTitle = document.getElementById('auth-modal-title');
+            const modalSubtitle = document.getElementById('auth-modal-subtitle');
+
+            hideAuthAlert();
+
+            if (tab === 'signin') {
+                signinForm.classList.remove('hidden');
+                signupForm.classList.add('hidden');
+                tabBtnSignin.className = 'flex-1 py-2 text-xs font-bold rounded-full transition-all bg-on-surface text-surface shadow-sm';
+                tabBtnSignup.className = 'flex-1 py-2 text-xs font-bold rounded-full transition-all text-on-surface hover:text-primary';
+                modalTitle.textContent = 'Welcome Back';
+                modalSubtitle.textContent = 'Sign in to access your appointments & course enrollment details';
+            } else {
+                signinForm.classList.add('hidden');
+                signupForm.classList.remove('hidden');
+                tabBtnSignup.className = 'flex-1 py-2 text-xs font-bold rounded-full transition-all bg-on-surface text-surface shadow-sm';
+                tabBtnSignin.className = 'flex-1 py-2 text-xs font-bold rounded-full transition-all text-on-surface hover:text-primary';
+                modalTitle.textContent = 'Create an Account';
+                modalSubtitle.textContent = 'Enter your email and create a password to register';
+            }
+        }
+
+        function togglePasswordVisibility(inputId, btn) {
+            const input = document.getElementById(inputId);
+            const icon = btn.querySelector('.material-symbols-outlined');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.textContent = 'visibility_off';
+            } else {
+                input.type = 'password';
+                icon.textContent = 'visibility';
+            }
+        }
+
+        function showAuthAlert(msg, isSuccess = false) {
+            const alert = document.getElementById('auth-alert');
+            alert.className = `mb-4 p-3 rounded-xl text-xs font-medium border flex items-center gap-2 ${
+                isSuccess ? 'bg-primary/10 border-primary text-primary' : 'bg-error/10 border-error text-error'
+            }`;
+            alert.innerHTML = `<span class="material-symbols-outlined text-[18px]">${isSuccess ? 'check_circle' : 'error'}</span> <span>${msg}</span>`;
+            alert.classList.remove('hidden');
+        }
+
+        function hideAuthAlert() {
+            const alert = document.getElementById('auth-alert');
+            alert.classList.add('hidden');
+        }
+
+        // SIGN IN HANDLER
+        async function handleSignIn(e) {
+            e.preventDefault();
+            const email = document.getElementById('signin-email').value.trim();
+            const password = document.getElementById('signin-password').value;
+            const submitBtn = document.getElementById('signin-submit-btn');
+
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="material-symbols-outlined text-[18px] animate-spin">progress_activity</span> Signing in...';
+            hideAuthAlert();
+
+            // 1. Establish Firebase Authentication session
+            let fbUser = null;
+            let fbToken = null;
+            if (window.FirebaseDB && window.FirebaseDB.signIn) {
+                try {
+                    const cred = await window.FirebaseDB.signIn(email, password);
+                    fbUser = cred.user;
+                    if (fbUser) fbToken = await fbUser.getIdToken();
+                } catch (fbErr) {
+                    console.warn('Firebase client signin notice:', fbErr.message);
+                }
+            }
+
+            // 2. Sign in with backend API
+            try {
+                const res = await fetch(`${API_URL}/auth/signin`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+                const data = await res.json();
+
+                if (!res.ok || !data.success) {
+                    showAuthAlert(data.error || 'Failed to sign in. Please check your credentials.');
+                } else if (data.isAdmin || data.redirect) {
+                    // Admin detected! Store admin token and redirect directly to Admin Page
+                    localStorage.setItem('ccc_admin_token', data.adminToken || data.token);
+                    localStorage.setItem('ccc_token', fbToken || data.token);
+                    localStorage.setItem('ccc_user', JSON.stringify(data.user));
+                    showAuthAlert('Admin credentials verified! Redirecting to Admin Panel...', true);
+                    submitBtn.innerHTML = '<span class="material-symbols-outlined text-[18px]">verified_user</span> Redirecting...';
+                    setTimeout(() => {
+                        window.location.href = data.redirect || 'admin.html';
+                    }, 500);
+                } else {
+                    const sessionToken = fbToken || data.firebaseToken || data.token;
+                    const sessionUser = {
+                        ...data.user,
+                        uid: (fbUser && fbUser.uid) || data.user.uid || String(data.user.id)
+                    };
+                    localStorage.setItem('ccc_token', sessionToken);
+                    localStorage.setItem('ccc_user', JSON.stringify(sessionUser));
+                    showAuthAlert('Signed in successfully! Welcome back.', true);
+                    initAuthState();
+                    setTimeout(() => {
+                        closeAuthModal();
+                    }, 800);
+                }
+            } catch (err) {
+                console.warn('Authentication note:', err);
+                if (fbUser && fbToken) {
+                    const fallbackUser = { id: fbUser.uid, uid: fbUser.uid, email: fbUser.email, name: fbUser.displayName || fbUser.email.split('@')[0] };
+                    localStorage.setItem('ccc_token', fbToken);
+                    localStorage.setItem('ccc_user', JSON.stringify(fallbackUser));
+                    showAuthAlert('Signed in successfully! Welcome back.', true);
+                    initAuthState();
+                    setTimeout(() => closeAuthModal(), 800);
+                } else {
+                    showAuthAlert(err.message || 'Authentication failed. Please check your credentials.', false);
+                }
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<span class="material-symbols-outlined text-[18px]">login</span> <span>Sign In</span>';
+            }
+        }
+
+        // SIGN UP HANDLER (Create New Email / Account)
+        async function handleSignUp(e) {
+            e.preventDefault();
+            const name = document.getElementById('signup-name').value.trim();
+            const email = document.getElementById('signup-email').value.trim();
+            const phone = document.getElementById('signup-phone').value.trim();
+            const password = document.getElementById('signup-password').value;
+            const confirmPassword = document.getElementById('signup-confirm-password').value;
+            const submitBtn = document.getElementById('signup-submit-btn');
+
+            if (password !== confirmPassword) {
+                showAuthAlert('Passwords do not match. Please re-enter your password.');
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="material-symbols-outlined text-[18px] animate-spin">progress_activity</span> Creating account...';
+            hideAuthAlert();
+
+            // 1. Create Firebase Authentication Account in browser
+            let fbUser = null;
+            let fbToken = null;
+            if (window.FirebaseDB && window.FirebaseDB.signUp) {
+                try {
+                    fbUser = await window.FirebaseDB.signUp(email, password, name);
+                    if (fbUser) fbToken = await fbUser.getIdToken();
+                } catch (fbErr) {
+                    if (fbErr.code === 'auth/email-already-in-use') {
+                        showAuthAlert('This email is already registered. Please use Login to access your account.');
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = '<span class="material-symbols-outlined text-[18px]">person_add</span> <span>Create Account & Sign In</span>';
+                        setTimeout(() => {
+                            switchAuthTab('signin');
+                            const signinEmail = document.getElementById('signin-email');
+                            if (signinEmail) signinEmail.value = email;
+                        }, 1800);
+                        return;
+                    } else {
+                        console.warn('Firebase signup notice:', fbErr.message);
+                    }
+                }
+            }
+
+            // 2. Register with backend API
+            try {
+                const res = await fetch(`${API_URL}/auth/signup`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, email, phone, password })
+                });
+                const data = await res.json();
+
+                if (!res.ok || !data.success) {
+                    if (res.status === 409 || data.alreadyRegistered) {
+                        showAuthAlert('This email is already registered. Please use Login to access your account.');
+                        setTimeout(() => {
+                            switchAuthTab('signin');
+                            const signinEmail = document.getElementById('signin-email');
+                            if (signinEmail) signinEmail.value = email;
+                        }, 1800);
+                    } else {
+                        showAuthAlert(data.error || 'Failed to create account. Please try another email.');
+                    }
+                    return;
+                }
+
+                // 3. Store newly registered user in Firebase Firestore
+                if (window.FirebaseDB && fbUser) {
+                    try {
+                        await window.FirebaseDB.saveUser({
+                            name,
+                            email,
+                            phone,
+                            role: 'student',
+                            uid: fbUser.uid
+                        });
+                        console.log('User synced with Firebase Firestore:', email);
+                    } catch (fbErr) {
+                        console.warn('Firebase user save note:', fbErr);
+                    }
+                }
+
+                const sessionToken = fbToken || data.firebaseToken || data.token;
+                const sessionUser = {
+                    ...data.user,
+                    uid: (fbUser && fbUser.uid) || data.user.uid || String(data.user.id),
+                    phone: phone || data.user.phone || ''
+                };
+                localStorage.setItem('ccc_token', sessionToken);
+                localStorage.setItem('ccc_user', JSON.stringify(sessionUser));
+                showAuthAlert('Account created successfully! Welcome to Cube CAD.', true);
+                initAuthState();
+                setTimeout(() => {
+                    closeAuthModal();
+                }, 1000);
+            } catch (err) {
+                console.warn('Signup error:', err);
+                showAuthAlert('Could not complete account creation. Please check your connection and try again.');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<span class="material-symbols-outlined text-[18px]">person_add</span> <span>Create Account & Sign In</span>';
+            }
+        }
+
+        // (Legacy modal replaced by unified inline #book-appointment section)
+
+        // ---------------- MY APPOINTMENTS MODAL ----------------
+        async function openMyAppointmentsModal() {
+            const modal = document.getElementById('my-appointments-modal');
+            const container = document.getElementById('appointments-list-container');
+            const subtitle = document.getElementById('my-appointments-subtitle');
+
+            const dropdown = document.getElementById('user-dropdown');
+            if (dropdown) dropdown.classList.add('hidden');
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+
+            const user = getCurrentUser();
+            if (user) {
+                subtitle.textContent = `Scheduled consultations for ${user.name || user.email}`;
+            }
+
+            container.innerHTML = `
+                <div class="py-12 text-center text-on-surface-variant flex flex-col items-center gap-2">
+                    <span class="material-symbols-outlined text-3xl animate-spin text-primary">progress_activity</span>
+                    <span class="text-xs">Fetching your appointments...</span>
+                </div>
+            `;
+
+            let appointments = [];
+            try {
+                const token = getAuthToken();
+                const emailParam = user ? `?email=${encodeURIComponent(user.email)}` : '';
+                const headers = token ? { 'Authorization': `Bearer ${token}` } : {};
+
+                const res = await fetch(`${API_URL}/appointments/my${emailParam}`, { headers });
+                const data = await res.json();
+                if (data.success && data.appointments) {
+                    appointments = data.appointments;
+                }
+            } catch (e) {
+                console.warn('Backend fetch failed, using local storage:', e);
+            }
+
+            // Merge with local appointments if any
+            try {
+                const local = JSON.parse(localStorage.getItem('ccc_appointments') || '[]');
+                if (appointments.length === 0) {
+                    appointments = local;
+                }
+            } catch (e) {}
+
+            renderAppointmentsList(appointments);
+        }
+
+        function renderAppointmentsList(appointments) {
+            const container = document.getElementById('appointments-list-container');
+            if (!appointments || appointments.length === 0) {
+                container.innerHTML = `
+                    <div class="py-12 text-center text-on-surface-variant flex flex-col items-center gap-3">
+                        <div class="w-12 h-12 rounded-full bg-surface-variant flex items-center justify-center text-on-surface-variant">
+                            <span class="material-symbols-outlined text-2xl">event_busy</span>
+                        </div>
+                        <p class="text-sm font-bold text-on-surface">No Appointments Found</p>
+                        <p class="text-xs max-w-xs leading-relaxed">You haven't scheduled any consultations or campus visits yet.</p>
+                        <button onclick="closeMyAppointmentsModal(); openBookingModal();" class="mt-2 px-5 py-2 rounded-full bg-primary text-white font-bold text-xs hover:bg-on-primary-container transition-all">
+                            Book Your First Visit
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = appointments.map(app => {
+                const ref = app.bookingRef || app.booking_ref || ('CCC-' + app.id);
+                const status = app.status || 'Pending';
+                const isPending = status.toLowerCase() === 'pending';
+                const isConfirmed = status.toLowerCase() === 'confirmed';
+                const isCancelled = status.toLowerCase() === 'cancelled';
+                const isCompleted = status.toLowerCase() === 'completed';
+
+                const badgeClass = isPending 
+                    ? 'bg-amber-500/10 text-amber-500 border border-amber-500/20' 
+                    : isConfirmed 
+                        ? 'bg-primary/10 text-primary border border-primary/20'
+                        : isCompleted
+                            ? 'bg-blue-500/10 text-blue-500 border border-blue-500/20'
+                            : 'bg-error/10 text-error border border-error/20';
+
+                return `
+                    <div class="p-4 rounded-2xl bg-surface-variant/40 border border-outline/10 flex flex-col sm:flex-row justify-between sm:items-center gap-3 transition-all hover:bg-surface-variant/70">
+                        <div>
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="font-mono text-xs font-bold text-primary">${ref}</span>
+                                <span class="text-[10px] px-2.5 py-0.5 rounded-full font-bold uppercase tracking-wider inline-flex items-center gap-1 ${badgeClass}">
+                                    <span class="material-symbols-outlined text-[12px]">${isPending ? 'schedule' : isConfirmed ? 'check_circle' : isCancelled ? 'cancel' : 'task_alt'}</span>
+                                    ${isPending ? 'Pending Approval' : status}
+                                </span>
+                            </div>
+                            <h4 class="font-bold text-sm text-on-surface">${app.program}</h4>
+                            <p class="text-xs text-on-surface-variant flex items-center gap-2 mt-0.5">
+                                <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">event</span> ${app.date}</span>
+                                <span>•</span>
+                                <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">schedule</span> ${app.timeSlot || app.time_slot}</span>
+                            </p>
+                            <p class="text-xs text-on-surface-variant mt-0.5 font-medium">
+                                <span class="material-symbols-outlined text-[14px] align-text-bottom">location_on</span> ${app.branch} (${app.mode || 'In-Person'})
+                            </p>
+                        </div>
+                        <div class="flex items-center gap-2 sm:self-center">
+                            ${!isCancelled ? `
+                                <button onclick="cancelAppointment(${app.id})" class="px-3 py-1.5 rounded-lg border border-error/30 text-error hover:bg-error/10 text-xs font-semibold transition-colors flex items-center gap-1">
+                                    <span class="material-symbols-outlined text-[14px]">cancel</span>
+                                    Cancel
+                                </button>
+                            ` : `
+                                <span class="text-xs text-on-surface-variant italic">Visit Cancelled</span>
+                            `}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        async function cancelAppointment(id) {
+            if (!confirm('Are you sure you want to cancel this appointment?')) return;
+            try {
+                const token = getAuthToken();
+                const headers = token ? { 'Authorization': `Bearer ${token}` } : {};
+                await fetch(`${API_URL}/appointments/${id}`, { method: 'DELETE', headers });
+            } catch (e) {
+                console.warn('Backend cancel failed, updating locally');
+            }
+
+            if (window.FirebaseDB) {
+                try {
+                    await window.FirebaseDB.updateBookingStatus(id, 'Cancelled');
+                } catch (fbErr) {
+                    console.warn('Firebase cancel note:', fbErr);
+                }
+            }
+
+            // Update local storage
+            try {
+                const local = JSON.parse(localStorage.getItem('ccc_appointments') || '[]');
+                local.forEach(a => { if (a.id === id) a.status = 'Cancelled'; });
+                localStorage.setItem('ccc_appointments', JSON.stringify(local));
+            } catch (e) {}
+
+            openMyAppointmentsModal();
+        }
+
+        function closeMyAppointmentsModal() {
+            const modal = document.getElementById('my-appointments-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+
+        // ─── INLINE APPOINTMENT SECTION LOGIC ───
+
+        let currentBookingDates = [];
+        let minBookingDate = '';
+        let maxBookingDate = '';
+        let selectedBookingDate = '';
+        let selectedTimeSlot = null;
+        let cachedSlotAvailability = [];
+        let isSubmittingAppointment = false;
+
+        function formatApptDateStr(d) {
+            const year = d.getFullYear();
+            const month = String(d.getMonth() + 1).padStart(2, '0');
+            const day = String(d.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+        function showApptAlert(type, title, message) {
+            const alertEl = document.getElementById('appt-alert');
+            const iconEl = document.getElementById('appt-alert-icon');
+            const titleEl = document.getElementById('appt-alert-title');
+            const msgEl = document.getElementById('appt-alert-message');
+            if (!alertEl) return;
+
+            alertEl.className = 'mb-6 p-4 rounded-2xl border text-sm flex items-start gap-3 transition-all animate-fade-in ';
+            if (type === 'error') {
+                alertEl.classList.add('bg-error/10', 'border-error/25', 'text-error');
+                iconEl.textContent = 'error';
+            } else if (type === 'warning') {
+                alertEl.classList.add('bg-amber-500/10', 'border-amber-500/25', 'text-amber-600');
+                iconEl.textContent = 'warning';
+            } else {
+                alertEl.classList.add('bg-emerald-500/10', 'border-emerald-500/25', 'text-emerald-600');
+                iconEl.textContent = 'check_circle';
+            }
+            titleEl.textContent = title;
+            msgEl.textContent = message;
+            alertEl.classList.remove('hidden');
+            alertEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function dismissApptAlert() {
+            const alertEl = document.getElementById('appt-alert');
+            if (alertEl) alertEl.classList.add('hidden');
+        }
+
+        // --- Date & Time Helpers for 7-Day Window and Past Slot Filtering ---
+        function parseSlotTimeToMinutes(slotStr) {
+            if (!slotStr) return 0;
+            const match = slotStr.match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
+            if (!match) return 0;
+            let hours = parseInt(match[1], 10);
+            const minutes = parseInt(match[2], 10);
+            const meridiem = match[3].toUpperCase();
+
+            if (meridiem === 'PM' && hours < 12) hours += 12;
+            if (meridiem === 'AM' && hours === 12) hours = 0;
+
+            return hours * 60 + minutes;
+        }
+
+        function isSlotPassed(dateStr, slotStr) {
+            const now = new Date();
+            const todayStr = formatApptDateStr(now);
+
+            if (dateStr < todayStr) return true;
+            if (dateStr > todayStr) return false;
+
+            // dateStr === todayStr: compare current time
+            const currentMinutes = now.getHours() * 60 + now.getMinutes();
+            const slotMinutes = parseSlotTimeToMinutes(slotStr);
+            return slotMinutes <= currentMinutes;
+        }
+
+        // Initialize 7-day booking calendar and slots
+        function initApptCalendar() {
+            const now = new Date();
+            currentBookingDates = [];
+
+            for (let i = 0; i <= 7; i++) {
+                const d = new Date(now);
+                d.setDate(now.getDate() + i);
+                const dateStr = formatApptDateStr(d);
+                const dayOfWeek = d.getDay(); // 0 is Sunday
+                const isSunday = dayOfWeek === 0;
+
+                currentBookingDates.push({
+                    dateStr,
+                    dayOfWeek,
+                    isSunday,
+                    dayName: i === 0 ? 'Today' : d.toLocaleDateString('en-US', { weekday: 'short' }),
+                    dayNum: d.getDate(),
+                    monthName: d.toLocaleDateString('en-US', { month: 'short' }),
+                    fullFormatted: d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })
+                });
+            }
+
+            minBookingDate = currentBookingDates[0].dateStr;
+            maxBookingDate = currentBookingDates[currentBookingDates.length - 1].dateStr;
+
+            // Constrain native date input
+            const dateInput = document.getElementById('appt-date');
+            if (dateInput) {
+                dateInput.min = minBookingDate;
+                dateInput.max = maxBookingDate;
+            }
+
+            // Check if today has any remaining slots left
+            const defaultSlots = ['10:00 AM', '11:00 AM', '12:00 PM', '02:00 PM', '03:00 PM', '04:00 PM', '05:00 PM', '06:00 PM', '07:00 PM'];
+            const todayHasUpcomingSlots = defaultSlots.some(s => !isSlotPassed(currentBookingDates[0].dateStr, s));
+
+            // Pick initial date: Today if not Sunday & has slots; otherwise pick next available working day
+            let initialDate = null;
+            if (!currentBookingDates[0].isSunday && todayHasUpcomingSlots) {
+                initialDate = currentBookingDates[0].dateStr;
+            } else {
+                const nextAvail = currentBookingDates.slice(1).find(d => !d.isSunday);
+                initialDate = nextAvail ? nextAvail.dateStr : currentBookingDates[0].dateStr;
+            }
+
+            selectedBookingDate = initialDate;
+            if (dateInput) dateInput.value = selectedBookingDate;
+
+            renderDatePills();
+            loadSlotAvailability(selectedBookingDate);
+        }
+
+        let registeredCenterHolidays = [];
+
+        async function fetchCenterHolidays() {
+            try {
+                const res = await fetch(`${API_URL}/holidays`);
+                const data = await res.json();
+                if (data.success && Array.isArray(data.holidays)) {
+                    registeredCenterHolidays = data.holidays;
+                    renderDatePills();
+                }
+            } catch(e) {}
+        }
+
+        function renderDatePills() {
+            const container = document.getElementById('appt-date-pills');
+            if (!container) return;
+
+            const defaultSlots = ['10:00 AM', '11:00 AM', '12:00 PM', '02:00 PM', '03:00 PM', '04:00 PM', '05:00 PM', '06:00 PM', '07:00 PM'];
+            const todayStr = currentBookingDates[0]?.dateStr;
+            const todayEnded = !defaultSlots.some(s => !isSlotPassed(todayStr, s));
+
+            container.innerHTML = currentBookingDates.map(item => {
+                if (item.isSunday) {
+                    return `
+                        <div class="flex-shrink-0 flex flex-col items-center justify-center px-3.5 py-2.5 rounded-2xl border border-outline/10 bg-surface-variant/20 text-on-surface-variant/40 cursor-not-allowed select-none min-w-[70px] text-center" title="Cube Cad Center is closed on Sundays">
+                            <span class="text-[10px] font-bold uppercase tracking-wider text-error/60">${item.dayName}</span>
+                            <span class="text-base font-extrabold my-0.5 line-through">${item.dayNum}</span>
+                            <span class="text-[10px] font-semibold text-error/70">Closed</span>
+                        </div>
+                    `;
+                }
+
+                const holidayInfo = registeredCenterHolidays.find(h => h.date === item.dateStr);
+                if (holidayInfo) {
+                    return `
+                        <div class="flex-shrink-0 flex flex-col items-center justify-center px-3.5 py-2.5 rounded-2xl border border-amber-500/30 bg-amber-500/10 text-amber-300 cursor-not-allowed select-none min-w-[70px] text-center" title="Holiday: ${holidayInfo.title}">
+                            <span class="text-[10px] font-bold uppercase tracking-wider text-amber-400">${item.dayName}</span>
+                            <span class="text-base font-extrabold my-0.5 line-through">${item.dayNum}</span>
+                            <span class="text-[10px] font-semibold text-amber-400">Holiday</span>
+                        </div>
+                    `;
+                }
+
+                const isSelected = item.dateStr === selectedBookingDate;
+                const isTodayPassed = (item.dateStr === todayStr && todayEnded);
+
+                return `
+                    <button type="button" onclick="selectDatePill('${item.dateStr}')"
+                        class="flex-shrink-0 flex flex-col items-center justify-center px-3.5 py-2.5 rounded-2xl transition-all cursor-pointer min-w-[70px] text-center
+                        ${isSelected 
+                            ? 'bg-primary text-white shadow-md border-2 border-primary scale-[1.02] ring-2 ring-primary/20' 
+                            : 'bg-surface-container-low text-on-surface border border-outline/15 hover:border-primary/50 hover:bg-primary/5'
+                        }">
+                        <span class="text-[10px] font-bold uppercase tracking-wider ${isSelected ? 'text-white/90' : 'text-on-surface-variant'}">${item.dayName}</span>
+                        <span class="text-base font-extrabold my-0.5">${item.dayNum}</span>
+                        <span class="text-[10px] font-medium ${isSelected ? 'text-white/80' : 'text-on-surface-variant'}">${isTodayPassed ? 'Ended' : item.monthName}</span>
+                    </button>
+                `;
+            }).join('');
+        }
+
+        function selectDatePill(dateStr) {
+            const target = currentBookingDates.find(d => d.dateStr === dateStr);
+            if (!target || target.isSunday) {
+                showApptAlert('warning', 'Sundays are Closed', 'Sundays are official holidays at Cube Cad Center. Please select any date from Monday to Saturday.');
+                return;
+            }
+
+            const holidayMatch = registeredCenterHolidays.find(h => h.date === dateStr);
+            if (holidayMatch) {
+                showApptAlert('warning', `Center Holiday: ${holidayMatch.title}`, holidayMatch.description || 'Cube Cad Center is closed for this official holiday.');
+                return;
+            }
+
+            dismissApptAlert();
+            selectedBookingDate = dateStr;
+            const dateInput = document.getElementById('appt-date');
+            if (dateInput) dateInput.value = dateStr;
+
+            selectedTimeSlot = null;
+            document.getElementById('appt-time').value = '';
+
+            renderDatePills();
+            loadSlotAvailability(selectedBookingDate);
+        }
+
+        async function loadSlotAvailability(dateStr) {
+            const container = document.getElementById('appt-time-slots');
+            const summaryEl = document.getElementById('appt-slots-summary');
+            if (!container) return;
+
+            // Check if Sunday client-side
+            const checkObj = new Date(dateStr + 'T00:00:00');
+            if (checkObj.getDay() === 0) {
+                showApptAlert('error', 'Sundays are Closed', 'Cube Cad Center is closed on Sundays. Please select a working day.');
+                container.innerHTML = `
+                    <div class="col-span-full p-6 text-center rounded-2xl bg-surface-variant/20 border border-outline/10 text-on-surface-variant">
+                        <span class="material-symbols-outlined text-3xl text-amber-500 mb-1">beach_access</span>
+                        <p class="font-bold text-sm">Sunday is a Closed Holiday</p>
+                        <p class="text-xs mt-1">Please select another date between today and the next 7 days.</p>
+                    </div>
+                `;
+                if (summaryEl) summaryEl.textContent = 'Sunday (Closed)';
+                return;
+            }
+
+            // Check if Center Holiday from Admin
+            const holidayMatch = registeredCenterHolidays.find(h => h.date === dateStr);
+            if (holidayMatch) {
+                showApptAlert('warning', `Center Holiday: ${holidayMatch.title}`, holidayMatch.description || 'Cube Cad Center is closed on this date.');
+                container.innerHTML = `
+                    <div class="col-span-full p-6 text-center rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-300">
+                        <span class="material-symbols-outlined text-3xl text-amber-400 mb-1">celebration</span>
+                        <p class="font-bold text-sm">${holidayMatch.title}</p>
+                        <p class="text-xs mt-1">${holidayMatch.description || 'Center is closed on this date. Resuming on the next working day.'}</p>
+                    </div>
+                `;
+                if (summaryEl) summaryEl.textContent = 'Center Holiday (Closed)';
+                return;
+            }
+
+            if (summaryEl) summaryEl.textContent = 'Checking availability…';
+            container.innerHTML = `
+                <div class="col-span-full py-8 text-center text-on-surface-variant text-sm flex items-center justify-center gap-2">
+                    <span class="material-symbols-outlined text-xl animate-spin text-primary">progress_activity</span>
+                    Loading available time slots…
+                </div>
+            `;
+
+            try {
+                const res = await fetch(`${API_URL}/appointments/availability?date=${dateStr}`);
+                const data = await res.json();
+
+                if (!res.ok || !data.success) {
+                    showApptAlert('error', 'Availability Notice', data.error || 'Could not fetch time slots for this date.');
+                    container.innerHTML = `
+                        <div class="col-span-full p-4 text-center rounded-2xl bg-error/10 border border-error/20 text-error text-xs">
+                            ${data.error || 'Unavailable for booking'}
+                        </div>
+                    `;
+                    if (summaryEl) summaryEl.textContent = 'Unavailable';
+                    return;
+                }
+
+                cachedSlotAvailability = data.timeSlots || data.slots || [];
+                renderSlotsUI();
+            } catch (err) {
+                console.warn('Slot availability fetch failed, using fallback slots:', err);
+                cachedSlotAvailability = [
+                    { slot: '10:00 AM', capacity: 3, booked: 0, available: 3, isFullyBooked: false, label: '' },
+                    { slot: '11:00 AM', capacity: 3, booked: 0, available: 3, isFullyBooked: false, label: '' },
+                    { slot: '12:00 PM', capacity: 3, booked: 0, available: 3, isFullyBooked: false, label: '' },
+                    { slot: '02:00 PM', capacity: 3, booked: 0, available: 3, isFullyBooked: false, label: '' },
+                    { slot: '03:00 PM', capacity: 3, booked: 0, available: 3, isFullyBooked: false, label: '' },
+                    { slot: '04:00 PM', capacity: 3, booked: 0, available: 3, isFullyBooked: false, label: '' },
+                    { slot: '05:00 PM', capacity: 3, booked: 0, available: 3, isFullyBooked: false, label: '' },
+                    { slot: '06:00 PM', capacity: 3, booked: 0, available: 3, isFullyBooked: false, label: '' },
+                    { slot: '07:00 PM', capacity: 3, booked: 0, available: 3, isFullyBooked: false, label: '' }
+                ];
+                renderSlotsUI();
+            }
+        }
+
+        function renderSlotsUI() {
+            const container = document.getElementById('appt-time-slots');
+            const summaryEl = document.getElementById('appt-slots-summary');
+            if (!container) return;
+
+            // Rule: if that time is pass dont show that time in time slot
+            const visibleSlots = (cachedSlotAvailability || []).filter(item => {
+                return !isSlotPassed(selectedBookingDate, item.slot);
+            });
+
+            if (visibleSlots.length === 0) {
+                const todayStr = currentBookingDates[0]?.dateStr;
+                if (selectedBookingDate === todayStr) {
+                    container.innerHTML = `
+                        <div class="col-span-full p-6 text-center rounded-2xl bg-surface-container-low border border-outline/10 text-on-surface-variant">
+                            <span class="material-symbols-outlined text-3xl text-amber-500 mb-1.5">history_toggle_off</span>
+                            <p class="font-bold text-sm text-on-surface">All appointments for today have concluded</p>
+                            <p class="text-xs mt-1">Today's appointment hours are over. Please select tomorrow or an upcoming date.</p>
+                        </div>
+                    `;
+                    if (summaryEl) summaryEl.textContent = 'All slots passed for today';
+                } else {
+                    container.innerHTML = `
+                        <div class="col-span-full p-4 text-center text-xs text-on-surface-variant bg-surface-container-low rounded-2xl">
+                            No available time slots found for this date.
+                        </div>
+                    `;
+                    if (summaryEl) summaryEl.textContent = 'No slots available';
+                }
+                return;
+            }
+
+            const openCount = visibleSlots.filter(s => !s.isFullyBooked && s.available > 0).length;
+            if (summaryEl) {
+                summaryEl.textContent = `${openCount} slot${openCount === 1 ? '' : 's'} available`;
+            }
+
+            container.innerHTML = visibleSlots.map(item => {
+                if (item.isFullyBooked || item.available <= 0) {
+                    return `
+                        <div class="flex flex-col items-center justify-center p-3 rounded-2xl bg-surface-variant/25 border border-outline/10 text-on-surface-variant/40 cursor-not-allowed select-none text-center">
+                            <span class="text-xs sm:text-sm font-semibold line-through">${item.slot}</span>
+                            <span class="mt-1 inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-error/10 text-error border border-error/20">
+                                <span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+                                Fully Booked
+                            </span>
+                        </div>
+                    `;
+                }
+
+                const isSelected = selectedTimeSlot === item.slot;
+
+                // Rule: "it should not show 3 appointment left it should only show when 1 appointment left"
+                const isOnlyOneLeft = (item.available === 1);
+
+                return `
+                    <button type="button" onclick="selectSlot('${item.slot}')"
+                        class="flex flex-col items-center justify-center p-3 sm:p-3.5 rounded-2xl transition-all cursor-pointer text-center
+                        ${isSelected 
+                            ? 'bg-primary text-white border-2 border-primary shadow-md scale-[1.02] ring-2 ring-primary/20' 
+                            : 'bg-surface-container-low text-on-surface border border-outline/15 hover:border-primary/50 hover:bg-primary/5'
+                        }">
+                        <span class="text-xs sm:text-sm font-bold ${isSelected ? 'text-white' : 'text-on-surface'}">${item.slot}</span>
+                        ${isOnlyOneLeft ? `
+                            <span class="mt-1 inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full ${isSelected ? 'bg-white/20 text-white border border-white/30' : 'bg-amber-500/15 text-amber-600 border border-amber-500/25'}">
+                                <span class="w-1.5 h-1.5 rounded-full ${isSelected ? 'bg-white' : 'bg-amber-500 animate-pulse'}"></span>
+                                1 slot left
+                            </span>
+                        ` : `
+                            <span class="text-[10px] font-medium mt-1 ${isSelected ? 'text-white/80' : 'text-on-surface-variant/70'}">Available</span>
+                        `}
+                    </button>
+                `;
+            }).join('');
+        }
+
+        function selectSlot(slot) {
+            const slotData = cachedSlotAvailability.find(s => s.slot === slot);
+            if (slotData && (slotData.isFullyBooked || slotData.available <= 0)) {
+                showApptAlert('warning', 'Slot Unavailable', 'This time slot has reached its maximum capacity of 3 students. Please pick another slot.');
+                return;
+            }
+
+            dismissApptAlert();
+            selectedTimeSlot = slot;
+            const timeInput = document.getElementById('appt-time');
+            if (timeInput) timeInput.value = slot;
+            renderSlotsUI();
+        }
+
+        // Handle native date input change
+        function onNativeDateChange() {
+            const dateInput = document.getElementById('appt-date');
+            if (!dateInput) return;
+            const val = dateInput.value;
+            if (!val) return;
+
+            // Check if past
+            if (val < minBookingDate) {
+                showApptAlert('error', 'Invalid Date', 'Appointments cannot be booked for past dates. Please choose from today onwards.');
+                dateInput.value = selectedBookingDate;
+                return;
+            }
+
+            // Check if beyond 7 days
+            if (val > maxBookingDate) {
+                showApptAlert('error', 'Out of Range', `Appointments can only be booked within the next 7 days (up to ${maxBookingDate}).`);
+                dateInput.value = selectedBookingDate;
+                return;
+            }
+
+            // Check if Sunday
+            const d = new Date(val + 'T00:00:00');
+            if (d.getDay() === 0) {
+                showApptAlert('error', 'Sundays are Closed', 'Sundays are official holidays at Cube Cad Center. Please select any Monday to Saturday.');
+                dateInput.value = selectedBookingDate;
+                return;
+            }
+
+            dismissApptAlert();
+            selectedBookingDate = val;
+            selectedTimeSlot = null;
+            document.getElementById('appt-time').value = '';
+
+            renderDatePills();
+            loadSlotAvailability(selectedBookingDate);
+        }
+
+        // Initialize listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            initApptCalendar();
+            fetchCenterHolidays();
+
+            const dateInput = document.getElementById('appt-date');
+            if (dateInput) {
+                dateInput.addEventListener('change', onNativeDateChange);
+            }
+
+            // Auto-fill from logged-in user if available
+            const user = getCurrentUser();
+            if (user) {
+                const nameInput = document.getElementById('appt-name');
+                const phoneInput = document.getElementById('appt-phone');
+                const emailInput = document.getElementById('appt-email');
+                if (nameInput && !nameInput.value) nameInput.value = user.name || '';
+                if (phoneInput && user.phone && !phoneInput.value) phoneInput.value = user.phone;
+                if (emailInput && !emailInput.value) emailInput.value = user.email || '';
+            }
+        });
+
+        // Submit appointment with strict validation & double-submission guard
+        async function submitAppointment() {
+            if (isSubmittingAppointment) return;
+
+            // MANDATORY REQUIREMENT: Must create an account and log in
+            let currentUser = getCurrentUser();
+            let fbUser = (window.FirebaseDB && window.FirebaseDB.getCurrentUser) ? window.FirebaseDB.getCurrentUser() : null;
+            let authToken = await getFreshAuthToken();
+
+            // Genuinely logged out check: neither local user nor Firebase user exists
+            if (!currentUser && !fbUser) {
+                showApptAlert('warning', 'Account Required', 'To submit an appointment, you must first create an account and log in. Your consultation details and booking confirmation will be safely saved to your personal student portal.');
+                openAuthModal('signin');
+                showAuthAlert('Please sign in or create an account to confirm and submit your appointment.');
+                return;
+            }
+
+            // Sync user object if needed
+            if (!currentUser && fbUser) {
+                currentUser = {
+                    id: fbUser.uid,
+                    uid: fbUser.uid,
+                    email: fbUser.email,
+                    name: fbUser.displayName || fbUser.email.split('@')[0],
+                    phone: ''
+                };
+            }
+
+            const serviceEl = document.getElementById('appt-service');
+            const dateInput = document.getElementById('appt-date');
+            const nameInput = document.getElementById('appt-name');
+            const phoneInput = document.getElementById('appt-phone');
+            const emailInput = document.getElementById('appt-email');
+            const submitBtn = document.getElementById('appt-submit-btn');
+            const submitBtnText = document.getElementById('appt-submit-btn-text');
+
+            const serviceVal = serviceEl ? serviceEl.value.trim() : '';
+            const dateVal = dateInput ? dateInput.value.trim() : '';
+            const timeVal = selectedTimeSlot || (document.getElementById('appt-time') ? document.getElementById('appt-time').value : '');
+            const nameVal = nameInput ? nameInput.value.trim() : '';
+            const phoneVal = phoneInput ? phoneInput.value.trim() : '';
+            const emailVal = emailInput ? emailInput.value.trim() : '';
+
+            // Rule 4: Do not allow incomplete bookings
+            if (!serviceVal) {
+                showApptAlert('error', 'Incomplete Booking', 'Please select a counseling program or service.');
+                serviceEl.focus();
+                return;
+            }
+
+            if (!dateVal) {
+                showApptAlert('error', 'Incomplete Booking', 'Please select an appointment date within the next 7 days.');
+                return;
+            }
+
+            // Sunday validation
+            const dateObj = new Date(dateVal + 'T00:00:00');
+            if (dateObj.getDay() === 0) {
+                showApptAlert('error', 'Sunday Holiday', 'Sundays are official holidays. Please choose any date from Monday to Saturday.');
+                return;
+            }
+
+            // 7-day range validation
+            if (dateVal < minBookingDate || dateVal > maxBookingDate) {
+                showApptAlert('error', 'Invalid Date', `Appointments are only accepted within the next 7 days (${minBookingDate} to ${maxBookingDate}).`);
+                return;
+            }
+
+            if (!timeVal) {
+                showApptAlert('error', 'Incomplete Booking', 'Please choose an available time slot.');
+                return;
+            }
+
+            // Check if selected time slot has passed
+            if (isSlotPassed(dateVal, timeVal)) {
+                showApptAlert('error', 'Time Slot Passed', `The ${timeVal} time slot has already passed for today. Please select an upcoming time slot.`);
+                return;
+            }
+
+            if (!nameVal || nameVal.length < 2) {
+                showApptAlert('error', 'Incomplete Booking', 'Please enter your full name (at least 2 characters).');
+                nameInput.focus();
+                return;
+            }
+
+            const cleanPhone = phoneVal.replace(/\D/g, '');
+            if (!cleanPhone || cleanPhone.length < 10) {
+                showApptAlert('error', 'Invalid Phone Number', 'Please enter a valid 10-digit mobile number so we can confirm your appointment.');
+                phoneInput.focus();
+                return;
+            }
+
+            // Rule 14: Prevent double submission
+            isSubmittingAppointment = true;
+            submitBtn.disabled = true;
+            if (submitBtnText) submitBtnText.textContent = 'Securing Appointment…';
+
+            const payload = {
+                name: nameVal,
+                email: emailVal,
+                phone: cleanPhone,
+                program: serviceVal,
+                branch: 'Satellite Campus',
+                date: dateVal,
+                timeSlot: timeVal,
+                mode: 'In-Person',
+                notes: ''
+            };
+
+            let result = null;
+            let fbBooking = null;
+
+            // 1. Submit directly to authoritative backend API first (instant, validates capacity & syncs to Firestore)
+            try {
+                const headers = { 'Content-Type': 'application/json' };
+                if (authToken) headers['Authorization'] = 'Bearer ' + authToken;
+
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 8000);
+
+                const res = await fetch(`${API_URL}/appointments`, {
+                    method: 'POST',
+                    headers,
+                    body: JSON.stringify(payload),
+                    signal: controller.signal
+                });
+                clearTimeout(timeoutId);
+
+                result = await res.json();
+
+                if (!res.ok || !result.success) {
+                    // Check if rejected specifically for auth failure
+                    if (res.status === 401 && result.requireAuth) {
+                        showApptAlert('error', 'Session Expired', result.error || 'Your session has expired or is invalid. Please log in again to confirm your appointment.');
+                        openAuthModal('signin');
+                        showAuthAlert('Your session has expired. Please sign in again to confirm your appointment.');
+                        submitBtn.disabled = false;
+                        if (submitBtnText) submitBtnText.textContent = 'Confirm & Book Appointment';
+                        isSubmittingAppointment = false;
+                        return;
+                    }
+
+                    showApptAlert('error', 'Booking Notice', result.error || 'Failed to complete appointment booking. Please try another slot.');
+                    await loadSlotAvailability(dateVal);
+                    submitBtn.disabled = false;
+                    if (submitBtnText) submitBtnText.textContent = 'Confirm & Book Appointment';
+                    isSubmittingAppointment = false;
+                    return;
+                }
+            } catch (err) {
+                console.warn('Backend API submission note:', err);
+
+                // Fallback: If backend is unreachable, try client Firebase save with short 4s timeout
+                if (window.FirebaseDB && window.FirebaseDB.saveBooking) {
+                    try {
+                        const bookingPayload = {
+                            ...payload,
+                            user_id: (fbUser && fbUser.uid) || currentUser.uid || currentUser.id,
+                            email: (fbUser && fbUser.email) || currentUser.email || emailVal
+                        };
+                        const fbPromise = window.FirebaseDB.saveBooking(bookingPayload);
+                        const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error('Firebase timeout')), 4000));
+                        fbBooking = await Promise.race([fbPromise, timeoutPromise]);
+                        result = { success: true, appointment: fbBooking };
+                    } catch (fbErr) {
+                        console.warn('Fallback Firebase save note:', fbErr);
+                    }
+                }
+
+                if (!result || !result.success) {
+                    showApptAlert('error', 'Network Error', 'Could not complete appointment booking. Please check your connection and try again.');
+                    submitBtn.disabled = false;
+                    if (submitBtnText) submitBtnText.textContent = 'Confirm & Book Appointment';
+                    isSubmittingAppointment = false;
+                    return;
+                }
+            }
+
+            // Successful booking!
+            dismissApptAlert();
+            const appt = result.appointment;
+            const ref = appt.bookingRef || appt.booking_ref || ('CCC-' + (appt.id || Math.floor(100000 + Math.random() * 900000)));
+
+            // Fill confirmation card
+            document.getElementById('confirm-id').textContent = ref;
+            document.getElementById('confirm-service').textContent = serviceVal;
+
+            const confirmDateObj = new Date(dateVal + 'T00:00:00');
+            document.getElementById('confirm-date').textContent = confirmDateObj.toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            document.getElementById('confirm-time').textContent = timeVal;
+            document.getElementById('confirm-name').textContent = nameVal;
+            document.getElementById('confirm-phone').textContent = cleanPhone;
+
+            // Switch to confirmation view
+            document.getElementById('appt-form-view').classList.add('hidden');
+            document.getElementById('appt-confirm-view').classList.remove('hidden');
+            scrollToBookingSection();
+
+            // Background non-blocking sync to client Firebase (never blocks the user interface)
+            if (window.FirebaseDB && !fbBooking) {
+                try {
+                    const bgPayload = {
+                        ...payload,
+                        booking_ref: ref,
+                        user_id: (fbUser && fbUser.uid) || currentUser.uid || currentUser.id,
+                        email: (fbUser && fbUser.email) || currentUser.email || emailVal
+                    };
+                    if (typeof window.FirebaseDB.saveBooking === 'function') {
+                        window.FirebaseDB.saveBooking(bgPayload).catch(() => {});
+                    }
+                    if ((emailVal || cleanPhone) && typeof window.FirebaseDB.saveUser === 'function') {
+                        window.FirebaseDB.saveUser({
+                            name: nameVal,
+                            email: emailVal,
+                            phone: cleanPhone,
+                            role: 'student',
+                            uid: (fbUser && fbUser.uid) || currentUser.uid || ''
+                        }).catch(() => {});
+                    }
+                } catch(e) {}
+            }
+
+            // Rule 8: Automatically update slot availability after every successful appointment
+            loadSlotAvailability(dateVal);
+
+            // Store in user appointments locally
+            try {
+                const existing = JSON.parse(localStorage.getItem('ccc_appointments') || '[]');
+                existing.unshift(appt);
+                localStorage.setItem('ccc_appointments', JSON.stringify(existing));
+            } catch(e) {}
+
+            submitBtn.disabled = false;
+            if (submitBtnText) submitBtnText.textContent = 'Confirm & Book Appointment';
+            isSubmittingAppointment = false;
+        }
+
+        function resetAppointmentForm() {
+            dismissApptAlert();
+            document.getElementById('appt-form-view').classList.remove('hidden');
+            document.getElementById('appt-confirm-view').classList.add('hidden');
+
+            const serviceEl = document.getElementById('appt-service');
+            if (serviceEl) serviceEl.selectedIndex = 0;
+
+            selectedTimeSlot = null;
+            const timeInput = document.getElementById('appt-time');
+            if (timeInput) timeInput.value = '';
+
+            const phoneInput = document.getElementById('appt-phone');
+            if (phoneInput) phoneInput.value = '';
+
+            // Keep user name/email if logged in
+            const user = getCurrentUser();
+            if (!user) {
+                const nameInput = document.getElementById('appt-name');
+                if (nameInput) nameInput.value = '';
+                const emailInput = document.getElementById('appt-email');
+                if (emailInput) emailInput.value = '';
+            }
+
+            // Re-render pills and slots
+            renderDatePills();
+            loadSlotAvailability(selectedBookingDate);
+            scrollToBookingSection();
+        }
+
+        function scrollToBookingSection() {
+            const el = document.getElementById('book-appointment');
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Quick open from course cards
+        function openBookingModal(preselectedProgram) {
+            scrollToBookingSection();
+            if (preselectedProgram) {
+                const sel = document.getElementById('appt-service');
+                if (sel) {
+                    for (let i = 0; i < sel.options.length; i++) {
+                        if (sel.options[i].value.toLowerCase().includes(preselectedProgram.toLowerCase())) {
+                            sel.selectedIndex = i;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        function closeBookingModal() {
+            const modal = document.getElementById('booking-modal');
+            if (modal) { modal.classList.add('hidden'); modal.classList.remove('flex'); }
+        }
+
+        function closeMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenu) {
+                mobileMenu.classList.add('hidden');
+                mobileMenu.classList.remove('flex');
+            }
+        }
+    </script>
+</body>
+
+</html>
