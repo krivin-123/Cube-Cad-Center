@@ -962,12 +962,30 @@
 
                 <form id="appt-booking-form" onsubmit="event.preventDefault(); submitAppointment();" novalidate>
                     
-                    <!-- 1. Select Service -->
+                    <!-- 1. Select Branch -->
+                    <div class="mb-6">
+                        <label for="appt-branch" class="block text-sm font-bold text-on-surface mb-2 flex items-center justify-between">
+                            <span class="flex items-center gap-1.5">
+                                <span class="material-symbols-outlined text-primary text-[19px]">location_on</span>
+                                1. Select Branch <span class="text-error text-xs">*</span>
+                            </span>
+                            <span class="text-xs font-normal text-on-surface-variant">Ahmedabad</span>
+                        </label>
+                        <div class="relative">
+                            <select id="appt-branch" required class="w-full px-4 py-3.5 bg-surface-container-low rounded-2xl border border-outline/20 text-on-surface text-sm sm:text-base font-medium focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all appearance-none cursor-pointer">
+                                <option value="SATELLITE BRANCH" selected>🏢 SATELLITE BRANCH (310, Iscon Emporio, Satellite)</option>
+                                <option value="BOPAL BRANCH">🏢 BOPAL BRANCH (C449, 4th Floor, SoBo Center, South Bopal)</option>
+                            </select>
+                            <span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none text-xl">expand_more</span>
+                        </div>
+                    </div>
+
+                    <!-- 2. Select Service -->
                     <div class="mb-6">
                         <label for="appt-service" class="block text-sm font-bold text-on-surface mb-2 flex items-center justify-between">
                             <span class="flex items-center gap-1.5">
                                 <span class="material-symbols-outlined text-primary text-[19px]">category</span>
-                                1. Select Service <span class="text-error text-xs">*</span>
+                                2. Select Service <span class="text-error text-xs">*</span>
                             </span>
                             <span class="text-xs font-normal text-on-surface-variant">1-on-1 Guidance</span>
                         </label>
@@ -986,12 +1004,12 @@
                         </div>
                     </div>
 
-                    <!-- 2. Select Date (Next 7 Days, Sundays Closed) -->
+                    <!-- 3. Select Date (Next 7 Days, Sundays Closed) -->
                     <div class="mb-6">
                         <div class="flex items-center justify-between mb-2">
                             <label class="block text-sm font-bold text-on-surface flex items-center gap-1.5">
                                 <span class="material-symbols-outlined text-primary text-[19px]">calendar_today</span>
-                                2. Select Date <span class="text-error text-xs">*</span>
+                                3. Select Date <span class="text-error text-xs">*</span>
                             </label>
                             <span class="text-xs text-on-surface-variant font-medium">Next 7 days (Sundays closed)</span>
                         </div>
@@ -1009,12 +1027,12 @@
                         </div>
                     </div>
 
-                    <!-- 3. Select Available Time Slot -->
+                    <!-- 4. Select Available Time Slot -->
                     <div class="mb-7">
                         <div class="flex items-center justify-between mb-2.5">
                             <label class="block text-sm font-bold text-on-surface flex items-center gap-1.5">
                                 <span class="material-symbols-outlined text-primary text-[19px]">schedule</span>
-                                3. Select Available Time Slot <span class="text-error text-xs">*</span>
+                                4. Select Available Time Slot <span class="text-error text-xs">*</span>
                             </label>
                             <span id="appt-slots-summary" class="text-xs text-on-surface-variant font-medium">Max 3 users / slot</span>
                         </div>
@@ -1026,11 +1044,11 @@
                         <input type="hidden" id="appt-time" required>
                     </div>
 
-                    <!-- 4. Contact Details -->
+                    <!-- 5. Contact Details -->
                     <div class="p-5 rounded-2xl bg-surface-container-low/60 border border-outline/10 mb-7">
                         <h4 class="text-xs font-bold text-on-surface uppercase tracking-wider mb-3.5 flex items-center gap-1.5">
                             <span class="material-symbols-outlined text-primary text-base">person</span>
-                            4. Your Contact Information
+                            5. Your Contact Information
                         </h4>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 mb-3.5">
                             <div>
@@ -1089,6 +1107,10 @@
                     <div class="flex justify-between items-start gap-4">
                         <span class="text-xs text-on-surface-variant font-medium">Service</span>
                         <span class="font-semibold text-on-surface text-xs sm:text-sm text-right flex-1" id="confirm-service">–</span>
+                    </div>
+                    <div class="flex justify-between items-start gap-4">
+                        <span class="text-xs text-on-surface-variant font-medium">Branch</span>
+                        <span class="font-semibold text-primary text-xs sm:text-sm text-right flex-1" id="confirm-branch">–</span>
                     </div>
                     <div class="flex justify-between items-center">
                         <span class="text-xs text-on-surface-variant font-medium">Date</span>
@@ -1193,16 +1215,16 @@
                     <ul class="space-y-4 text-sm text-on-surface-variant">
                         <li class="flex items-start gap-3">
                             <span class="material-symbols-outlined text-[18px] text-primary mt-0.5">location_on</span>
-                            <div>
-                                <strong class="block text-on-surface">Satellite (HQ):</strong>
-                                310, Iscon Emporio, Near Jodhpur Cross Road
+                            <div class="leading-relaxed">
+                                <a href="https://www.cubecadcenter.co/whycube" class="block font-bold text-on-surface hover:text-primary transition-colors">SATELLITE BRANCH</a>
+                                <p class="text-xs text-on-surface-variant mt-1">310, Iscon Emporio,<br>Beside Star Bazaar,<br>Near Jodhpur Cross Road, Satellite,<br>Ahmedabad,<br>Gujarat 380015, India.</p>
                             </div>
                         </li>
                         <li class="flex items-start gap-3">
                             <span class="material-symbols-outlined text-[18px] text-primary mt-0.5">location_on</span>
-                            <div>
-                                <strong class="block text-on-surface">South Bopal:</strong>
-                                C449, 4th Floor, SoBo Center
+                            <div class="leading-relaxed">
+                                <strong class="block font-bold text-on-surface">BOPAL BRANCH</strong>
+                                <p class="text-xs text-on-surface-variant mt-1">C449, 4th Floor, SoBo Center,<br>South Bopal,<br>Above Gwalia,<br>Ahmedabad,<br>Gujarat 380058, India.</p>
                             </div>
                         </li>
                         <li class="flex items-start gap-3">
@@ -2806,6 +2828,7 @@
                 };
             }
 
+            const branchEl = document.getElementById('appt-branch');
             const serviceEl = document.getElementById('appt-service');
             const dateInput = document.getElementById('appt-date');
             const nameInput = document.getElementById('appt-name');
@@ -2814,6 +2837,7 @@
             const submitBtn = document.getElementById('appt-submit-btn');
             const submitBtnText = document.getElementById('appt-submit-btn-text');
 
+            const branchVal = branchEl ? branchEl.value.trim() : 'SATELLITE BRANCH';
             const serviceVal = serviceEl ? serviceEl.value.trim() : '';
             const dateVal = dateInput ? dateInput.value.trim() : '';
             const timeVal = selectedTimeSlot || (document.getElementById('appt-time') ? document.getElementById('appt-time').value : '');
@@ -2880,7 +2904,7 @@
                 email: emailVal,
                 phone: cleanPhone,
                 program: serviceVal,
-                branch: 'Satellite Campus',
+                branch: branchVal || 'SATELLITE BRANCH',
                 date: dateVal,
                 timeSlot: timeVal,
                 mode: 'In-Person',
@@ -2964,6 +2988,8 @@
             // Fill confirmation card
             document.getElementById('confirm-id').textContent = ref;
             document.getElementById('confirm-service').textContent = serviceVal;
+            const confirmBranchEl = document.getElementById('confirm-branch');
+            if (confirmBranchEl) confirmBranchEl.textContent = branchVal || 'SATELLITE BRANCH';
 
             const confirmDateObj = new Date(dateVal + 'T00:00:00');
             document.getElementById('confirm-date').textContent = confirmDateObj.toLocaleDateString('en-US', {
@@ -3024,6 +3050,9 @@
             dismissApptAlert();
             document.getElementById('appt-form-view').classList.remove('hidden');
             document.getElementById('appt-confirm-view').classList.add('hidden');
+
+            const branchEl = document.getElementById('appt-branch');
+            if (branchEl) branchEl.selectedIndex = 0;
 
             const serviceEl = document.getElementById('appt-service');
             if (serviceEl) serviceEl.selectedIndex = 0;
