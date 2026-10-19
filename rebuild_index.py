@@ -36,7 +36,7 @@ new_html = f"""<!DOCTYPE html>
     <nav class="fixed top-0 left-0 right-0 z-[100] bg-surface/80 backdrop-blur-md border-b border-outline/20 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-6 md:px-12 h-20 flex items-center justify-between">
             <a href="index.html" class="flex items-center gap-3 group">
-                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKCrhMzNfEEdGqUu8quzzlAOM8DwiGTTLfLwvo-skFKRjuthr09qq_LtnTyC-H5OkixEfm8ORvIWw9uc8CMyVjY436mAH5zbl1Qlq75uEwh9jJlha7mKlS04e3RwoxDddjY4DhM0Rz9rbM31ighMHsFFgU8W5WNlSwTnjkKKuagyOhtK2iIln4sWkNLHgPXXvBy5Fy0OaLqz85qavxnsPezJEhQHG-5ooPG1YAE33Ov7Vm23YezmLW7pbfTQaua1uT" alt="Cube Cad Center Logo" class="h-10 w-auto object-contain transition-transform group-hover:scale-105">
+                <img src="assets/images/logo.png" alt="Cube Cad Center Logo" class="h-10 w-10 object-contain rounded-full shadow-sm transition-transform group-hover:scale-105">
                 <span class="font-headline-md text-lg font-bold text-on-surface tracking-tight">Cube Cad Center</span>
             </a>
             
@@ -535,7 +535,7 @@ new_html = f"""<!DOCTYPE html>
                 <!-- Column 1: Brand -->
                 <div>
                     <a href="#" class="flex items-center gap-3 mb-6">
-                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKCrhMzNfEEdGqUu8quzzlAOM8DwiGTTLfLwvo-skFKRjuthr09qq_LtnTyC-H5OkixEfm8ORvIWw9uc8CMyVjY436mAH5zbl1Qlq75uEwh9jJlha7mKlS04e3RwoxDddjY4DhM0Rz9rbM31ighMHsFFgU8W5WNlSwTnjkKKuagyOhtK2iIln4sWkNLHgPXXvBy5Fy0OaLqz85qavxnsPezJEhQHG-5ooPG1YAE33Ov7Vm23YezmLW7pbfTQaua1uT" alt="Cube Cad Center" class="h-10 w-auto grayscale contrast-200">
+                        <img src="assets/images/logo.png" alt="Cube Cad Center" class="h-12 w-12 object-contain rounded-full shadow-sm">
                         <span class="font-bold text-xl text-on-surface">Cube Cad Center</span>
                     </a>
                     <p class="text-on-surface-variant text-sm leading-relaxed">
