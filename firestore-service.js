@@ -30,7 +30,7 @@ try {
 }
 
 const PROJECT_ID = process.env.FIREBASE_PROJECT_ID || 'cube-cad-center';
-const API_KEY = process.env.FIREBASE_API_KEY || '';
+const API_KEY = process.env.FIREBASE_API_KEY || 'AIzaSyDBdKpF_64kpxJ3JxBuRAMjRBCVnMisorI';
 
 // --- Firestore REST Serialization Helpers (used if Admin SDK not connected) ---
 function toFirestoreValue(val) {

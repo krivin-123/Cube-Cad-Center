@@ -909,8 +909,8 @@
 
             <form id="login-form" onsubmit="handleAdminLogin(event)">
                 <div class="form-group">
-                    <label for="admin-email">Email Address</label>
-                    <input type="email" id="admin-email" class="form-input" placeholder="admin@cubecadcenter.com" required autocomplete="email">
+                    <label for="admin-email">Email Address or Username</label>
+                    <input type="text" id="admin-email" class="form-input" placeholder="admin@cubecadcenter.com or cubecadcenter0711@gmail.com" required autocomplete="username">
                 </div>
                 <div class="form-group">
                     <label for="admin-password">Password</label>
@@ -2807,12 +2807,12 @@
                 const res = await fetch(API_URL + '/admin/signin', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, password })
+                    body: JSON.stringify({ email, username: email, password })
                 });
                 const data = await res.json();
 
                 if (!res.ok || !data.success) {
-                    throw new Error(data.error || 'Login failed');
+                    throw new Error(data.error || 'Invalid credentials');
                 }
 
                 adminToken = data.token;
@@ -2821,7 +2821,8 @@
 
                 // Authenticate Admin with Firebase Authentication (non-blocking)
                 if (window.FirebaseDB && window.FirebaseDB.signIn) {
-                    window.FirebaseDB.signIn(email, password)
+                    const fbEmail = (data.admin && data.admin.email) ? data.admin.email : (email.includes('@') ? email : 'cubecadcenter0711@gmail.com');
+                    window.FirebaseDB.signIn(fbEmail, password)
                         .then(() => {
                             console.log('🔥 Admin authenticated with Firebase.');
                             initFirebaseAdminSync();
