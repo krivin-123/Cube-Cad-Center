@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Telecaller Desk – Cube Cad Center</title>
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="192x192" href="assets/images/logo-icon.png">
@@ -472,7 +472,196 @@
             color: var(--text-dim);
         }
         .empty-leads .material-symbols-outlined { font-size: 48px; margin-bottom: 12px; color: var(--border-light); }
-    </style>
+    
+        /* ─── MOBILE & RESPONSIVE DESIGN SYSTEM FOR TELECALLER ─── */
+        @media (max-width: 900px) {
+            .stats-strip {
+                grid-template-columns: repeat(3, 1fr);
+                padding: 16px 20px 0;
+                gap: 12px;
+            }
+            .calling-list-wrap {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                padding: 0 20px 32px;
+            }
+            .toolbar {
+                padding: 16px 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding-left: env(safe-area-inset-left);
+                padding-right: env(safe-area-inset-right);
+            }
+            .caller-header {
+                padding: 10px 14px;
+                gap: 10px;
+            }
+            .brand-area img {
+                width: 34px !important;
+                height: 34px !important;
+            }
+            .brand-titles h2 {
+                font-size: 15px;
+            }
+            .brand-titles p {
+                display: none;
+            }
+            .caller-user-badge {
+                padding: 4px 10px;
+                font-size: 11.5px;
+            }
+            .caller-avatar {
+                width: 22px;
+                height: 22px;
+                font-size: 10px;
+            }
+
+            /* Prevent iOS Safari 16px font-size zoom */
+            .form-input, .search-input, .status-select, .notes-input, select, textarea, input {
+                font-size: 16px !important;
+            }
+
+            /* Stats */
+            .stats-strip {
+                grid-template-columns: repeat(2, 1fr);
+                padding: 12px 14px 0;
+                gap: 10px;
+            }
+            .metric-pill {
+                padding: 10px 12px;
+                gap: 10px;
+            }
+            .metric-icon {
+                width: 34px;
+                height: 34px;
+                border-radius: 8px;
+            }
+            .metric-icon .material-symbols-outlined {
+                font-size: 18px;
+            }
+            .metric-val {
+                font-size: 18px;
+            }
+            .metric-label {
+                font-size: 11px;
+            }
+
+            /* Toolbar & Filters */
+            .toolbar {
+                padding: 12px 14px;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+            }
+            .search-box {
+                min-width: 0 !important;
+                max-width: 100% !important;
+                width: 100% !important;
+            }
+            .search-input {
+                width: 100% !important;
+                padding: 10px 14px 10px 38px;
+            }
+            .filter-tabs {
+                width: 100%;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                padding: 4px;
+                gap: 4px;
+            }
+            .tab-btn {
+                padding: 8px 14px;
+                font-size: 13px;
+                min-height: 40px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            /* Cards Container */
+            .calling-list-wrap {
+                grid-template-columns: 1fr;
+                padding: 0 14px 32px;
+                gap: 14px;
+            }
+
+            /* Card Content & Action Touch Targets */
+            .call-card {
+                padding: 16px 14px;
+                gap: 12px;
+                border-radius: var(--radius-sm);
+            }
+            .student-name {
+                font-size: 15px;
+            }
+            .phone-box {
+                padding: 10px 12px;
+            }
+            .phone-number {
+                font-size: 15px;
+            }
+            .phone-actions {
+                gap: 8px;
+            }
+            .phone-btn {
+                width: 42px;
+                height: 42px;
+                border-radius: 10px;
+            }
+            .phone-btn .material-symbols-outlined {
+                font-size: 20px;
+            }
+            .meta-grid {
+                gap: 6px;
+                font-size: 11.5px;
+                padding: 8px 0;
+            }
+            .status-select {
+                min-height: 42px;
+                font-size: 13.5px !important;
+                padding: 8px 10px;
+            }
+            .notes-input-row {
+                gap: 8px;
+            }
+            .notes-input {
+                min-height: 40px;
+                padding: 8px 10px;
+                font-size: 13.5px !important;
+            }
+            .notes-input-row .btn {
+                min-height: 40px;
+                padding: 8px 14px;
+            }
+
+            /* Login Box on Mobile */
+            .login-box {
+                width: 100%;
+                max-width: 360px;
+                padding: 24px 18px;
+                margin: 16px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .stats-strip {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+            .metric-pill {
+                padding: 8px 10px;
+            }
+            .phone-number {
+                font-size: 14px;
+            }
+            .phone-btn {
+                width: 38px;
+                height: 38px;
+            }
+        }
+</style>
 </head>
 <body>
 

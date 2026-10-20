@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport">
     <title>HVAC / MEP - Cube Cad Center</title>
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="192x192" href="assets/images/logo-icon.png">
@@ -109,6 +109,8 @@
         
         body {
             background-color: #F5F5F7;
+            padding-left: env(safe-area-inset-left);
+            padding-right: env(safe-area-inset-right);
             color: #1a1c1d;
             font-family: 'Inter', sans-serif;
             scroll-behavior: smooth;
@@ -151,7 +153,7 @@
     
     <!-- Top Navigation -->
     <header class="w-full bg-surface/90 backdrop-blur-md border-b border-outline/20 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-6 md:px-12 py-4 flex justify-between items-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 py-3.5 sm:py-4 flex flex-wrap justify-between items-center gap-3">
             <a href="index.html" class="flex items-center gap-3 no-underline">
                 <img src="assets/images/logo.png" alt="Cube Cad Center" class="h-9 w-9 object-contain rounded-full shadow-sm">
                 <div class="font-headline-md text-xl font-bold text-on-surface tracking-tight">Cube Cad Center</div>
@@ -164,17 +166,17 @@
 
     <main class="flex-grow">
         <!-- Hero Section -->
-        <section class="bg-surface-container-highest py-20 px-6 md:px-12 blueprint-grid relative border-b border-outline/20">
+        <section class="bg-surface-container-highest py-12 sm:py-20 px-4 sm:px-6 md:px-12 blueprint-grid relative border-b border-outline/20">
             <div class="max-w-7xl mx-auto relative z-10">
                 <span class="inline-block bg-primary text-on-primary font-label-caps text-xs px-3 py-1 mb-4 rounded-sm tracking-widest">COURSE SYLLABUS</span>
-                <h1 class="font-headline-xl text-5xl md:text-6xl font-extrabold text-on-surface mb-6">HVAC / MEP</h1>
+                <h1 class="font-headline-xl text-3xl sm:text-5xl md:text-6xl font-extrabold text-on-surface mb-4 sm:mb-6 leading-tight">HVAC / MEP</h1>
                 <p class="font-body-lg text-lg text-on-surface-variant max-w-2xl">Design and coordinate complex building systems. Ensure optimal performance, energy efficiency, and master clash detection using industry-leading BIM workflows.</p>
             </div>
         </section>
 
         <!-- Course Content -->
-        <section class="max-w-7xl mx-auto px-6 md:px-12 py-16">
-            <div class="surface-card p-8 md:p-12 border-t-4 border-t-primary">
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 py-10 sm:py-16">
+            <div class="surface-card p-5 sm:p-8 md:p-12 border-t-4 border-t-primary">
                 
         <div class="flex items-center gap-3 mb-8">
             <span class="material-symbols-outlined text-primary text-4xl" style="font-variation-settings: 'FILL' 1;">hvac</span>
