@@ -1,0 +1,58 @@
+# Cube Cad Center
+
+> Cube Cad Center is Ahmedabad's premier authorized CAD, BIM, and engineering design training institute, offering industry-aligned professional certifications across Architectural, Civil, Mechanical, and HVAC/MEPF disciplines with 100% placement assistance.
+
+## Organization & Credentials
+
+- **Institute Name**: Cube Cad Center
+- **Locations**: Ahmedabad, Gujarat, India
+  - **Satellite Campus**: 310, Iscon Emporio, Beside Star Bazaar, Near Jodhpur Cross Road, Satellite, Ahmedabad, Gujarat 380015
+  - **South Bopal Campus**: C449, 4th Floor, SoBo Center, South Bopal, Above Gwalia, Ahmedabad, Gujarat 380058
+- **Contact Numbers**: +91 9978999694, +91 9909996285, +91 9909997285
+- **Official Email**: info@cubecadcenter.co
+- **Key Statistics & Achievements**:
+  - **5000+ Students Trained**: Empowered architects, civil engineers, mechanical engineers, and interior designers.
+  - **17+ Industry Courses**: Comprehensive curriculum tailored to contemporary corporate engineering requirements.
+  - **10+ Years Experience**: A decade of leadership in technical software training in Gujarat.
+  - **90%+ Practical Training**: Hands-on approach centered on live construction drawings, 3D modeling, and real-world projects.
+  - **100% Placement Assistance**: Dedicated placement cell connecting students with architectural firms, MNCs, and EPC contractors.
+  - **Portfolio Outcomes**: Every graduate completes an industry-ready portfolio demonstrating real-world project capability.
+
+## Core Disciplines & Courses
+
+### Architectural & Interior Design
+- **AutoCAD (2D & 3D Drafting)**: Architectural floor plans, elevations, sections, municipal submission drawings, working details, layer management, and plotting standards.
+- **Revit Architecture (BIM)**: Building Information Modeling fundamentals, parametric family creation, construction documentation, sheet layouts, material schedules, and BOQ estimation.
+- **SketchUp & Interior Design**: Fast conceptual 3D massing, interior spatial layout, textures, materials, lighting fixtures, realistic visualization, and client walkthroughs.
+- **3ds Max & V-Ray**: High-end photorealistic architectural renders, advanced materials, camera framing, lighting setups, and interior/exterior visualization.
+
+### Structural & Civil Engineering
+- **STAAD.Pro & ETABS**: Multi-story structural analysis, RCC and steel frame design, wind and seismic loading (IS 1893, IS 456), foundation and slab detailing.
+- **Revit Structure**: Structural BIM modeling, parametric column and beam framing, rebar detailing, and structural documentation.
+- **AutoCAD Civil**: Site layout planning, contour mapping, cut-fill calculations, and civil infrastructure drafting.
+
+### Mechanical & Product Design
+- **SolidWorks**: 3D parametric feature-based modeling, advanced part and assembly design, sheet metal design, weldments, and standard manufacturing drawings.
+- **CATIA**: Generative surface design, automotive body modeling, aerospace components, and assembly kinematics.
+- **Creo Parametric**: High-precision mechanical design, manufacturing tooling, sheet metal fabrication, and assembly constraints.
+- **AutoCAD Mechanical**: Production drafting, tolerance analysis, GD&T standards, bill of materials (BOM), and mechanical part libraries.
+
+### HVAC & MEPF Engineering
+- **HVAC Engineering**: Heat load calculations (E20 and HAP methods), duct design, chiller and AHU layout, duct routing, and equipment selection.
+- **Revit MEP (BIM)**: 3D mechanical ducting, electrical cable tray layouts, plumbing pipe systems, and automated clash detection.
+- **Plumbing & Fire Protection (MEPF)**: Water supply distribution, drainage systems, sprinkler layout, fire hydrant design, and NFPA-compliant schematics.
+
+## Program Offerings & Flexibility
+- **Training Formats**: Classroom onsite training and hybrid blended learning.
+- **Schedules**: Regular weekday morning/evening batches and specialized weekend batches for working professionals.
+- **Software Licenses**: Practice licenses provided to students on personal workstations.
+
+## Official Web Resources & Documentation
+
+- [Cube Cad Center Home](https://quick-bassoon-8mqsi12.vercel.app/): Main website with overview, alumni highlights, reviews, and appointment booking.
+- [Full Course Catalog](https://quick-bassoon-8mqsi12.vercel.app/explore.html): Comprehensive list of all 17+ CAD, BIM, and engineering software courses across 4 departments.
+- [Architectural & Interior Design Syllabus](https://quick-bassoon-8mqsi12.vercel.app/syllabus-architectural.html): Course curriculum for AutoCAD, Revit Architecture, SketchUp, and 3ds Max.
+- [Structural & Civil Engineering Syllabus](https://quick-bassoon-8mqsi12.vercel.app/syllabus-structural.html): Course curriculum for STAAD.Pro, ETABS, Revit Structure, and AutoCAD Civil.
+- [Mechanical & Product Design Syllabus](https://quick-bassoon-8mqsi12.vercel.app/syllabus-mechanical.html): Course curriculum for SolidWorks, CATIA, Creo Parametric, and AutoCAD Mechanical.
+- [HVAC & MEPF Engineering Syllabus](https://quick-bassoon-8mqsi12.vercel.app/syllabus-mep.html): Course curriculum for Revit MEP, HVAC design, and MEPF systems.
+- [Schedule a Visit / Book Appointment](https://quick-bassoon-8mqsi12.vercel.app/#book-appointment): Direct online appointment scheduler for course counseling and campus tours.

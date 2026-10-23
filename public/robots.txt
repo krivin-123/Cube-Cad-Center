@@ -1,0 +1,43 @@
+# robots.txt for Cube Cad Center
+# https://quick-bassoon-8mqsi12.vercel.app/
+
+# Standard Search Crawlers
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /caller.html
+Disallow: /api/
+
+User-agent: Googlebot
+Allow: /
+Disallow: /admin.html
+Disallow: /caller.html
+Disallow: /api/
+
+User-agent: Bingbot
+Allow: /
+Disallow: /admin.html
+Disallow: /caller.html
+Disallow: /api/
+
+# AI Search & Answer Engine Crawlers (Generative Engine Optimization - GEO)
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+# Sitemap Index
+Sitemap: https://quick-bassoon-8mqsi12.vercel.app/sitemap.xml
