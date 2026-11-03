@@ -1,11 +1,7 @@
 require('dotenv').config();
 const express = require('express');
-let sqlite3 = null;
-try {
-    sqlite3 = require('sqlite3').verbose();
-} catch (e) {
-    console.warn('sqlite3 native module not available; operating with Cloud Firestore.');
-}
+const { createDb } = require('./db-adapter');
+const notificationService = require('./notification-service');
 const firestoreService = require('./firestore-service');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -139,7 +135,28 @@ const firebaseAuthService = {
 };
 
 // Middleware
-app.use(cors());
+const SITE_URL = (process.env.SITE_URL || 'https://cubecadcenter.co').replace(/\/+$/, '');
+const allowedOrigins = [
+    SITE_URL,
+    'https://cubecadcenter.co',
+    'https://www.cubecadcenter.co',
+    'https://quick-bassoon-8mqsi12.vercel.app',
+    'http://localhost:3000',
+    'http://localhost:3005',
+    'http://127.0.0.1:3000',
+    'http://127.0.0.1:3005'
+];
+
+app.use(cors({
+    origin: function(origin, callback) {
+        if (!origin || allowedOrigins.includes(origin) || (process.env.NODE_ENV !== 'production' && origin.startsWith('http://localhost'))) {
+            callback(null, true);
+        } else {
+            callback(new Error('Blocked by CORS policy'));
+        }
+    },
+    credentials: true
+}));
 app.use(bodyParser.json());
 app.use((err, req, res, next) => {
     if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
@@ -165,21 +182,16 @@ app.get('/api/health', (req, res) => {
             mode: firestoreService.mode,
             projectId: firestoreService.projectId
         },
-        sqliteActive: !!(sqlite3 && db && typeof db.close === 'function')
+        sqliteActive: !!(db && typeof db.run === 'function')
     });
 });
 
-// Database Setup (SQLite for local development fallback, Firestore for production)
-let db = null;
-if (sqlite3) {
-    db = new sqlite3.Database('./database.sqlite', (err) => {
-        if (err) {
-            console.error('Error opening database', err.message);
-        } else {
-            console.log('Connected to the SQLite database.');
-            
-            // Create Tables
-            db.serialize(() => {
+// Database Setup (Universal SQLite for local development & Vercel /tmp, Firestore for production)
+const db = createDb(process.env.DATABASE_PATH || './database.sqlite');
+console.log('Connected to the SQLite database via Universal Adapter.');
+
+// Create Tables
+db.serialize(() => {
             db.run(`CREATE TABLE IF NOT EXISTS courses (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 title TEXT,
@@ -464,30 +476,6 @@ if (sqlite3) {
                 });
             }
         });
-    }
-});
-} else {
-    console.log('Running in Cloud Firestore mode without local SQLite module.');
-}
-
-if (!db) {
-    // Graceful fallback adapter to prevent null-pointer exceptions in serverless environment
-    db = {
-        all: (sql, params, cb) => {
-            const callback = typeof params === 'function' ? params : cb;
-            if (callback) callback(null, []);
-        },
-        get: (sql, params, cb) => {
-            const callback = typeof params === 'function' ? params : cb;
-            if (callback) callback(null, null);
-        },
-        run: function(sql, params, cb) {
-            const callback = typeof params === 'function' ? params : cb;
-            if (callback) callback.call({ lastID: Date.now() }, null);
-        },
-        serialize: (fn) => { if (fn) fn(); }
-    };
-}
 
 // --- Authentication Middleware ---
 function authenticateToken(req, res, next) {
@@ -539,6 +527,11 @@ function authenticateToken(req, res, next) {
 
 // --- Admin Authentication Middleware ---
 function authenticateAdmin(req, res, next) {
+    const adminSecret = req.headers['x-admin-secret'];
+    if (adminSecret && process.env.ADMIN_SECRET && adminSecret === process.env.ADMIN_SECRET) {
+        req.admin = { isAdmin: true, name: 'Admin (Secret Auth)' };
+        return next();
+    }
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
     if (!token) return res.status(401).json({ error: 'Admin authentication required' });
@@ -652,7 +645,7 @@ function authenticateCaller(req, res, next) {
     });
 }
 
-// --- Optional Token Middleware ---
+// --- Optional Token Middleware (Supports JWT & Firebase ID token) ---
 function optionalAuth(req, res, next) {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
@@ -661,8 +654,25 @@ function optionalAuth(req, res, next) {
         return next();
     }
     jwt.verify(token, SECRET_KEY, (err, user) => {
-        req.user = (!err && user) ? user : null;
-        next();
+        if (!err && user) {
+            req.user = user;
+            return next();
+        }
+        firebaseAuthService.verifyIdToken(token)
+            .then(fbUser => {
+                req.user = {
+                    id: fbUser.localId,
+                    uid: fbUser.localId,
+                    email: (fbUser.email || '').toLowerCase().trim(),
+                    name: fbUser.displayName || fbUser.email?.split('@')[0],
+                    isFirebaseUser: true
+                };
+                next();
+            })
+            .catch(() => {
+                req.user = null;
+                next();
+            });
     });
 }
 
@@ -939,50 +949,205 @@ app.get('/api/auth/me', authenticateToken, (req, res) => {
     }
 });
 
-// --- Date & Time Helpers for 7-Day Window and Past Slot Filtering ---
+// --- Asia/Kolkata Timezone & Date Validation Helpers ---
 function parseSlotTimeToMinutes(slotStr) {
     if (!slotStr) return 0;
-    const match = slotStr.match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
-    if (!match) return 0;
-    let hours = parseInt(match[1], 10);
-    const minutes = parseInt(match[2], 10);
-    const meridiem = match[3].toUpperCase();
-
-    if (meridiem === 'PM' && hours < 12) hours += 12;
-    if (meridiem === 'AM' && hours === 12) hours = 0;
-
+    const str = slotStr.trim().toUpperCase();
+    const match12 = str.match(/^(\d{1,2}):(\d{2})\s*(AM|PM)?$/i);
+    if (!match12) return 0;
+    let hours = parseInt(match12[1], 10);
+    const minutes = parseInt(match12[2], 10);
+    const meridiem = match12[3];
+    if (meridiem) {
+        if (meridiem === 'PM' && hours < 12) hours += 12;
+        if (meridiem === 'AM' && hours === 12) hours = 0;
+    }
     return hours * 60 + minutes;
 }
 
-function isSlotPassed(dateStr, slotStr) {
+function getKolkataTimeInfo() {
     const now = new Date();
-    const pad = n => String(n).padStart(2, '0');
-    const today = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
+    const formatter = new Intl.DateTimeFormat('en-CA', {
+        timeZone: 'Asia/Kolkata',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+    });
+    const today = formatter.format(now); // YYYY-MM-DD in Asia/Kolkata
 
+    const maxDateObj = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
+    const maxDate = formatter.format(maxDateObj);
+
+    const timeFormatter = new Intl.DateTimeFormat('en-US', {
+        timeZone: 'Asia/Kolkata',
+        hour: 'numeric',
+        minute: 'numeric',
+        hour12: false
+    });
+    const parts = timeFormatter.formatToParts(now);
+    const hours = Number(parts.find(p => p.type === 'hour')?.value || 0);
+    const minutes = Number(parts.find(p => p.type === 'minute')?.value || 0);
+    const currentMinutes = hours * 60 + minutes;
+
+    return { today, maxDate, currentMinutes };
+}
+
+function isSundayKolkata(dateStr) {
+    const parts = (dateStr || '').split('-').map(Number);
+    if (parts.length !== 3 || isNaN(parts[0]) || isNaN(parts[1]) || isNaN(parts[2])) return false;
+    const dt = new Date(Date.UTC(parts[0], parts[1] - 1, parts[2], 6, 30, 0));
+    const df = new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Kolkata', weekday: 'short' });
+    return df.format(dt) === 'Sun';
+}
+
+function isSlotPassedKolkata(dateStr, slotStr) {
+    const { today, currentMinutes } = getKolkataTimeInfo();
     if (dateStr < today) return true;
     if (dateStr > today) return false;
-
-    // dateStr === today: check current time
-    const currentMinutes = now.getHours() * 60 + now.getMinutes();
     const slotMinutes = parseSlotTimeToMinutes(slotStr);
     return slotMinutes <= currentMinutes;
 }
 
-function getBookingDatesInfo() {
-    const now = new Date();
-    const pad = n => String(n).padStart(2, '0');
-    const toYMD = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
-
-    const today = toYMD(now);
-    const maxDateObj = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
-    const maxDate = toYMD(maxDateObj);
-
-    return { today, maxDate };
+function normalizePhone(rawPhone) {
+    if (!rawPhone) return null;
+    const digits = String(rawPhone).replace(/\D/g, '');
+    let clean10 = '';
+    if (digits.length === 10) {
+        clean10 = digits;
+    } else if (digits.length === 11 && digits.startsWith('0')) {
+        clean10 = digits.slice(1);
+    } else if (digits.length === 12 && digits.startsWith('91')) {
+        clean10 = digits.slice(2);
+    } else {
+        return null;
+    }
+    if (!/^[6-9]\d{9}$/.test(clean10)) {
+        return null;
+    }
+    return {
+        formatted: `+91 ${clean10.slice(0, 5)} ${clean10.slice(5)}`,
+        e164: `+91${clean10}`,
+        digits: clean10
+    };
 }
 
-// --- Public: Check Appointment Slot Availability (Capacity: Max 3 users/slot) ---
+function generateAppointmentId(dateStr) {
+    const dateFormatted = (dateStr || getKolkataTimeInfo().today).replace(/-/g, '');
+    const randomHex = crypto.randomBytes(2).toString('hex').toUpperCase();
+    return `CCC-${dateFormatted}-${randomHex}`;
+}
+
+// In-process concurrency mutex for appointment slot capacity enforcement
+const slotLocks = new Map();
+function withSlotLock(slotKey, asyncFn) {
+    let queue = slotLocks.get(slotKey);
+    if (!queue) {
+        queue = Promise.resolve();
+        slotLocks.set(slotKey, queue);
+    }
+    const nextPromise = queue.then(() => asyncFn()).finally(() => {
+        if (slotLocks.get(slotKey) === nextPromise) {
+            slotLocks.delete(slotKey);
+        }
+    });
+    slotLocks.set(slotKey, nextPromise);
+    return nextPromise;
+}
+
+// Rate limiters for spam prevention
+const ipRateLimits = new Map();
+const phoneRateLimits = new Map();
+function checkBookingRateLimits(req, phoneDigits) {
+    const ip = req.headers['x-forwarded-for']?.split(',')[0]?.trim() || req.socket.remoteAddress || '127.0.0.1';
+    const now = Date.now();
+
+    // IP limit: 10 bookings per 15 minutes
+    const ipHistory = (ipRateLimits.get(ip) || []).filter(t => now - t < 15 * 60 * 1000);
+    if (ipHistory.length >= 10) {
+        return { limited: true, error: 'Too many requests from this IP. Please try again after 15 minutes.' };
+    }
+    ipHistory.push(now);
+    ipRateLimits.set(ip, ipHistory);
+
+    // Phone limit: 3 bookings per 24 hours
+    if (phoneDigits) {
+        const phoneHistory = (phoneRateLimits.get(phoneDigits) || []).filter(t => now - t < 24 * 60 * 60 * 1000);
+        if (phoneHistory.length >= 3) {
+            return { limited: true, error: 'Maximum daily appointment bookings reached for this phone number. Please call us directly for assistance.' };
+        }
+        phoneHistory.push(now);
+        phoneRateLimits.set(phoneDigits, phoneHistory);
+    }
+
+    return { limited: false };
+}
+
+// In-memory OTP storage for REQUIRE_PHONE_OTP feature
+const phoneOtps = new Map();
+
+// Cloudflare Turnstile token verification helper
+function verifyTurnstile(token, secret, ip) {
+    return new Promise((resolve) => {
+        const postData = new URLSearchParams({ secret, response: token, remoteip: ip || '' }).toString();
+        const req = https.request({
+            hostname: 'challenges.cloudflare.com',
+            path: '/turnstile/v0/siteverify',
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Content-Length': Buffer.byteLength(postData)
+            }
+        }, (res) => {
+            let body = '';
+            res.on('data', chunk => body += chunk);
+            res.on('end', () => {
+                try {
+                    const parsed = JSON.parse(body || '{}');
+                    resolve(!!parsed.success);
+                } catch (e) {
+                    resolve(false);
+                }
+            });
+        });
+        req.on('error', () => resolve(false));
+        req.write(postData);
+        req.end();
+    });
+}
+
+// --- Allowed Lists ---
+const VALID_BRANCHES = [
+    'SATELLITE BRANCH',
+    'BOPAL BRANCH',
+    'Satellite Branch',
+    'South Bopal Branch',
+    'Satellite Campus',
+    'Bopal Campus',
+    'Satellite',
+    'Bopal'
+];
+
+const VALID_SERVICES = [
+    'AutoCAD',
+    'Revit Architecture',
+    'SketchUp & Interior 3D',
+    '3ds Max & V-Ray',
+    'STAAD.Pro & ETABS',
+    'SolidWorks & Mechanical CAD',
+    'HVAC & MEPF Design',
+    'Architectural & Interior Design Consultation',
+    'Structural & Civil Engineering Consultation',
+    'Mechanical & Product Design Consultation',
+    'HVAC & MEPF Design Consultation',
+    'General Career & Course Counseling',
+    'Free Demo Class',
+    'Campus Tour & Lab Visit',
+    'Campus Tour'
+];
+
+// --- Public: Check Appointment Slot Availability (Capacity: Max 3 users/slot, Asia/Kolkata timezone) ---
 app.get('/api/appointments/availability', (req, res) => {
-    const { today, maxDate } = getBookingDatesInfo();
+    const { today, maxDate } = getKolkataTimeInfo();
     const date = (req.query.date || today).trim();
 
     // Check date validity
@@ -991,8 +1156,7 @@ app.get('/api/appointments/availability', (req, res) => {
         return res.status(400).json({ error: 'Invalid date format. Expected YYYY-MM-DD.' });
     }
 
-    const dateObj = new Date(parts[0], parts[1] - 1, parts[2]);
-    const isSunday = dateObj.getDay() === 0;
+    const isSunday = isSundayKolkata(date);
     const isPast = date < today;
     const isBeyondWindow = date > maxDate;
 
@@ -1040,9 +1204,9 @@ app.get('/api/appointments/availability', (req, res) => {
             });
         }
 
-        // Filter out passed slots if date is today
+        // Filter out passed slots if date is today in Asia/Kolkata
         const unpassedSlots = (date === today)
-            ? allowedSlots.filter(slot => !isSlotPassed(date, slot))
+            ? allowedSlots.filter(slot => !isSlotPassedKolkata(date, slot))
             : allowedSlots;
 
         // Query booked slots count for this date
@@ -1060,7 +1224,6 @@ app.get('/api/appointments/availability', (req, res) => {
                     const available = Math.max(0, 3 - booked);
                     const isFullyBooked = available === 0;
 
-                    // Only show status label when 1 slot left or fully booked
                     let label = '';
                     if (isFullyBooked) {
                         label = 'Fully Booked';
@@ -1096,25 +1259,77 @@ app.get('/api/appointments/availability', (req, res) => {
     });
 });
 
-app.post('/api/appointments', requireUserAuth, (req, res) => {
-    const { name, email, phone, program, branch, date, mode, notes } = req.body;
+// --- Optional Phone OTP Dispatch Endpoint ---
+app.post('/api/appointments/send-otp', async (req, res) => {
+    const rawPhone = req.body.phone;
+    const normalized = normalizePhone(rawPhone);
+    if (!normalized) {
+        return res.status(400).json({ error: 'Please enter a valid 10-digit Indian mobile number.' });
+    }
+
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    phoneOtps.set(normalized.digits, { otp, expiresAt: Date.now() + 5 * 60 * 1000 });
+
+    if (process.env.SMS_ENABLED === 'true') {
+        notificationService.sendSms({
+            phone: normalized.digits,
+            messageText: `Your Cube Cad Center verification code is ${otp}. Valid for 5 minutes.`,
+            templateId: process.env.DLT_TEMPLATE_ID_OTP
+        }).catch(() => {});
+    }
+
+    res.json({
+        success: true,
+        message: `Verification code sent to ${notificationService.maskPhone(normalized.digits)}`
+    });
+});
+
+// --- Appointment Booking Endpoint (Guest & Authenticated, Server-Enforced Capacity) ---
+app.post('/api/appointments', optionalAuth, async (req, res) => {
+    // 0. Honeypot check for spam bots
+    if (req.body.website_url || req.body.hp_company || req.body.organization_role) {
+        return res.status(400).json({ error: 'Automated submission detected.' });
+    }
+
+    const { name, email, phone, program, branch, date, mode, notes, consent } = req.body;
     const timeSlot = req.body.timeSlot || req.body.time_slot;
 
-    // 1. Mandatory fields check
-    if (!name || !name.trim()) {
-        return res.status(400).json({ error: 'Please enter your full name.' });
+    // 1. Mandatory Input Validation
+    const cleanName = (name || '').trim();
+    if (cleanName.length < 2 || cleanName.length > 80) {
+        return res.status(400).json({ error: 'Full name must be between 2 and 80 characters.' });
     }
-    if (!phone || !phone.trim()) {
-        return res.status(400).json({ error: 'Please enter your phone number.' });
+
+    const normalizedPhone = normalizePhone(phone);
+    if (!normalizedPhone) {
+        return res.status(400).json({ error: 'Please enter a valid 10-digit Indian mobile number starting with 6, 7, 8, or 9.' });
     }
-    const cleanPhone = phone.trim();
-    const digitsOnly = cleanPhone.replace(/\D/g, '');
-    if (digitsOnly.length < 10) {
-        return res.status(400).json({ error: 'Please enter a valid 10-digit mobile number.' });
+
+    const cleanEmail = (email && email.trim().toLowerCase()) || '';
+    if (cleanEmail) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+        if (!emailRegex.test(cleanEmail)) {
+            return res.status(400).json({ error: 'Please enter a valid email address.' });
+        }
     }
-    if (!program || !program.trim()) {
+
+    // Branch validation
+    const branchChoice = (branch || 'Satellite Branch').trim();
+    const isBranchValid = VALID_BRANCHES.some(b => b.toLowerCase() === branchChoice.toLowerCase());
+    if (!isBranchValid) {
+        return res.status(400).json({ error: 'Unknown branch. Please select Satellite Branch or Bopal Branch.' });
+    }
+
+    // Program / Service validation
+    const serviceChoice = (program || req.body.service || '').trim();
+    if (!serviceChoice) {
         return res.status(400).json({ error: 'Please select a consultation service or program.' });
     }
+    const isServiceValid = VALID_SERVICES.some(s => s.toLowerCase() === serviceChoice.toLowerCase());
+    if (!isServiceValid) {
+        return res.status(400).json({ error: 'Unknown service or program. Please select from the offered programs list.' });
+    }
+
     if (!date || !date.trim()) {
         return res.status(400).json({ error: 'Please select an appointment date.' });
     }
@@ -1124,11 +1339,45 @@ app.post('/api/appointments', requireUserAuth, (req, res) => {
 
     const cleanDate = date.trim();
     const cleanTimeSlot = timeSlot.trim();
-    const cleanEmail = (email && email.trim().toLowerCase()) || '';
-    const cleanName = name.trim();
 
-    // 2. Date rules: Today -> Next 7 days, No Sundays, No past dates
-    const { today, maxDate } = getBookingDatesInfo();
+    // 2. Consent Check (Mandatory DPDP Act 2023 requirement)
+    const hasConsented = consent === true || consent === 'true' || consent === 1 || consent === '1';
+    if (!hasConsented) {
+        return res.status(400).json({ error: 'consent required: You must agree to be contacted and accept the Privacy Policy to book an appointment.' });
+    }
+    const consentTimestamp = new Date().toISOString();
+
+    // 3. Optional Phone OTP Check
+    if (process.env.REQUIRE_PHONE_OTP === 'true') {
+        const userOtp = (req.body.otp || '').trim();
+        const stored = phoneOtps.get(normalizedPhone.digits);
+        if (!stored || stored.expiresAt < Date.now() || stored.otp !== userOtp) {
+            return res.status(400).json({ error: 'Invalid or expired phone verification code. Please request a new OTP.' });
+        }
+        phoneOtps.delete(normalizedPhone.digits);
+    }
+
+    // 4. Cloudflare Turnstile Verification (if configured)
+    if (process.env.TURNSTILE_SECRET) {
+        const turnstileToken = req.body['cf-turnstile-response'] || req.body.turnstileToken;
+        if (!turnstileToken) {
+            return res.status(400).json({ error: 'Security verification required. Please complete the security check.' });
+        }
+        const clientIp = req.headers['x-forwarded-for']?.split(',')[0]?.trim() || req.socket.remoteAddress;
+        const valid = await verifyTurnstile(turnstileToken, process.env.TURNSTILE_SECRET, clientIp);
+        if (!valid) {
+            return res.status(400).json({ error: 'Security verification failed. Please refresh and try again.' });
+        }
+    }
+
+    // 5. Rate Limiting Check (Spam Prevention)
+    const rateCheck = checkBookingRateLimits(req, normalizedPhone.digits);
+    if (rateCheck.limited) {
+        return res.status(429).json({ error: rateCheck.error });
+    }
+
+    // 6. Asia/Kolkata Date Rules: Today -> Next 7 days, No Sundays, No past time slots for today
+    const { today, maxDate } = getKolkataTimeInfo();
 
     if (cleanDate < today) {
         return res.status(400).json({ error: 'Cannot book appointments for past dates. Please pick a date within the next 7 days.' });
@@ -1136,106 +1385,125 @@ app.post('/api/appointments', requireUserAuth, (req, res) => {
     if (cleanDate > maxDate) {
         return res.status(400).json({ error: `Appointments can only be booked within the next 7 days (up to ${maxDate}).` });
     }
-
-    const parts = cleanDate.split('-').map(Number);
-    const dateObj = new Date(parts[0], parts[1] - 1, parts[2]);
-    if (dateObj.getDay() === 0) {
+    if (isSundayKolkata(cleanDate)) {
         return res.status(400).json({ error: 'Sundays are holidays. Cube Cad Center is closed on Sundays. Please select a date from Monday to Saturday.' });
     }
-
-    // 2b. Passed time slot check for today
-    if (cleanDate === today && isSlotPassed(cleanDate, cleanTimeSlot)) {
+    if (cleanDate === today && isSlotPassedKolkata(cleanDate, cleanTimeSlot)) {
         return res.status(400).json({ error: `The ${cleanTimeSlot} time slot has already passed for today. Please select an upcoming time slot.` });
     }
 
-    // 3. Double-submission / Duplicate check: Same phone/slot on same date
-    db.get(
-        `SELECT id FROM appointments WHERE date = ? AND time_slot = ? AND phone = ? AND status != 'Cancelled'`,
-        [cleanDate, cleanTimeSlot, cleanPhone],
-        (dupErr, dupRow) => {
-            if (dupErr) return res.status(500).json({ error: 'Database check error' });
-            if (dupRow) {
-                return res.status(400).json({ error: `You already have an appointment booked for ${cleanDate} at ${cleanTimeSlot}.` });
-            }
+    // 7. Atomic Concurrency Lock per Slot (Max 3 capacity strictly enforced server-side)
+    const slotKey = `${cleanDate}:${cleanTimeSlot}`;
 
-            // 4. Capacity Check: Maximum 3 users per time slot
-            db.get(
-                `SELECT COUNT(*) as count FROM appointments WHERE date = ? AND time_slot = ? AND status != 'Cancelled'`,
-                [cleanDate, cleanTimeSlot],
-                (capErr, capRow) => {
-                    if (capErr) return res.status(500).json({ error: 'Database capacity check error' });
-
-                    const currentBookings = capRow ? capRow.count : 0;
-                    if (currentBookings >= 3) {
-                        return res.status(400).json({
-                            error: `The ${cleanTimeSlot} time slot on ${cleanDate} is Fully Booked (maximum 3 appointments reached). Please choose another time slot.`
-                        });
-                    }
-
-                    // 5. Insert Appointment
-                    const bookingRef = 'CCC-' + Math.floor(100000 + Math.random() * 900000);
-                    const userId = req.user ? req.user.id : null;
-
-                    db.run(
-                        `INSERT INTO appointments (booking_ref, user_id, name, email, phone, program, branch, date, time_slot, mode, notes, status) 
-                         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-                        [bookingRef, userId, cleanName, cleanEmail, cleanPhone, program, branch || 'Satellite Campus', cleanDate, cleanTimeSlot, mode || 'In-Person', notes || '', 'Pending'],
-                        function(insertErr) {
-                            if (insertErr) return res.status(500).json({ error: 'Failed to record appointment in database' });
-
-                            const newCount = currentBookings + 1;
-                            const remainingSlots = Math.max(0, 3 - newCount);
-
-                            const newId = this ? this.lastID : Date.now();
-
-                            const newAppointment = {
-                                id: newId,
-                                bookingRef,
-                                name: cleanName,
-                                email: cleanEmail,
-                                phone: cleanPhone,
-                                program,
-                                branch: branch || 'Satellite Campus',
-                                date: cleanDate,
-                                timeSlot: cleanTimeSlot,
-                                mode: mode || 'In-Person',
-                                notes: notes || '',
-                                status: 'Pending'
-                            };
-
-                            // Sync to Cloud Firestore for permanent production persistence
-                            firestoreService.setDocument('bookings', String(bookingRef || newId), {
-                                id: newId,
-                                booking_ref: bookingRef,
-                                user_id: String(userId || ''),
-                                name: cleanName,
-                                email: cleanEmail,
-                                phone: cleanPhone,
-                                program,
-                                branch: branch || 'Satellite Campus',
-                                date: cleanDate,
-                                time_slot: cleanTimeSlot,
-                                mode: mode || 'In-Person',
-                                notes: notes || '',
-                                status: 'Pending',
-                                assigned_caller_id: 0,
-                                assigned_caller_name: 'Unassigned',
-                                call_status: 'Not Called',
-                                created_at: new Date().toISOString()
-                            }).catch(e => console.warn('Firestore booking sync note:', e.message));
-
-                            res.json({
-                                success: true,
-                                message: 'Appointment request submitted! Status is Pending confirmation.',
-                                appointment: newAppointment,
-                                remainingSlots
-                            });
+    try {
+        await withSlotLock(slotKey, async () => {
+            return new Promise((resolve, reject) => {
+                // Check duplicate booking for same phone and slot on this date
+                db.get(
+                    `SELECT id FROM appointments WHERE date = ? AND time_slot = ? AND (phone = ? OR phone = ?) AND status != 'Cancelled'`,
+                    [cleanDate, cleanTimeSlot, normalizedPhone.digits, normalizedPhone.formatted],
+                    (dupErr, dupRow) => {
+                        if (dupErr) return reject(new Error('Database error during duplicate check'));
+                        if (dupRow) {
+                            res.status(400).json({ error: `You already have an appointment booked for ${cleanDate} at ${cleanTimeSlot}.` });
+                            return resolve();
                         }
-                    );
-                }
-            );
+
+                        // Strict Capacity Check (Max 3 users per time slot)
+                        db.get(
+                            `SELECT COUNT(*) as count FROM appointments WHERE date = ? AND time_slot = ? AND status != 'Cancelled'`,
+                            [cleanDate, cleanTimeSlot],
+                            (capErr, capRow) => {
+                                if (capErr) return reject(new Error('Database error during capacity check'));
+
+                                const currentBookings = capRow ? capRow.count : 0;
+                                if (currentBookings >= 3) {
+                                    res.status(400).json({
+                                        error: `The ${cleanTimeSlot} time slot on ${cleanDate} is Fully Booked (maximum 3 appointments reached). Please choose another time slot.`
+                                    });
+                                    return resolve();
+                                }
+
+                                // Generate server-side unique appointment ID
+                                const bookingRef = generateAppointmentId(cleanDate);
+                                const userId = req.user ? req.user.id : null;
+
+                                db.run(
+                                    `INSERT INTO appointments (booking_ref, user_id, name, email, phone, program, branch, date, time_slot, mode, notes, status) 
+                                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+                                    [bookingRef, userId, cleanName, cleanEmail, normalizedPhone.digits, serviceChoice, branchChoice, cleanDate, cleanTimeSlot, mode || 'In-Person', notes || '', 'Pending'],
+                                    function(insertErr) {
+                                        if (insertErr) return reject(new Error('Failed to record appointment in database: ' + insertErr.message));
+
+                                        const newCount = currentBookings + 1;
+                                        const remainingSlots = Math.max(0, 3 - newCount);
+                                        const newId = this ? this.lastID : Date.now();
+
+                                        const newAppointment = {
+                                            id: newId,
+                                            bookingRef,
+                                            name: cleanName,
+                                            email: cleanEmail,
+                                            phone: normalizedPhone.formatted,
+                                            program: serviceChoice,
+                                            branch: branchChoice,
+                                            date: cleanDate,
+                                            timeSlot: cleanTimeSlot,
+                                            mode: mode || 'In-Person',
+                                            notes: notes || '',
+                                            status: 'Pending',
+                                            consentTimestamp
+                                        };
+
+                                        // Sync to Cloud Firestore for permanent production persistence
+                                        firestoreService.setDocument('bookings', String(bookingRef || newId), {
+                                            id: newId,
+                                            booking_ref: bookingRef,
+                                            user_id: String(userId || ''),
+                                            name: cleanName,
+                                            email: cleanEmail,
+                                            phone: normalizedPhone.digits,
+                                            program: serviceChoice,
+                                            branch: branchChoice,
+                                            date: cleanDate,
+                                            time_slot: cleanTimeSlot,
+                                            mode: mode || 'In-Person',
+                                            notes: notes || '',
+                                            status: 'Pending',
+                                            assigned_caller_id: 0,
+                                            assigned_caller_name: 'Unassigned',
+                                            call_status: 'Not Called',
+                                            consent_timestamp: consentTimestamp,
+                                            created_at: new Date().toISOString()
+                                        }).catch(e => console.warn('Firestore booking sync note:', e.message));
+
+                                        // Dispatch Notifications (Email & SMS) Post-Commit (non-blocking)
+                                        notificationService.notifyAppointmentCreated(newAppointment).catch(err => {
+                                            console.warn('Notification dispatch error:', err.message);
+                                        });
+
+                                        res.json({
+                                            success: true,
+                                            message: 'Appointment request submitted! Status is Pending approval.',
+                                            appointment: newAppointment,
+                                            remainingSlots
+                                        });
+
+                                        resolve();
+                                    }
+                                );
+                            }
+                        );
+                    }
+                );
+            });
+        });
+    } catch (lockErr) {
+        console.error('Slot booking error:', lockErr.message);
+        if (!res.headersSent) {
+            res.status(500).json({ error: 'Server error while reserving appointment slot. Please try again.' });
         }
-    );
+    }
 });
 
 
@@ -1287,43 +1555,65 @@ app.post('/api/admin/time-slots', authenticateAdmin, (req, res) => {
     });
 });
 
-// --- Get Appointments for Logged In User ---
+// --- Get Appointments for Logged In User or Guest (by email, phone, or bookingRef) ---
 app.get('/api/appointments/my', optionalAuth, (req, res) => {
     const email = req.query.email || (req.user && req.user.email);
-    if (!email) {
-        return res.status(400).json({ error: 'Email parameter or authentication required' });
+    const phone = req.query.phone || (req.user && req.user.phone);
+    const ref = req.query.ref || req.query.booking_ref;
+
+    if (!email && !phone && !ref) {
+        return res.status(400).json({ error: 'Email, phone, or appointment reference required' });
     }
 
-    const cleanEmail = email.trim().toLowerCase();
-    db.all(
-        `SELECT * FROM appointments WHERE LOWER(email) = ? ORDER BY id DESC`,
-        [cleanEmail],
-        async (err, rows) => {
-            if (!err && rows && rows.length > 0) {
-                return res.json({ success: true, appointments: rows });
-            }
+    let sql = `SELECT * FROM appointments WHERE 1=1`;
+    const params = [];
+    if (email) {
+        sql += ` AND LOWER(email) = ?`;
+        params.push(email.trim().toLowerCase());
+    }
+    if (phone) {
+        const clean10 = String(phone).replace(/\D/g, '').slice(-10);
+        sql += ` AND (phone LIKE ? OR phone = ?)`;
+        params.push(`%${clean10}`, phone.trim());
+    }
+    if (ref) {
+        sql += ` AND (booking_ref = ? OR id = ?)`;
+        params.push(ref.trim(), ref.trim());
+    }
+    sql += ` ORDER BY id DESC`;
 
-            // Fallback: Query Cloud Firestore bookings
-            try {
-                const fbList = await firestoreService.getBookingsForEmail(cleanEmail);
+    db.all(sql, params, async (err, rows) => {
+        if (!err && rows && rows.length > 0) {
+            return res.json({ success: true, appointments: rows });
+        }
+
+        // Fallback: Query Cloud Firestore bookings
+        try {
+            if (email) {
+                const fbList = await firestoreService.getBookingsForEmail(email.trim().toLowerCase());
                 if (fbList && fbList.length > 0) {
                     return res.json({ success: true, appointments: fbList });
                 }
-            } catch (fe) {}
+            }
+        } catch (fe) {}
 
-            res.json({ success: true, appointments: rows || [] });
-        }
-    );
+        res.json({ success: true, appointments: rows || [] });
+    });
 });
 
-// --- Cancel Appointment ---
+// --- Cancel Appointment (Frees the Slot) ---
 app.delete('/api/appointments/:id', optionalAuth, (req, res) => {
     const id = req.params.id;
-    // Cancel in Firestore
-    firestoreService.updateDocument('bookings', String(id), { status: 'Cancelled' }).catch(() => {});
-    db.run(`UPDATE appointments SET status = 'Cancelled' WHERE id = ?`, [id], function(err) {
-        if (err) return res.status(500).json({ error: 'Failed to cancel appointment' });
-        res.json({ success: true, message: 'Appointment cancelled successfully' });
+    db.get(`SELECT * FROM appointments WHERE id = ? OR booking_ref = ?`, [id, id], (fetchErr, appointment) => {
+        // Cancel in Firestore
+        firestoreService.updateDocument('bookings', String(id), { status: 'Cancelled' }).catch(() => {});
+        db.run(`UPDATE appointments SET status = 'Cancelled' WHERE id = ? OR booking_ref = ?`, [id, id], function(err) {
+            if (err) return res.status(500).json({ error: 'Failed to cancel appointment' });
+            if (appointment) {
+                notificationService.notifyStatusChange(appointment, 'Cancelled').catch(() => {});
+            }
+            res.json({ success: true, message: 'Appointment cancelled successfully. Time slot is now freed.' });
+        });
     });
 });
 
@@ -1577,6 +1867,21 @@ app.patch('/api/admin/appointments/:id', authenticateAdmin, (req, res) => {
     db.run(`UPDATE appointments SET ${fields.join(', ')} WHERE id = ?`, params, function(err) {
         if (err) return res.status(500).json({ error: 'Failed to update appointment' });
         if (this.changes === 0) return res.status(404).json({ error: 'Appointment not found' });
+
+        // Query updated record for notifications and Firestore sync
+        db.get(`SELECT * FROM appointments WHERE id = ?`, [id], (fetchErr, appointment) => {
+            if (!fetchErr && appointment) {
+                // Sync status to Cloud Firestore
+                if (status) {
+                    firestoreService.updateDocument('bookings', String(appointment.booking_ref || id), {
+                        status: appointment.status
+                    }).catch(() => {});
+                    // Send status notification (Confirmed, Cancelled/Rejected)
+                    notificationService.notifyStatusChange(appointment, status).catch(() => {});
+                }
+            }
+        });
+
         res.json({
             success: true,
             message: `Appointment #${id} updated successfully`,

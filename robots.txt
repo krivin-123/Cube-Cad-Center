@@ -1,5 +1,5 @@
 # robots.txt for Cube Cad Center
-# https://quick-bassoon-8mqsi12.vercel.app/
+# Official Domain: https://cubecadcenter.co
 
 # Standard Search Crawlers
 User-agent: *
@@ -40,4 +40,4 @@ User-agent: Google-Extended
 Allow: /
 
 # Sitemap Index
-Sitemap: https://quick-bassoon-8mqsi12.vercel.app/sitemap.xml
+Sitemap: https://cubecadcenter.co/sitemap.xml

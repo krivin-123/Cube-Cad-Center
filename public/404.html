@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport">
+    <title>404 - Page Not Found | Cube Cad Center</title>
+    <meta name="description" content="The page you are looking for does not exist. Explore CAD, BIM, and Engineering courses at Cube Cad Center in Ahmedabad.">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/images/logo-icon.png">
+    <link rel="apple-touch-icon" href="assets/images/logo-icon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: '#0047AB',
+              'primary-dark': '#003380',
+              surface: '#FFFFFF',
+              'on-surface': '#0F172A',
+              'on-surface-variant': '#64748B'
+            },
+            fontFamily: {
+              headline: ['"Hanken Grotesk"', 'sans-serif'],
+              body: ['Inter', 'sans-serif']
+            }
+          }
+        }
+      }
+    </script>
+</head>
+<body class="bg-slate-50 text-on-surface font-body antialiased flex flex-col min-h-screen">
+    <!-- Top Navigation -->
+    <header class="bg-white/95 backdrop-blur border-b border-slate-200 sticky top-0 z-40">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+            <a href="/" class="flex items-center gap-3 no-underline">
+                <img src="assets/images/logo.png" alt="Cube Cad Center Logo" class="h-10 w-10 object-contain rounded-full">
+                <div>
+                    <span class="font-headline font-extrabold text-lg sm:text-xl text-primary tracking-tight block">Cube Cad Center</span>
+                    <span class="text-[11px] text-on-surface-variant uppercase tracking-wider block font-semibold">Ahmedabad, Gujarat</span>
+                </div>
+            </a>
+            <a href="/" class="text-sm font-semibold text-on-surface hover:text-primary transition-colors no-underline flex items-center gap-1">
+                <span class="material-symbols-outlined text-[18px]">home</span> Return Home
+            </a>
+        </div>
+    </header>
+
+    <main class="flex-grow flex items-center justify-center py-20 px-4 sm:px-6 text-center">
+        <div class="max-w-md mx-auto bg-white rounded-3xl p-8 sm:p-12 border border-slate-200 shadow-sm">
+            <div class="w-20 h-20 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto mb-6">
+                <span class="material-symbols-outlined text-4xl">travel_explore</span>
+            </div>
+            <span class="text-xs font-bold uppercase tracking-wider text-primary mb-2 block font-mono">Error 404</span>
+            <h1 class="font-headline text-3xl sm:text-4xl font-extrabold text-on-surface mb-3 tracking-tight">Page Not Found</h1>
+            <p class="text-sm sm:text-base text-on-surface-variant mb-8 leading-relaxed">
+                The page or resource you requested may have moved or is no longer available.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                <a href="/" class="px-6 py-3 bg-primary text-white font-bold text-sm rounded-full hover:bg-primary-dark transition-all no-underline shadow-sm flex items-center justify-center gap-1.5">
+                    <span class="material-symbols-outlined text-base">home</span> Go to Homepage
+                </a>
+                <a href="/explore.html" class="px-6 py-3 border border-slate-300 text-on-surface font-semibold text-sm rounded-full hover:bg-slate-100 transition-all no-underline flex items-center justify-center gap-1.5">
+                    <span class="material-symbols-outlined text-base">school</span> Explore Courses
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-white border-t border-slate-200 py-6 text-center text-xs text-on-surface-variant">
+        <p>&copy; 2026 Cube Cad Center &bull; Ahmedabad, Gujarat, India</p>
+    </footer>
+</body>
+</html>
