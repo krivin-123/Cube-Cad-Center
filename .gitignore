@@ -10,6 +10,7 @@ node_modules/
 *serviceAccount*.json
 
 # Local databases and backups
+*.sqlite*
 *.sqlite
 *.sqlite3
 *.db
@@ -17,6 +18,8 @@ node_modules/
 *export*.json
 database.sqlite
 database_export.json
+*.xlsx
+*.csv
 
 # Vercel & build artifacts
 .vercel/

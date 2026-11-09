@@ -69,6 +69,26 @@ async function runTests() {
     console.log('Target: ' + BASE_URL);
     console.log('================================================================\n');
 
+    let mainProc = null;
+    try {
+        await request({ path: '/api/health', method: 'GET' });
+    } catch (e) {
+        mainProc = spawn('node', [path.resolve(__dirname, 'server.js')], {
+            cwd: __dirname,
+            env: Object.assign({}, process.env, { PORT: String(PORT) }),
+            stdio: ['ignore', 'pipe', 'pipe']
+        });
+        for (let i = 0; i < 20; i++) {
+            await new Promise(r => setTimeout(r, 250));
+            try {
+                const h = await request({ path: '/api/health', method: 'GET' });
+                if (h.status === 200) break;
+            } catch (err) {}
+        }
+    }
+
+    try {
+
     // 1. Primary admin email
     console.log('--- TEST 1: Primary Admin Email Login ---');
     const res1 = await request({ path: '/api/admin/signin', method: 'POST' }, {
@@ -185,19 +205,18 @@ async function runTests() {
     });
     assert(res13.status === 200 && res13.body.isAdmin === true, 'Admin can access caller desk via /api/caller/signin (HTTP 200)');
 
-    // 14. Serverless simulation (VERCEL=1, ADMIN_PASSWORD not in env)
-    console.log('\n--- TEST 14: Serverless Environment Simulation (VERCEL=1, no ADMIN_PASSWORD env) ---');
+    // 14. Serverless simulation: Missing ADMIN_PASSWORD fails safely (401), configured ADMIN_PASSWORD succeeds (200)
+    console.log('\n--- TEST 14: Serverless Environment Simulation (VERCEL=1) ---');
     const SERVERLESS_PORT = 3008;
-    const cleanEnv = Object.assign({}, process.env, {
+    const cleanEnvNoPass = Object.assign({}, process.env, {
         PORT: String(SERVERLESS_PORT),
         VERCEL: '1',
-        ADMIN_PASSWORD: '' // Unset to simulate unconfigured Vercel environment variable
+        ADMIN_PASSWORD: '' // Empty string so dotenv does not populate from .env file
     });
-    delete cleanEnv.ADMIN_PASSWORD;
 
-    const serverlessProc = spawn('node', [path.resolve(__dirname, 'server.js')], {
+    const serverlessProcNoPass = spawn('node', [path.resolve(__dirname, 'server.js')], {
         cwd: __dirname,
-        env: cleanEnv,
+        env: cleanEnvNoPass,
         stdio: ['ignore', 'pipe', 'pipe']
     });
 
@@ -211,12 +230,48 @@ async function runTests() {
     }
 
     if (sReady) {
+        const sLoginFail = await request({ path: '/api/admin/signin', method: 'POST' }, {
+            email: 'admin',
+            password: ADMIN_PASSWORD
+        }, `http://localhost:${SERVERLESS_PORT}`);
+
+        assert(sLoginFail.status === 401, 'Missing ADMIN_PASSWORD in environment rejects admin login with HTTP 401');
+        assert(sLoginFail.body.error === 'Invalid admin credentials', 'Returns invalid admin credentials error message');
+        serverlessProcNoPass.kill();
+    } else {
+        serverlessProcNoPass.kill();
+        assert(false, 'Serverless simulation process started');
+    }
+
+    // Now test with ADMIN_PASSWORD provided in serverless environment
+    const cleanEnvWithPass = Object.assign({}, process.env, {
+        PORT: String(SERVERLESS_PORT),
+        VERCEL: '1',
+        ADMIN_PASSWORD: ADMIN_PASSWORD
+    });
+
+    const serverlessProcWithPass = spawn('node', [path.resolve(__dirname, 'server.js')], {
+        cwd: __dirname,
+        env: cleanEnvWithPass,
+        stdio: ['ignore', 'pipe', 'pipe']
+    });
+
+    let sReady2 = false;
+    for (let i = 0; i < 20; i++) {
+        await new Promise(r => setTimeout(r, 250));
+        try {
+            const h = await request({ path: '/api/health', method: 'GET' }, null, `http://localhost:${SERVERLESS_PORT}`);
+            if (h.status === 200) { sReady2 = true; break; }
+        } catch (e) {}
+    }
+
+    if (sReady2) {
         const sLogin = await request({ path: '/api/admin/signin', method: 'POST' }, {
             email: 'admin',
             password: ADMIN_PASSWORD
         }, `http://localhost:${SERVERLESS_PORT}`);
 
-        assert(sLogin.status === 200 && sLogin.body.success, 'Serverless simulated instance authenticates admin (HTTP 200)');
+        assert(sLogin.status === 200 && sLogin.body.success, 'Serverless instance with ADMIN_PASSWORD env authenticates admin (HTTP 200)');
         assert(sLogin.body.token != null, 'Serverless instance issues valid JWT token');
 
         // Test session verify on serverless instance
@@ -227,10 +282,15 @@ async function runTests() {
         }, null, `http://localhost:${SERVERLESS_PORT}`);
         assert(sMe.status === 200 && sMe.body.admin && sMe.body.admin.isAdmin === true, 'Serverless instance verifies session token (HTTP 200)');
 
-        serverlessProc.kill();
+        serverlessProcWithPass.kill();
     } else {
-        serverlessProc.kill();
-        assert(false, 'Serverless simulation process started');
+        serverlessProcWithPass.kill();
+        assert(false, 'Serverless simulation process with ADMIN_PASSWORD started');
+    }
+    } finally {
+        if (mainProc) {
+            mainProc.kill();
+        }
     }
 
     console.log('\n================================================================');

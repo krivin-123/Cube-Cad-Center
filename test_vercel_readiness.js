@@ -156,12 +156,13 @@ async function run() {
             name: `Readiness Student ${testId}`,
             email: studentEmail,
             phone: '98' + String(testId).padStart(8, '0').slice(-8),
-            program: 'AutoCAD 2D & 3D Drafting',
-            branch: 'Satellite Campus',
+            program: 'AutoCAD',
+            branch: 'Satellite Branch',
             date: testDate,
             timeSlot: chosenSlot,
             mode: 'In-Person',
-            notes: 'Readiness check appointment'
+            notes: 'Readiness check appointment',
+            consent: true
         });
         assert(apptRes.status === 200 && apptRes.body.success, 'Appointment request created (HTTP 200)');
         assert(apptRes.body.appointment && apptRes.body.appointment.status === 'Pending', 'Appointment initial status is Pending');
@@ -265,15 +266,9 @@ async function run() {
 
         // --- CHECK 10: Unauthorized Access Prevention ---
         console.log('\n--- CHECK 10: Unauthorized Access Prevention ---');
-        // Unauthenticated appointment request
-        const unauthAppt = await httpRequest({ path: '/api/appointments', method: 'POST' }, {
-            name: 'Hacker',
-            email: 'hacker@example.com',
-            phone: '9999999999',
-            date: testDate,
-            timeSlot: '10:00 AM'
-        });
-        assert(unauthAppt.status === 401, 'Unauthenticated appointment booking blocked with HTTP 401');
+        // Unauthenticated access to admin endpoint
+        const unauthAppt = await httpRequest({ path: '/api/admin/appointments', method: 'GET' });
+        assert(unauthAppt.status === 401, 'Unauthenticated access to admin endpoint blocked with HTTP 401');
 
         // Student accessing Admin endpoint
         const escalAttempt = await httpRequest({

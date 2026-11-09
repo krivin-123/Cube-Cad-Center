@@ -16,6 +16,8 @@
 require('dotenv').config();
 const http = require('http');
 const crypto = require('crypto');
+const path = require('path');
+const { spawn } = require('child_process');
 
 const BASE_URL = process.env.BASE_URL || 'http://localhost:3000';
 const ADMIN_EMAIL = (process.env.ADMIN_EMAIL || 'cubecadcenter0711@gmail.com').toLowerCase().trim();
@@ -82,6 +84,25 @@ async function runSuite() {
     console.log('Target: ' + BASE_URL);
     console.log('================================================================\n');
 
+    let mainProc = null;
+    try {
+        await request({ path: '/api/health', method: 'GET' });
+    } catch (e) {
+        mainProc = spawn('node', [path.resolve(__dirname, 'server.js')], {
+            cwd: __dirname,
+            env: Object.assign({}, process.env, { PORT: '3000' }),
+            stdio: ['ignore', 'pipe', 'pipe']
+        });
+        for (let i = 0; i < 20; i++) {
+            await new Promise(r => setTimeout(r, 250));
+            try {
+                const h = await request({ path: '/api/health', method: 'GET' });
+                if (h.status === 200) break;
+            } catch (err) {}
+        }
+    }
+
+    try {
     const testRunId = Date.now().toString().slice(-6);
 
     let studentToken = null;
@@ -278,13 +299,14 @@ async function runSuite() {
         name: `Appointment One ${testRunId}`,
         email: `student_lead1_${testRunId}@example.com`,
         phone: '9876511111',
-        program: 'AutoCAD Drafting',
-        branch: 'Ahmedabad Main',
+        program: 'AutoCAD',
+        branch: 'Satellite Branch',
         date: validBookingDate,
         timeSlot: '10:00 AM',
         time_slot: '10:00 AM',
         mode: 'Offline Class',
-        notes: 'Lead for Caller 1'
+        notes: 'Lead for Caller 1',
+        consent: true
     });
     assert(appt1Res.status === 200 && appt1Res.body.success, 'Student books Appointment 1');
     appt1Id = appt1Res.body.appointment ? appt1Res.body.appointment.id : appt1Res.body.appointmentId;
@@ -294,13 +316,14 @@ async function runSuite() {
         name: `Appointment Two ${testRunId}`,
         email: `student_lead2_${testRunId}@example.com`,
         phone: '9876522222',
-        program: 'SolidWorks Mechanical',
-        branch: 'Ahmedabad Main',
+        program: 'SolidWorks & Mechanical CAD',
+        branch: 'Bopal Branch',
         date: validBookingDate,
         timeSlot: '11:00 AM',
         time_slot: '11:00 AM',
         mode: 'Offline Class',
-        notes: 'Lead for Caller 2'
+        notes: 'Lead for Caller 2',
+        consent: true
     });
     assert(appt2Res.status === 200 && appt2Res.body.success, 'Student books Appointment 2');
     appt2Id = appt2Res.body.appointment ? appt2Res.body.appointment.id : appt2Res.body.appointmentId;
@@ -526,6 +549,12 @@ async function runSuite() {
     // Clean up test appointments
     if (appt1Id) await request({ path: `/api/admin/appointments/${appt1Id}`, method: 'DELETE', headers: adminHeaders });
     if (appt2Id) await request({ path: `/api/admin/appointments/${appt2Id}`, method: 'DELETE', headers: adminHeaders });
+
+    } finally {
+        if (mainProc) {
+            mainProc.kill();
+        }
+    }
 
     console.log('\n================================================================');
     console.log(`TEST SUITE FINISHED: ${passCount} PASSED, ${failCount} FAILED`);

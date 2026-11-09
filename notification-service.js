@@ -523,3 +523,4 @@ module.exports.maskEmail = maskEmail;
 module.exports.escapeHtml = escapeHtml;
 module.exports.stripNewlines = stripNewlines;
 module.exports.formatISTDateTime = formatISTDateTime;
+

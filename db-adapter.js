@@ -140,3 +140,4 @@ function createDb(dbPath = './database.sqlite') {
 }
 
 module.exports = { createDb };
+

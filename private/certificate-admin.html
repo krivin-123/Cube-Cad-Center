@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Create certificate · Cube Cad Center admin</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Newsreader:ital,wght@0,400;0,600;1,400&display=swap">
+<style>
+:root{--bg:#f1f4f8;--panel:#fff;--ink:#0f2a4a;--muted:#55657a;--line:#cdd6e1;--accent:#1565a8;--accent-ink:#fff;--danger:#b3261e;--ok:#1b6b3a;--stage:#dfe6ee;color-scheme:light;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d1621;--panel:#15222f;--ink:#e6edf5;--muted:#9fb0c3;--line:#2c3d50;--accent:#5eb0ee;--accent-ink:#06213a;--danger:#ff8a80;--ok:#7bd49a;--stage:#0a1119;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0d1621;--panel:#15222f;--ink:#e6edf5;--muted:#9fb0c3;--line:#2c3d50;--accent:#5eb0ee;--accent-ink:#06213a;--danger:#ff8a80;--ok:#7bd49a;--stage:#0a1119;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 "Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+.wrap{max-width:1180px;margin:0 auto;padding:24px 20px 48px}
+header h1{font-size:1.6rem;line-height:1.2;margin:0 0 4px;font-weight:600}
+header p{margin:0;color:var(--muted);max-width:62ch}
+.grid{display:grid;grid-template-columns:minmax(0,400px) minmax(0,1fr);gap:24px;margin-top:24px;align-items:start}
+@media (max-width:900px){.grid{grid-template-columns:1fr}}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px}
+.step{display:grid;grid-template-columns:28px 1fr;gap:12px;padding-bottom:20px;margin-bottom:20px;border-bottom:1px solid var(--line)}
+.step:last-of-type{border:0;margin:0;padding-bottom:0}
+.n{width:28px;height:28px;border-radius:50%;background:var(--ink);color:var(--bg);display:grid;place-items:center;font-weight:600;font-size:.85rem}
+h2.s{margin:0 0 2px;font-size:1rem;font-weight:600}
+.hint{margin:0 0 10px;color:var(--muted);font-size:.875rem}
+label.f{display:block;font-weight:500;font-size:.9rem;margin:12px 0 4px}
+input[type=text],input[type=date]{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px;min-height:44px}
+input[aria-invalid=true]{border-color:var(--danger)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.err{color:var(--danger);font-size:.85rem;margin:4px 0 0;min-height:0}
+.drop{display:block;border:2px dashed var(--line);border-radius:10px;padding:18px;text-align:center;cursor:pointer;background:var(--bg)}
+.drop.over,.drop:hover{border-color:var(--accent)}
+.drop:focus-within{outline:3px solid var(--accent);outline-offset:2px}
+.drop input{position:absolute;width:1px;height:1px;opacity:0}
+.drop b{display:block}
+.drop span{color:var(--muted);font-size:.85rem}
+.msg{font-size:.875rem;margin:8px 0 0}
+.msg.ok{color:var(--ok)}.msg.bad{color:var(--danger)}
+.link{background:none;border:0;color:var(--accent);font:inherit;text-decoration:underline;cursor:pointer;padding:6px 0;min-height:36px}
+ul.res{list-style:none;margin:6px 0 0;padding:0;border:1px solid var(--line);border-radius:8px;max-height:220px;overflow:auto}
+ul.res:empty{display:none}
+ul.res button{display:block;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--line);color:var(--ink);font:inherit;padding:10px 12px;min-height:44px;cursor:pointer}
+ul.res li:last-child button{border-bottom:0}
+ul.res button:hover,ul.res button:focus-visible{background:var(--bg)}
+ul.res small{display:block;color:var(--muted)}
+.btn{font:inherit;font-weight:600;border-radius:8px;border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink);padding:11px 18px;min-height:44px;cursor:pointer;width:100%;margin-top:16px}
+.btn.alt{background:none;color:var(--accent)}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+.stage{background:var(--stage);border:1px solid var(--line);border-radius:12px;padding:16px;min-height:200px}
+.empty{padding:48px 16px;text-align:center;color:var(--muted)}
+.bar{display:flex;gap:12px;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap}
+.bar h2{margin:0;font-size:1rem}
+.bar .btn{width:auto;margin:0}
+/* certificate: fixed paper colours so print matches preview */
+.cert{container-type:inline-size;aspect-ratio:297/210;width:100%;background:#fffdf8;color:#0f2a4a;position:relative;box-shadow:0 2px 14px rgba(0,0,0,.18)}
+.cert .frame{position:absolute;inset:3cqw;border:.35cqw solid #0f2a4a}
+.cert .inner{position:absolute;inset:.8cqw;border:.12cqw solid #1565a8;display:flex;flex-direction:column;align-items:center;text-align:center;padding:3cqw 6cqw 2.4cqw}
+.brand{display:flex;align-items:center;gap:1cqw;font-weight:600;font-size:1.8cqw;letter-spacing:.02em}
+.brand svg{width:3cqw;height:3cqw}
+.cert h2{font:600 4.2cqw/1.1 Newsreader,Georgia,serif;margin:2.2cqw 0 1.4cqw}
+.lead{font:italic 400 1.8cqw/1.4 Newsreader,Georgia,serif;margin:0;color:#3d5069}
+.who{font:600 6.2cqw/1.15 Newsreader,Georgia,serif;margin:1cqw 0;padding:0 3cqw .6cqw;border-bottom:.15cqw solid #1565a8;max-width:100%;overflow-wrap:anywhere}
+.what{font:600 3.3cqw/1.2 Newsreader,Georgia,serif;margin:1cqw 0}
+.foot{margin-top:auto;width:100%;display:grid;grid-template-columns:1fr auto 1fr;align-items:end;gap:2cqw;font-size:1.3cqw}
+.sig{border-top:.12cqw solid #0f2a4a;padding-top:.6cqw}
+.seal{width:9cqw;height:9cqw;border-radius:50%;border:.3cqw double #b3402a;color:#b3402a;display:grid;place-items:center;font:600 1.2cqw/1.2 "Instrument Sans",sans-serif;transform:rotate(-8deg)}
+.no{font-variant-numeric:tabular-nums}
+@media (prefers-reduced-motion:no-preference){.cert{animation:in .35s ease-out}@keyframes in{from{opacity:0;transform:translateY(6px)}}}
+@media print{
+ @page{size:A4 landscape;margin:0}
+ :root{padding:0}
+ body{background:#fff}.noprint{display:none!important}
+ .wrap{padding:0;max-width:none}.grid{display:block;margin:0}
+ .stage{padding:0;border:0;background:none}
+ .cert{width:297mm;height:210mm;box-shadow:none;animation:none;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="noprint">
+ <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:8px;">
+  <a href="/admin.html" class="link" style="text-decoration:none;display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:0.9rem;">
+   <span aria-hidden="true">&larr;</span> Admin Dashboard
+  </a>
+ </div>
+ <h1>Create a certificate</h1>
+ <p>Upload your student sheet, find a name, check the details and create the certificate. The Excel file is read in your browser and is never uploaded.</p>
+</header>
+<div class="grid">
+ <form class="panel noprint" id="form" novalidate>
+  <div class="step">
+   <div class="n" aria-hidden="true">1</div>
+   <div>
+    <h2 class="s">Upload student sheet</h2>
+    <p class="hint">Excel or CSV with columns for name, course and completion date. Email is optional.</p>
+    <label class="drop" id="drop">
+     <input type="file" id="file" accept=".xlsx,.xls,.csv">
+     <b>Choose a file or drop it here</b><span>.xlsx, .xls or .csv</span>
+    </label>
+    <p class="msg" id="fileMsg" role="status" aria-live="polite"></p>
+    <button type="button" class="link" id="sample">Try with sample data</button>
+   </div>
+  </div>
+  <div class="step">
+   <div class="n" aria-hidden="true">2</div>
+   <div>
+    <h2 class="s">Find the student</h2>
+    <label class="f" for="q" style="margin-top:0">Student name</label>
+    <input type="text" id="q" autocomplete="off" placeholder="Start typing a name" aria-describedby="qHelp">
+    <p class="hint" id="qHelp" style="margin:4px 0 0">Press Enter to pick the first match.</p>
+    <ul class="res" id="res" aria-label="Matching students"></ul>
+   </div>
+  </div>
+  <div class="step">
+   <div class="n" aria-hidden="true">3</div>
+   <div>
+    <h2 class="s">Check the details</h2>
+    <p class="hint">Filled from the sheet. Fix anything before you create.</p>
+    <label class="f" for="fName">Full name as printed</label>
+    <input type="text" id="fName" autocomplete="off" aria-describedby="e-fName">
+    <p class="err" id="e-fName"></p>
+    <label class="f" for="fCourse">Course</label>
+    <input type="text" id="fCourse" autocomplete="off" aria-describedby="e-fCourse">
+    <p class="err" id="e-fCourse"></p>
+    <label class="f" for="fDate">Completion date</label>
+    <input type="date" id="fDate" aria-describedby="e-fDate">
+    <p class="err" id="e-fDate"></p>
+    <button type="submit" class="btn">Create certificate</button>
+   </div>
+  </div>
+ </form>
+
+ <section aria-labelledby="pv">
+  <div class="bar noprint">
+   <h2 id="pv">Preview</h2>
+   <button type="button" class="btn alt" id="print" disabled>Print or save as PDF</button>
+  </div>
+  <div class="stage">
+   <div class="empty noprint" id="empty">No certificate yet. Upload a sheet, pick a student and select Create certificate.</div>
+   <div class="cert" id="cert" hidden role="img" aria-label="Certificate preview">
+    <div class="frame"><div class="inner">
+     <div class="brand"><svg viewBox="0 0 40 40" fill="none" stroke="#1565a8" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M20 3 36 12v16L20 37 4 28V12z"/><path d="M4 12l16 9 16-9M20 21v16"/></svg>Cube Cad Center</div>
+     <h2>Certificate of completion</h2>
+     <p class="lead">This certifies that</p>
+     <p class="who" id="cName"></p>
+     <p class="lead">has successfully completed the course</p>
+     <p class="what" id="cCourse"></p>
+     <p class="lead">on <span id="cDate"></span></p>
+     <div class="foot">
+      <div class="sig">Authorised signatory</div>
+      <div class="seal" aria-hidden="true">CUBE<br>CAD<br>CENTER</div>
+      <div class="sig no">Certificate no. <span id="cNo"></span></div>
+     </div>
+    </div></div>
+   </div>
+  </div>
+ </section>
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script>
+(function(){
+var $=function(s){return document.querySelector(s)};
+var rows=[];
+var norm=function(s){return String(s).toLowerCase().replace(/[^a-z0-9]/g,'')};
+function pad(n){return String(n).padStart(2,'0')}
+function iso(v){
+ if(v instanceof Date&&!isNaN(v)){var d=new Date(v.getTime()+432e5);return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())}
+ if(typeof v==='number'&&v>0){var u=new Date(Date.UTC(1899,11,30)+Math.round(v)*864e5);return u.getUTCFullYear()+'-'+pad(u.getUTCMonth()+1)+'-'+pad(u.getUTCDate())}
+ if(typeof v==='string'){v=v.trim();if(/^\d{4}-\d{2}-\d{2}/.test(v))return v.slice(0,10);var p=new Date(v);if(!isNaN(p))return iso(p)}
+ return '';
+}
+function today(){var d=new Date();return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())}
+function say(t,bad){var m=$('#fileMsg');m.textContent=t;m.className='msg '+(bad?'bad':'ok')}
+function ingest(raw){
+ if(!raw.length){say('The sheet has no data rows.',true);return}
+ var keys=Object.keys(raw[0]);
+ var nk=keys.find(function(k){var n=norm(k);return /name/.test(n)&&!/course|program|batch|branch/.test(n)});
+ var ck=keys.find(function(k){return /course|program/.test(norm(k))});
+ var dk=keys.find(function(k){return /complet|date|end/.test(norm(k))});
+ var ek=keys.find(function(k){return /mail/.test(norm(k))});
+ var miss=[];if(!nk)miss.push('name');if(!ck)miss.push('course');if(!dk)miss.push('completion date');
+ if(miss.length){say('Missing column: '+miss.join(', ')+'. Columns found: '+keys.join(', ')+'.',true);return}
+ var out=[],skipped=0;
+ raw.forEach(function(r){var n=String(r[nk]).trim();if(!n){skipped++;return}
+  out.push({name:n,course:String(r[ck]).trim(),date:iso(r[dk]),email:ek?String(r[ek]).trim():''})});
+ if(!out.length){say('No rows with a student name were found.',true);return}
+ rows=out;
+ say(out.length+' students loaded'+(skipped?' ('+skipped+' blank rows skipped)':'')+'. Now search for a name.');
+ showMatches();
+}
+function load(file){
+ if(typeof XLSX==='undefined'){say('The Excel reader didn’t load. Check your connection and reload the page.',true);return}
+ file.arrayBuffer().then(function(buf){
+  var wb=XLSX.read(buf,{type:'array',cellDates:true});
+  var ws=wb.Sheets[wb.SheetNames[0]];
+  ingest(XLSX.utils.sheet_to_json(ws,{defval:'',raw:true}));
+ }).catch(function(){say('Couldn’t read that file. Save it as .xlsx or .csv and try again.',true)});
+}
+$('#file').addEventListener('change',function(e){if(e.target.files[0])load(e.target.files[0])});
+var drop=$('#drop');
+['dragover','dragenter'].forEach(function(t){drop.addEventListener(t,function(e){e.preventDefault();drop.classList.add('over')})});
+['dragleave','drop'].forEach(function(t){drop.addEventListener(t,function(e){e.preventDefault();drop.classList.remove('over')})});
+drop.addEventListener('drop',function(e){var f=e.dataTransfer.files[0];if(f)load(f)});
+$('#sample').addEventListener('click',function(){
+ ingest([{'Student Name':'Aarav Shah','Course':'Revit Architecture','Completion Date':'2026-09-15'},
+  {'Student Name':'Diya Patel','Course':'AutoCAD','Completion Date':'2026-08-30'},
+  {'Student Name':'Rohan Mehta','Course':'SketchUp & Interior Design','Completion Date':'2026-10-12'}]);
+});
+function matches(){var q=$('#q').value.trim().toLowerCase();if(!q||!rows.length)return [];
+ return rows.filter(function(r){return r.name.toLowerCase().indexOf(q)>-1}).slice(0,8)}
+function showMatches(){
+ var ul=$('#res');ul.textContent='';var m=matches();
+ if(!m.length&&$('#q').value.trim()&&rows.length){var li=document.createElement('li');li.style.padding='10px 12px';li.textContent='No student with that name in the sheet. Check the spelling or type the details below.';ul.appendChild(li);return}
+ m.forEach(function(r){var li=document.createElement('li'),b=document.createElement('button'),s=document.createElement('small');
+  b.type='button';b.textContent=r.name;s.textContent=r.course;b.appendChild(s);
+  b.addEventListener('click',function(){pick(r)});li.appendChild(b);ul.appendChild(li)});
+}
+function pick(r){
+ $('#fName').value=r.name;$('#fCourse').value=r.course;$('#fDate').value=r.date;
+ $('#q').value=r.name;$('#res').textContent='';clearErr();
+ if(!r.date)setErr('fDate','This row has no readable date. Choose the completion date.');
+ $('#fName').focus();
+}
+$('#q').addEventListener('input',showMatches);
+$('#q').addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();var m=matches();if(m[0])pick(m[0])}});
+function setErr(id,t){$('#e-'+id).textContent=t;$('#'+id).setAttribute('aria-invalid','true')}
+function clearErr(){['fName','fCourse','fDate'].forEach(function(id){$('#e-'+id).textContent='';$('#'+id).removeAttribute('aria-invalid')})}
+function hash(s){var h=2166136261;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)}return (h>>>0).toString(36).toUpperCase().padStart(6,'0')}
+function fmt(d){var p=d.split('-');return new Date(+p[0],+p[1]-1,+p[2]).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})}
+$('#form').addEventListener('submit',function(e){
+ e.preventDefault();clearErr();
+ var n=$('#fName').value.trim().replace(/\s+/g,' '),c=$('#fCourse').value.trim(),d=$('#fDate').value,first=null;
+ function bad(id,t){setErr(id,t);if(!first)first=id}
+ if(!n)bad('fName','Enter the student’s full name.');else if(n.length<3)bad('fName','Name must be at least 3 characters.');
+ if(!c)bad('fCourse','Enter the course name.');
+ if(!d)bad('fDate','Choose the completion date.');else if(d>today())bad('fDate','Completion date can’t be in the future.');
+ if(first){$('#'+first).focus();return}
+ $('#cName').textContent=n;$('#cCourse').textContent=c;$('#cDate').textContent=fmt(d);
+ $('#cNo').textContent='CCC-'+d.slice(0,4)+'-'+hash(n.toLowerCase()+'|'+c.toLowerCase()+'|'+d);
+ $('#cert').hidden=false;$('#empty').hidden=true;$('#print').disabled=false;
+ $('#cert').scrollIntoView({block:'nearest',behavior:'smooth'});
+});
+$('#print').addEventListener('click',function(){window.print()});
+})();
+</script>
+</body>
+</html>

@@ -12,7 +12,10 @@ const https = require('https');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const SECRET_KEY = process.env.SECRET_KEY || '3abcb6a54c22f835273d14f5770e13612e5815a1e9ab183214cf74d0dca4318e'; // Consistently verify JWT across serverless cold starts
+const SECRET_KEY = process.env.SECRET_KEY || process.env.JWT_SECRET;
+if (!SECRET_KEY) {
+    throw new Error('FATAL: SECRET_KEY or JWT_SECRET environment variable is missing.');
+}
 const FIREBASE_API_KEY = process.env.FIREBASE_API_KEY || 'AIzaSyDBdKpF_64kpxJ3JxBuRAMjRBCVnMisorI';
 
 // ─── FIREBASE AUTH SERVER-SIDE SERVICE (Google Identity Toolkit) ───
@@ -136,27 +139,30 @@ const firebaseAuthService = {
 
 // Middleware
 const SITE_URL = (process.env.SITE_URL || 'https://cubecadcenter.co').replace(/\/+$/, '');
-const allowedOrigins = [
+const allowedOrigins = new Set([
     SITE_URL,
     'https://cubecadcenter.co',
     'https://www.cubecadcenter.co',
-    'https://quick-bassoon-8mqsi12.vercel.app',
-    'http://localhost:3000',
-    'http://localhost:3005',
-    'http://127.0.0.1:3000',
-    'http://127.0.0.1:3005'
-];
+    'https://quick-bassoon-8mqsi12.vercel.app'
+]);
 
 app.use(cors({
     origin: function(origin, callback) {
-        if (!origin || allowedOrigins.includes(origin) || (process.env.NODE_ENV !== 'production' && origin.startsWith('http://localhost'))) {
-            callback(null, true);
-        } else {
-            callback(new Error('Blocked by CORS policy'));
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.has(origin)) return callback(null, true);
+        if (process.env.NODE_ENV !== 'production' && /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin)) {
+            return callback(null, true);
         }
+        return callback(new Error('Blocked by CORS policy: origin not allowed'));
     },
     credentials: true
 }));
+app.use((err, req, res, next) => {
+    if (err && err.message && err.message.includes('CORS policy')) {
+        return res.status(403).json({ error: err.message });
+    }
+    next(err);
+});
 app.use(bodyParser.json());
 app.use((err, req, res, next) => {
     if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
@@ -164,9 +170,11 @@ app.use((err, req, res, next) => {
     }
     next(err);
 });
-// Serve static files from public directory and current directory
+// Block access to private server templates
+app.use('/private', (req, res) => res.status(404).end());
+
+// Serve static files from public directory only (never expose root server files)
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(__dirname));
 
 // --- Health Check Endpoint (Vercel & Production Monitoring) ---
 app.get('/api/health', (req, res) => {
@@ -506,7 +514,7 @@ function authenticateToken(req, res, next) {
                     next();
                 };
 
-                if (sqlite3 && db && typeof db.close === 'function') {
+                if (db && typeof db.get === 'function') {
                     db.get(`SELECT id, name, email, phone FROM users WHERE LOWER(email) = ?`, [fbEmail], (dbErr, localUser) => {
                         if (!dbErr && localUser) return assignUser(localUser);
                         firestoreService.findUserByEmail(fbEmail)
@@ -544,9 +552,40 @@ function authenticateAdmin(req, res, next) {
     });
 }
 
+// --- Server-side Admin Page Access Guard (for /admin/certificates) ---
+function getVerifiedAdminUser(req) {
+    let token = null;
+
+    // Accept only the ccc_admin_token cookie (not "token", query params, or secrets)
+    if (req.headers.cookie) {
+        const match = req.headers.cookie.match(/(?:^|;\s*)ccc_admin_token=([^;]+)/);
+        if (match) token = decodeURIComponent(match[1]);
+    }
+
+    if (!token) return null;
+
+    try {
+        const payload = jwt.verify(token, SECRET_KEY);
+        return payload;
+    } catch (e) {
+        return null;
+    }
+}
+
+function requireAdmin(req, res, next) {
+    const user = getVerifiedAdminUser(req);
+    if (!user) {
+        return res.status(401).send('Unauthorized: Admin authentication required');
+    }
+    if (!user.isAdmin && user.role !== 'admin') {
+        return res.status(403).send('Forbidden: Admin privileges required');
+    }
+    req.admin = user;
+    next();
+}
+
 // ─── ADMIN AUTHENTICATION HELPERS & CREDENTIAL VERIFICATION ───
 const DEFAULT_ADMIN_EMAIL = 'cubecadcenter0711@gmail.com';
-const DEFAULT_ADMIN_HASH = 'aa43e6afbaa8c0670031ca2bb03de4edef9b32f45e505fbe3da30af4959c9a3f'; // Authoritative SHA-256 hash of initial admin password
 
 function isAdminIdentifier(identifier, envAdminEmail) {
     if (!identifier) return false;
@@ -564,39 +603,21 @@ function isAdminIdentifier(identifier, envAdminEmail) {
     return authorized.includes(clean);
 }
 
-function verifyAdminPassword(inputPassword, envAdminPass, sqlitePassword) {
+function verifyAdminPassword(inputPassword, envAdminPass) {
+    if (!envAdminPass) {
+        console.error('[AUTH ERROR] ADMIN_PASSWORD environment variable is missing or empty. Admin authentication rejected.');
+        return false;
+    }
     if (!inputPassword) return false;
-    const inputHash = crypto.createHash('sha256').update(String(inputPassword)).digest('hex');
-    const inputHashBuf = Buffer.from(inputHash, 'hex');
 
-    // 1. Check against SQLite stored credential (if present and matched)
-    if (sqlitePassword) {
-        const sqlHash = crypto.createHash('sha256').update(String(sqlitePassword)).digest('hex');
-        try {
-            if (crypto.timingSafeEqual(inputHashBuf, Buffer.from(sqlHash, 'hex'))) {
-                return true;
-            }
-        } catch (e) {}
-    }
+    const inputHash = crypto.createHash('sha256').update(String(inputPassword)).digest();
+    const envHash = crypto.createHash('sha256').update(String(envAdminPass)).digest();
 
-    // 2. Check against explicit ADMIN_PASSWORD environment variable (if configured)
-    if (envAdminPass) {
-        const envHash = crypto.createHash('sha256').update(String(envAdminPass)).digest('hex');
-        try {
-            if (crypto.timingSafeEqual(inputHashBuf, Buffer.from(envHash, 'hex'))) {
-                return true;
-            }
-        } catch (e) {}
-    }
-
-    // 3. Check against authorized default SHA-256 hash (serverless fallback)
     try {
-        if (crypto.timingSafeEqual(inputHashBuf, Buffer.from(DEFAULT_ADMIN_HASH, 'hex'))) {
-            return true;
-        }
-    } catch (e) {}
-
-    return false;
+        return crypto.timingSafeEqual(inputHash, envHash);
+    } catch (e) {
+        return false;
+    }
 }
 // --- Caller Authentication Middleware (Caller or Admin allowed) ---
 // --- Caller Authentication Middleware (Caller or Admin allowed with Real-Time Deactivation Check) ---
@@ -628,7 +649,7 @@ function authenticateCaller(req, res, next) {
         };
 
         // Real-time verification of caller active status in SQLite database or Firestore
-        if (sqlite3 && db && typeof db.close === 'function') {
+        if (db && typeof db.get === 'function') {
             db.get(`SELECT id, name, email, status FROM callers WHERE id = ?`, [payload.id], (dbErr, caller) => {
                 if (!dbErr && caller) {
                     return verifyCallerRecord(caller);
@@ -710,7 +731,7 @@ function requireUserAuth(req, res, next) {
                     next();
                 };
 
-                if (sqlite3 && db && typeof db.close === 'function') {
+                if (db && typeof db.get === 'function') {
                     db.get(`SELECT id, name, email, phone FROM users WHERE LOWER(email) = ?`, [fbEmail], (dbErr, localUser) => {
                         if (!dbErr && localUser) return assignUser(localUser);
                         firestoreService.findUserByEmail(fbEmail)
@@ -828,7 +849,7 @@ app.post('/api/auth/signin', (req, res) => {
             if (errAdmin) return res.status(500).json({ error: 'Database error' });
 
             const isSqliteAdmin = admin && (admin.email.toLowerCase() === cleanEmail || isMatchAdmin);
-            const isValidPassword = verifyAdminPassword(password, envAdminPass, admin ? admin.password : null);
+            const isValidPassword = verifyAdminPassword(password, envAdminPass);
 
             if ((isMatchAdmin || isSqliteAdmin) && isValidPassword) {
                 const adminName = (admin && admin.name) || envAdminName;
@@ -836,6 +857,7 @@ app.post('/api/auth/signin', (req, res) => {
                 const adminId = (admin && admin.id) || 1;
                 const adminPayload = { id: adminId, name: adminName, email: adminMail, isAdmin: true, role: 'admin' };
                 const adminToken = jwt.sign(adminPayload, SECRET_KEY, { expiresIn: '12h' });
+                res.setHeader('Set-Cookie', `ccc_admin_token=${adminToken}; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=43200`);
                 return res.json({
                     success: true,
                     isAdmin: true,
@@ -1692,7 +1714,7 @@ app.post('/api/admin/signin', (req, res) => {
             if (err) return res.status(500).json({ error: 'Database error' });
 
             const isSqliteAdmin = admin && (admin.email.toLowerCase() === cleanInput || isMatchIdentifier);
-            const isValidPassword = verifyAdminPassword(password, envAdminPass, admin ? admin.password : null);
+            const isValidPassword = verifyAdminPassword(password, envAdminPass);
 
             if ((isMatchIdentifier || isSqliteAdmin) && isValidPassword) {
                 const adminName = (admin && admin.name) || envAdminName;
@@ -1700,6 +1722,7 @@ app.post('/api/admin/signin', (req, res) => {
                 const adminId = (admin && admin.id) || 1;
                 const payload = { id: adminId, name: adminName, email: adminMail, isAdmin: true, role: 'admin' };
                 const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '12h' });
+                res.setHeader('Set-Cookie', `ccc_admin_token=${token}; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=43200`);
                 return res.json({ success: true, token, admin: { id: adminId, name: adminName, email: adminMail } });
             }
 
@@ -1708,6 +1731,18 @@ app.post('/api/admin/signin', (req, res) => {
     );
 });
 
+// --- Admin Logout (Clears ccc_admin_token cookie) ---
+app.all(['/api/admin/logout', '/api/auth/logout'], (req, res) => {
+    res.setHeader('Set-Cookie', 'ccc_admin_token=; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=0; Expires=Thu, 01 Jan 1970 00:00:00 GMT');
+    res.json({ success: true, message: 'Logged out successfully' });
+});
+
+// --- Admin Certificate Generator Page (Server-Side Admin Route) ---
+app.get(['/admin/certificates', '/admin/certificates/'], requireAdmin, (req, res) => {
+    const certPath = path.join(__dirname, 'private', 'certificate-admin.html');
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    res.sendFile(certPath);
+});
 
 // --- Admin Verify Session ---
 app.get('/api/admin/me', authenticateAdmin, (req, res) => {
@@ -2526,7 +2561,7 @@ const callerLoginHandler = async (req, res) => {
             const envAdminEmail = (process.env.ADMIN_EMAIL || DEFAULT_ADMIN_EMAIL).toLowerCase().trim();
             const envAdminPass = process.env.ADMIN_PASSWORD;
             const isMatchAdmin = isAdminIdentifier(cleanEmail, envAdminEmail);
-            const isValidPassword = verifyAdminPassword(password, envAdminPass, null);
+            const isValidPassword = verifyAdminPassword(password, envAdminPass);
             if (isMatchAdmin && isValidPassword) {
                 const adminName = process.env.ADMIN_NAME || 'Cube Cad Admin';
                 const adminPayload = { id: 1, name: adminName, email: envAdminEmail, isAdmin: true, isCaller: true, role: 'admin' };
@@ -3298,6 +3333,15 @@ app.get('/api/admin/caller-activities', authenticateAdmin, (req, res) => {
         } catch (fe) {}
         res.json({ success: true, activities: [] });
     });
+});
+
+// 404 Catch-All for undefined routes (serves 404 page for HTML or 404 status)
+app.use((req, res) => {
+    const notFoundPath = path.join(__dirname, 'public', '404.html');
+    if (req.accepts('html') && fs.existsSync(notFoundPath)) {
+        return res.status(404).sendFile(notFoundPath);
+    }
+    res.status(404).send('Not Found');
 });
 
 // Start the server (Export for Vercel Serverless Function & Start listener if run directly)

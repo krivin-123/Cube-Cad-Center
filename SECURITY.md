@@ -36,3 +36,4 @@ Configured via `vercel.json` edge headers:
 - **Honeypot Traps:** Silent bot detection via hidden form fields.
 - **Rate Limiting:** Sliding-window per-IP and per-phone request limiters on booking endpoints.
 - **Concurrency Mutex:** Atomic server-side lock ensures slot capacity (maximum 3 bookings per slot) is strictly enforced under concurrent race conditions.
+
