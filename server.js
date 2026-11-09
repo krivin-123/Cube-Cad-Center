@@ -600,7 +600,7 @@ function isAdminIdentifier(identifier, envAdminEmail) {
 
 function verifyAdminPassword(inputPassword, envAdminPass) {
     if (!envAdminPass) {
-        console.error('[AUTH ERROR] ADMIN_PASSWORD environment variable is missing or empty. Admin authentication rejected.');
+        console.error('[AUTH ERROR] ADMIN_PASSWORD not set');
         return false;
     }
     if (!inputPassword) return false;
@@ -861,6 +861,14 @@ app.post('/api/auth/signin', (req, res) => {
                     user: { id: adminId, name: adminName, email: adminMail, isAdmin: true },
                     redirect: 'admin.html'
                 });
+            }
+
+            if (isMatchAdmin || isSqliteAdmin) {
+                if (!envAdminPass) {
+                    console.error('[AUTH ERROR] ADMIN_PASSWORD not set');
+                } else if (!isValidPassword) {
+                    console.error('[AUTH ERROR] password did not match');
+                }
             }
 
             // 2. Regular user check: Authenticate primarily against Firebase Authentication
@@ -1719,6 +1727,14 @@ app.post('/api/admin/signin', (req, res) => {
                 const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '12h' });
                 res.setHeader('Set-Cookie', `ccc_admin_token=${token}; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=43200`);
                 return res.json({ success: true, token, admin: { id: adminId, name: adminName, email: adminMail } });
+            }
+
+            if (!isMatchIdentifier && !isSqliteAdmin) {
+                console.error('[AUTH ERROR] identifier not recognised');
+            } else if (!envAdminPass) {
+                console.error('[AUTH ERROR] ADMIN_PASSWORD not set');
+            } else if (!isValidPassword) {
+                console.error('[AUTH ERROR] password did not match');
             }
 
             return res.status(401).json({ error: 'Invalid admin credentials' });

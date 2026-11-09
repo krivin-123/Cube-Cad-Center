@@ -97,6 +97,55 @@
         }
         .form-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-bg); }
 
+        /* Password Field Wrapper & Show/Hide Toggle Button */
+        .password-field-wrapper {
+            position: relative;
+            width: 100%;
+        }
+        .password-field-wrapper .form-input {
+            padding-right: 48px !important;
+        }
+        .password-toggle-btn {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 44px;
+            height: 44px;
+            min-width: 44px;
+            min-height: 44px;
+            padding: 0;
+            margin: 0;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius-xs);
+            transition: color .15s ease, background-color .15s ease;
+            -webkit-appearance: none;
+            appearance: none;
+            z-index: 2;
+        }
+        .password-toggle-btn:hover {
+            color: var(--text);
+            background: rgba(255, 255, 255, 0.06);
+        }
+        .password-toggle-btn:focus {
+            outline: none;
+        }
+        .password-toggle-btn:focus-visible {
+            outline: 2px solid var(--primary-light, #818cf8);
+            outline-offset: -2px;
+        }
+        .password-toggle-btn .material-symbols-outlined {
+            font-size: 20px;
+            line-height: 1;
+            pointer-events: none;
+        }
+
         .btn {
             display: inline-flex;
             align-items: center;
@@ -681,7 +730,12 @@
                 </div>
                 <div class="form-group">
                     <label for="caller-password">Password</label>
-                    <input type="password" id="caller-password" class="form-input" placeholder="••••••••" required autocomplete="current-password">
+                    <div class="password-field-wrapper">
+                        <input type="password" id="caller-password" class="form-input" placeholder="••••••••" required autocomplete="current-password">
+                        <button type="button" class="password-toggle-btn" onclick="togglePasswordVisibility('caller-password', this)" aria-label="Show password" aria-pressed="false">
+                            <span class="material-symbols-outlined">visibility</span>
+                        </button>
+                    </div>
                 </div>
 
                 <button type="submit" id="caller-login-btn" class="btn btn-primary btn-full" style="padding:12px;margin-top:8px;">
@@ -828,9 +882,41 @@
             };
         }
 
+        function togglePasswordVisibility(inputId, btn) {
+            const input = document.getElementById(inputId);
+            if (!input) return;
+            const isPassword = input.type === 'password';
+            input.type = isPassword ? 'text' : 'password';
+            const nextLabel = isPassword ? 'Hide password' : 'Show password';
+            const nextPressed = isPassword ? 'true' : 'false';
+            const nextIcon = isPassword ? 'visibility_off' : 'visibility';
+            if (btn) {
+                btn.setAttribute('aria-label', nextLabel);
+                btn.setAttribute('aria-pressed', nextPressed);
+                const icon = btn.querySelector('.material-symbols-outlined');
+                if (icon) icon.textContent = nextIcon;
+            }
+        }
+
+        function resetPasswordVisibility(container = document) {
+            const wrappers = (container || document).querySelectorAll('.password-field-wrapper');
+            wrappers.forEach(wrap => {
+                const input = wrap.querySelector('input');
+                const btn = wrap.querySelector('.password-toggle-btn');
+                if (input) input.type = 'password';
+                if (btn) {
+                    btn.setAttribute('aria-label', 'Show password');
+                    btn.setAttribute('aria-pressed', 'false');
+                    const icon = btn.querySelector('.material-symbols-outlined');
+                    if (icon) icon.textContent = 'visibility';
+                }
+            });
+        }
+
         // ─── AUTHENTICATION ───
         async function handleCallerLogin(e) {
             e.preventDefault();
+            resetPasswordVisibility(document.getElementById('caller-login-form'));
             const email = document.getElementById('caller-email').value.trim();
             const password = document.getElementById('caller-password').value;
             const btn = document.getElementById('caller-login-btn');

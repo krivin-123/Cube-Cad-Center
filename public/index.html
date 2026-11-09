@@ -497,6 +497,59 @@
             }
         }
 
+        /* Password Field Wrapper & Show/Hide Toggle Button */
+        .password-field-wrapper {
+            position: relative;
+            width: 100%;
+        }
+        .password-field-wrapper input {
+            padding-right: 48px !important;
+        }
+        .password-toggle-btn {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 44px;
+            height: 44px;
+            min-width: 44px;
+            min-height: 44px;
+            padding: 0;
+            margin: 0;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.75rem;
+            transition: color 0.15s ease, background-color 0.15s ease;
+            -webkit-appearance: none;
+            appearance: none;
+            z-index: 2;
+        }
+        .password-toggle-btn:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+        .dark .password-toggle-btn:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+        .password-toggle-btn:focus {
+            outline: none;
+        }
+        .password-toggle-btn:focus-visible {
+            outline: 2px solid #005691;
+            outline-offset: -2px;
+        }
+        .dark .password-toggle-btn:focus-visible {
+            outline-color: #79a9ff;
+        }
+        .password-toggle-btn .material-symbols-outlined {
+            font-size: 20px;
+            line-height: 1;
+            pointer-events: none;
+        }
+
         body {
             background-color: #F8F9FA;
             color: #1a1c1d;
@@ -1961,11 +2014,11 @@
                     <div class="flex justify-between items-center mb-1.5">
                         <label class="block text-xs font-bold text-on-surface uppercase tracking-wider">Password</label>
                     </div>
-                    <div class="relative">
+                    <div class="relative password-field-wrapper">
                         <span aria-hidden="true" class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">lock</span>
-                        <input type="password" id="signin-password" required placeholder="••••••••" class="w-full pl-10 pr-10 py-2.5 bg-surface-container-low rounded-xl border border-outline/20 text-on-surface text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all">
-                        <button type="button" onclick="togglePasswordVisibility('signin-password', this)" class="absolute right-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-on-surface">
-                            <span aria-hidden="true" class="material-symbols-outlined text-[18px]">visibility</span>
+                        <input type="password" id="signin-password" required placeholder="••••••••" class="w-full pl-10 pr-12 py-2.5 bg-surface-container-low rounded-xl border border-outline/20 text-on-surface text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all">
+                        <button type="button" onclick="togglePasswordVisibility('signin-password', this)" aria-label="Show password" aria-pressed="false" class="password-toggle-btn text-on-surface-variant hover:text-on-surface">
+                            <span aria-hidden="true" class="material-symbols-outlined">visibility</span>
                         </button>
                     </div>
                 </div>
@@ -2016,20 +2069,23 @@
 
                 <div>
                     <label class="block text-xs font-bold text-on-surface mb-1 uppercase tracking-wider">Password</label>
-                    <div class="relative">
+                    <div class="relative password-field-wrapper">
                         <span aria-hidden="true" class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">lock</span>
-                        <input type="password" id="signup-password" required minlength="6" placeholder="At least 6 characters" class="w-full pl-10 pr-10 py-2.5 bg-surface-container-low rounded-xl border border-outline/20 text-on-surface text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all">
-                        <button type="button" onclick="togglePasswordVisibility('signup-password', this)" class="absolute right-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-on-surface">
-                            <span aria-hidden="true" class="material-symbols-outlined text-[18px]">visibility</span>
+                        <input type="password" id="signup-password" required minlength="6" placeholder="At least 6 characters" class="w-full pl-10 pr-12 py-2.5 bg-surface-container-low rounded-xl border border-outline/20 text-on-surface text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all">
+                        <button type="button" onclick="togglePasswordVisibility('signup-password', this)" aria-label="Show password" aria-pressed="false" class="password-toggle-btn text-on-surface-variant hover:text-on-surface">
+                            <span aria-hidden="true" class="material-symbols-outlined">visibility</span>
                         </button>
                     </div>
                 </div>
 
                 <div>
                     <label class="block text-xs font-bold text-on-surface mb-1 uppercase tracking-wider">Confirm Password</label>
-                    <div class="relative">
+                    <div class="relative password-field-wrapper">
                         <span aria-hidden="true" class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">lock_reset</span>
-                        <input type="password" id="signup-confirm-password" required minlength="6" placeholder="Repeat your password" class="w-full pl-10 pr-4 py-2.5 bg-surface-container-low rounded-xl border border-outline/20 text-on-surface text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all">
+                        <input type="password" id="signup-confirm-password" required minlength="6" placeholder="Repeat your password" class="w-full pl-10 pr-12 py-2.5 bg-surface-container-low rounded-xl border border-outline/20 text-on-surface text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all">
+                        <button type="button" onclick="togglePasswordVisibility('signup-confirm-password', this)" aria-label="Show password" aria-pressed="false" class="password-toggle-btn text-on-surface-variant hover:text-on-surface">
+                            <span aria-hidden="true" class="material-symbols-outlined">visibility</span>
+                        </button>
                     </div>
                 </div>
 
@@ -2415,12 +2471,14 @@
         }
 
         function closeAuthModal() {
+            resetPasswordVisibility(document.getElementById('auth-modal'));
             const modal = document.getElementById('auth-modal');
             modal.classList.add('hidden');
             modal.classList.remove('flex');
         }
 
         function switchAuthTab(tab) {
+            resetPasswordVisibility(document.getElementById('auth-modal'));
             const signinForm = document.getElementById('signin-form');
             const signupForm = document.getElementById('signup-form');
             const tabBtnSignin = document.getElementById('tab-btn-signin');
@@ -2449,14 +2507,33 @@
 
         function togglePasswordVisibility(inputId, btn) {
             const input = document.getElementById(inputId);
-            const icon = btn.querySelector('.material-symbols-outlined');
-            if (input.type === 'password') {
-                input.type = 'text';
-                icon.textContent = 'visibility_off';
-            } else {
-                input.type = 'password';
-                icon.textContent = 'visibility';
+            if (!input) return;
+            const isPassword = input.type === 'password';
+            input.type = isPassword ? 'text' : 'password';
+            const nextLabel = isPassword ? 'Hide password' : 'Show password';
+            const nextPressed = isPassword ? 'true' : 'false';
+            const nextIcon = isPassword ? 'visibility_off' : 'visibility';
+            if (btn) {
+                btn.setAttribute('aria-label', nextLabel);
+                btn.setAttribute('aria-pressed', nextPressed);
+                const icon = btn.querySelector('.material-symbols-outlined');
+                if (icon) icon.textContent = nextIcon;
             }
+        }
+
+        function resetPasswordVisibility(container = document) {
+            const wrappers = (container || document).querySelectorAll('.password-field-wrapper');
+            wrappers.forEach(wrap => {
+                const input = wrap.querySelector('input');
+                const btn = wrap.querySelector('.password-toggle-btn');
+                if (input) input.type = 'password';
+                if (btn) {
+                    btn.setAttribute('aria-label', 'Show password');
+                    btn.setAttribute('aria-pressed', 'false');
+                    const icon = btn.querySelector('.material-symbols-outlined');
+                    if (icon) icon.textContent = 'visibility';
+                }
+            });
         }
 
         function showAuthAlert(msg, isSuccess = false) {
@@ -2476,6 +2553,7 @@
         // SIGN IN HANDLER
         async function handleSignIn(e) {
             e.preventDefault();
+            resetPasswordVisibility(document.getElementById('auth-modal'));
             const email = document.getElementById('signin-email').value.trim();
             const password = document.getElementById('signin-password').value;
             const submitBtn = document.getElementById('signin-submit-btn');
@@ -2553,6 +2631,7 @@
         // SIGN UP HANDLER (Create New Email / Account)
         async function handleSignUp(e) {
             e.preventDefault();
+            resetPasswordVisibility(document.getElementById('auth-modal'));
             const name = document.getElementById('signup-name').value.trim();
             const email = document.getElementById('signup-email').value.trim();
             const phone = document.getElementById('signup-phone').value.trim();
