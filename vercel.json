@@ -9,6 +9,14 @@
   },
   "rewrites": [
     {
+      "source": "/(server\\.js|package\\.json|firestore\\.rules|\\.env.*|test_.*)",
+      "destination": "/404.html"
+    },
+    {
+      "source": "/private/(.*)",
+      "destination": "/404.html"
+    },
+    {
       "source": "/admin/certificates(.*)",
       "destination": "/api"
     },

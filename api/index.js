@@ -11,7 +11,10 @@ module.exports = (req, res) => {
         return res.status(500).json({
             error: 'Server Initialization Failed',
             message: initError.message,
-            stack: initError.stack
+            vercelEnv: process.env.VERCEL_ENV || 'unknown',
+            nodeEnv: process.env.NODE_ENV || 'unknown',
+            hasSecretKey: Boolean(process.env.SECRET_KEY || process.env.JWT_SECRET || process.env.secret_key || process.env.jwt_secret),
+            hasAdminPassword: Boolean(process.env.ADMIN_PASSWORD || process.env.admin_password || process.env.ADMIN_PASS || process.env.admin_pass)
         });
     }
     return app(req, res);

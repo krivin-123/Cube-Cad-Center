@@ -12,7 +12,7 @@ const https = require('https');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const SECRET_KEY = process.env.SECRET_KEY || process.env.JWT_SECRET;
+const SECRET_KEY = process.env.SECRET_KEY || process.env.JWT_SECRET || process.env.secret_key || process.env.jwt_secret;
 if (!SECRET_KEY) {
     throw new Error('FATAL: SECRET_KEY or JWT_SECRET environment variable is missing.');
 }
@@ -836,7 +836,7 @@ app.post('/api/auth/signin', (req, res) => {
     }
     const cleanEmail = String(rawIdentifier).trim().toLowerCase();
     const envAdminEmail = (process.env.ADMIN_EMAIL || DEFAULT_ADMIN_EMAIL).toLowerCase().trim();
-    const envAdminPass = process.env.ADMIN_PASSWORD;
+    const envAdminPass = process.env.ADMIN_PASSWORD || process.env.admin_password || process.env.ADMIN_PASS || process.env.admin_pass;
     const envAdminName = process.env.ADMIN_NAME || 'Cube Cad Admin';
 
     const isMatchAdmin = isAdminIdentifier(cleanEmail, envAdminEmail);
@@ -1702,7 +1702,7 @@ app.post('/api/admin/signin', (req, res) => {
     }
     const cleanInput = String(rawIdentifier).trim().toLowerCase();
     const envAdminEmail = (process.env.ADMIN_EMAIL || DEFAULT_ADMIN_EMAIL).toLowerCase().trim();
-    const envAdminPass = process.env.ADMIN_PASSWORD;
+    const envAdminPass = process.env.ADMIN_PASSWORD || process.env.admin_password || process.env.ADMIN_PASS || process.env.admin_pass;
     const envAdminName = process.env.ADMIN_NAME || 'Cube Cad Admin';
 
     const isMatchIdentifier = isAdminIdentifier(cleanInput, envAdminEmail);
@@ -2559,7 +2559,7 @@ const callerLoginHandler = async (req, res) => {
         // Fallback: Check if Admin credentials were submitted to access Caller Desk
         try {
             const envAdminEmail = (process.env.ADMIN_EMAIL || DEFAULT_ADMIN_EMAIL).toLowerCase().trim();
-            const envAdminPass = process.env.ADMIN_PASSWORD;
+            const envAdminPass = process.env.ADMIN_PASSWORD || process.env.admin_password || process.env.ADMIN_PASS || process.env.admin_pass;
             const isMatchAdmin = isAdminIdentifier(cleanEmail, envAdminEmail);
             const isValidPassword = verifyAdminPassword(password, envAdminPass);
             if (isMatchAdmin && isValidPassword) {
