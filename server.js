@@ -1748,11 +1748,14 @@ app.all(['/api/admin/logout', '/api/auth/logout'], (req, res) => {
     res.json({ success: true, message: 'Logged out successfully' });
 });
 
-// --- Admin Certificate Generator Page (Server-Side Admin Route) ---
+// --- Admin Panel Page Route ---
+app.get(['/admin', '/admin/'], (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'admin.html'));
+});
+
+// --- Admin Certificate Generator Page (Redirects to Admin Panel #certificates) ---
 app.get(['/admin/certificates', '/admin/certificates/'], requireAdmin, (req, res) => {
-    const certPath = path.join(__dirname, 'private', 'certificate-admin.html');
-    res.setHeader('Content-Type', 'text/html; charset=utf-8');
-    res.sendFile(certPath);
+    res.redirect(302, '/admin#certificates');
 });
 
 // --- Admin Verify Session ---

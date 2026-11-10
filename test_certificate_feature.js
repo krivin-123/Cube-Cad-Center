@@ -142,20 +142,21 @@ async function run() {
         const indexHtml = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf8');
         assert(!indexHtml.includes('/admin/certificates') && !indexHtml.includes('Create certificate'), 'Public homepage does not contain certificate admin link');
 
-        // --- CHECK 3: Signed in as admin loads page (200) ---
-        console.log('\n--- CHECK 3: Admin access to /admin/certificates (200) via ccc_admin_token ---');
+        // --- CHECK 3: Signed in as admin redirects to /admin#certificates (302) ---
+        console.log('\n--- CHECK 3: Admin access to /admin/certificates (302) via ccc_admin_token ---');
         const res3Cookie = await request({
             path: '/admin/certificates',
             method: 'GET',
             headers: { 'Cookie': `ccc_admin_token=${adminToken}` }
         });
-        assert(res3Cookie.status === 200, 'Admin request with ccc_admin_token cookie returns HTTP 200');
-        assert(typeof res3Cookie.body === 'string' && res3Cookie.body.includes('Certificate of completion'), 'Certificate page HTML delivered to admin');
-        assert(res3Cookie.body.includes('Create certificate · Cube Cad Center admin'), 'Correct title present');
+        assert(res3Cookie.status === 302, 'Admin request with ccc_admin_token cookie returns HTTP 302');
+        assert(res3Cookie.headers.location === '/admin#certificates', 'Redirects to /admin#certificates');
 
-        // Verify Admin navigation has "Create certificate"
+        // Verify Admin navigation has "Create certificate" calling switchPage and no openCertificateAdmin
         const adminHtml = fs.readFileSync(path.join(__dirname, 'admin.html'), 'utf8');
-        assert(adminHtml.includes('Create certificate') && adminHtml.includes('openCertificateAdmin()'), 'Admin navigation includes "Create certificate" link');
+        assert(adminHtml.includes('Create certificate') && adminHtml.includes("switchPage('certificates')"), 'Admin navigation includes "Create certificate" calling switchPage');
+        assert(!adminHtml.includes('openCertificateAdmin'), 'openCertificateAdmin() is completely removed');
+        assert(adminHtml.includes('id="page-certificates"'), 'admin.html contains page-certificates container');
 
         // --- CHECK 3b: Server sets HttpOnly, Secure, SameSite=Strict cookie on sign-in and clears on logout ---
         console.log('\n--- CHECK 3b: Cookie attributes on sign-in & logout ---');
@@ -295,20 +296,21 @@ async function run() {
 
         // --- CHECK 9: Print CSS Specifications ---
         console.log('\n--- CHECK 9: Print CSS Specifications ---');
-        const certHtml = fs.readFileSync(path.join(__dirname, 'private', 'certificate-admin.html'), 'utf8');
-        assert(certHtml.includes('@page{size:A4 landscape;margin:0}'), 'Print CSS includes A4 landscape margin: 0');
-        assert(certHtml.includes('.noprint{display:none!important}'), 'Non-printable elements hidden in print CSS');
-        assert(certHtml.includes('297mm') && certHtml.includes('210mm'), 'Certificate sized to 297mm x 210mm in print');
+        assert(adminHtml.includes('size: A4 landscape;'), 'Print CSS includes A4 landscape');
+        assert(adminHtml.includes('margin: 0;'), 'Print CSS includes margin: 0');
+        assert(adminHtml.includes('body > *:not(#cert-print-root)'), 'Non-certificate elements hidden in print CSS');
+        assert(adminHtml.includes('297mm') && adminHtml.includes('210mm'), 'Certificate sized to 297mm x 210mm in print');
+        assert(adminHtml.includes('break-after: page') && adminHtml.includes('break-after: auto'), 'Page breaks configured to avoid trailing blank page');
 
         // --- CHECK 10: Mobile Responsive Styles (375px) ---
         console.log('\n--- CHECK 10: Mobile responsiveness (375px) ---');
-        assert(certHtml.includes('@media (max-width:900px){.grid{grid-template-columns:1fr}}'), 'Single column grid on mobile');
-        assert(certHtml.includes('min-height:44px'), 'Accessible min-height 44px for buttons and touch inputs');
-        assert(certHtml.includes('container-type:inline-size') && certHtml.includes('cqw'), 'Container queries used for certificate auto-scaling');
+        assert(adminHtml.includes('.cert-layout-grid'), '2-column grid layout for certificates page');
+        assert(adminHtml.includes('container-type: inline-size') && adminHtml.includes('cqw'), 'Container queries used for certificate auto-scaling');
 
         // --- CHECK 11: Script integrity & pinned version ---
         console.log('\n--- CHECK 11: SheetJS pinned version & CSP verification ---');
-        assert(certHtml.includes('https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js'), 'SheetJS pinned to exact 0.18.5 version');
+        assert(adminHtml.includes('https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js'), 'SheetJS pinned to exact 0.18.5 version');
+        assert(adminHtml.includes('sha512-r22gChDnGvBylk90+2e/ycr3RVrDi8DIOkIGNhJlKfuyQM4tIRAI062MaV8sfjQKYVGjOBaZBOA87z+IhZE9DA=='), 'SheetJS script has correct SRI hash');
         const vercelJson = fs.readFileSync(path.join(__dirname, 'vercel.json'), 'utf8');
         assert(vercelJson.includes('https://cdnjs.cloudflare.com'), 'Vercel CSP includes https://cdnjs.cloudflare.com');
 

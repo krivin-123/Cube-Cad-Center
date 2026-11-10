@@ -287,7 +287,7 @@ async function runSuite() {
 
     // Get a valid upcoming weekday date (within next 7 days, avoiding Sundays)
     const bookingDateObj = new Date();
-    bookingDateObj.setDate(bookingDateObj.getDate() + 2);
+    bookingDateObj.setDate(bookingDateObj.getDate() + 3);
     while (bookingDateObj.getDay() === 0) {
         bookingDateObj.setDate(bookingDateObj.getDate() + 1);
     }
