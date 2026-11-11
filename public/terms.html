@@ -70,14 +70,14 @@
                     <span class="material-symbols-outlined text-[15px]">gavel</span> TERMS & CONDITIONS
                 </div>
                 <h1 class="font-headline text-3xl sm:text-4xl font-extrabold text-on-surface tracking-tight mb-2">Terms of Service</h1>
-                <p class="text-sm text-on-surface-variant">Last Updated: November 2026 &bull; Operating Entity: <strong>[LEGAL ENTITY NAME]</strong></p>
+                <p class="text-sm text-on-surface-variant">Last Updated: November 2026 &bull; Operating Entity: <strong data-config="legalEntityName">Cube Cad Center</strong></p>
             </div>
 
             <div class="prose prose-slate max-w-none text-sm sm:text-base leading-relaxed space-y-6 text-slate-700">
                 <section>
                     <h2 class="text-xl font-bold font-headline text-on-surface mb-2">1. Acceptance of Terms</h2>
                     <p>
-                        Welcome to Cube Cad Center. These Terms of Service govern your use of our website (<a href="https://cubecadcenter.co" class="text-primary font-medium">cubecadcenter.co</a>), counseling appointment booking systems, and educational services operated by <strong>[LEGAL ENTITY NAME]</strong> ("we", "us", or "our"). By booking an appointment, submitting an inquiry, or accessing course materials, you agree to these terms.
+                        Welcome to Cube Cad Center. These Terms of Service govern your use of our website (<a href="https://cubecadcenter.co" class="text-primary font-medium">cubecadcenter.co</a>), counseling appointment booking systems, and educational services operated by <strong data-config="legalEntityName">Cube Cad Center</strong> ("we", "us", or "our"). By booking an appointment, submitting an inquiry, or accessing course materials, you agree to these terms.
                     </p>
                 </section>
 
@@ -108,14 +108,14 @@
                     </p>
                     <ul class="list-disc pl-5 mt-2 space-y-1">
                         <li><strong>Placement Assistance:</strong> We provide dedicated career guidance, mock interviews, and placement assistance. We do not provide misleading or unconditional employment guarantees.</li>
-                        <li><strong>Credentials & Certifications:</strong> Course completion certificates and authorized credentials reflect the curriculum mastered by the candidate. Authorization credentials conform to: <em>[EXACT CREDENTIAL, e.g. Autodesk Authorized Training Center, or "none"]</em>.</li>
+                        <li><strong>Credentials & Certifications:</strong> Course completion certificates reflect the curriculum mastered by the candidate and verified project coursework.<span id="terms-auth-credential-wrap" style="display:none"> Authorization credentials conform to: <em data-config="authorizationCredential"></em>.</span></li>
                     </ul>
                 </section>
 
                 <section>
                     <h2 class="text-xl font-bold font-headline text-on-surface mb-2">5. Intellectual Property</h2>
                     <p>
-                        All course syllabi, training frameworks, custom software tutorials, text, and visual assets on this site are the intellectual property of [LEGAL ENTITY NAME] or respective software licensors (e.g. Autodesk, Trimble, Dassault Systèmes). Unauthorized reproduction, scraping, or redistribution is prohibited.
+                        All course syllabi, training frameworks, custom software tutorials, text, and visual assets on this site are the intellectual property of <span data-config="legalEntityName">Cube Cad Center</span> or respective software licensors (e.g. Autodesk, Trimble, Dassault Systèmes). Unauthorized reproduction, scraping, or redistribution is prohibited.
                     </p>
                 </section>
 
@@ -130,7 +130,7 @@
                     <h2 class="text-xl font-bold font-headline text-on-surface mb-2">7. Inquiries & Contact</h2>
                     <p>If you have any questions regarding these terms, please contact us:</p>
                     <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 mt-3 text-sm space-y-1">
-                        <p><strong>Entity:</strong> [LEGAL ENTITY NAME] (Cube Cad Center)</p>
+                        <p><strong>Entity:</strong> <span data-config="legalEntityName">Cube Cad Center</span></p>
                         <p><strong>Email:</strong> <a href="mailto:info@cubecadcenter.co" class="text-primary font-medium">info@cubecadcenter.co</a></p>
                         <p><strong>Phone:</strong> <a href="tel:+919978999694" class="text-primary font-medium">+91 99789 99694</a></p>
                         <p><strong>Satellite Campus:</strong> 310, Iscon Emporio, Beside Star Bazaar, Satellite, Ahmedabad 380015</p>
@@ -144,7 +144,7 @@
     <!-- Footer -->
     <footer class="bg-white border-t border-slate-200 py-6 mt-12">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-on-surface-variant">
-            <p>&copy; 2026 [LEGAL ENTITY NAME] / Cube Cad Center. All rights reserved.</p>
+            <p>&copy; 2026 <span data-config="legalEntityName">Cube Cad Center</span>. All rights reserved.</p>
             <div class="flex gap-4">
                 <a href="/privacy.html" class="hover:text-primary font-medium">Privacy Policy</a>
                 <a href="/terms.html" class="hover:text-primary font-medium">Terms of Service</a>
@@ -152,5 +152,7 @@
             </div>
         </div>
     </footer>
+    <script src="site-config.js"></script>
 </body>
 </html>
+
