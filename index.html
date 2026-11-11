@@ -765,7 +765,7 @@
     <!-- 1. Sticky Navigation -->
     <nav class="fixed top-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-6xl flex justify-between items-center z-[100]">
         <!-- Left: Logo Box -->
-        <a class="nav-pill rounded-full px-5 py-2.5 flex items-center gap-3 transition-transform hover:scale-[0.99] no-underline" href="index.html">
+        <a class="nav-pill rounded-full px-3.5 sm:px-5 py-2 sm:py-2.5 flex items-center gap-2.5 sm:gap-3 transition-transform hover:scale-[0.99] no-underline" href="index.html">
             <img src="assets/images/logo.png" alt="Cube Cad Center Logo" width="36" height="36" class="h-9 w-9 object-contain rounded-full shadow-sm">
             <span class="font-headline-md text-base font-bold text-on-surface tracking-tight">Cube Cad Center</span>
         </a>
@@ -827,10 +827,10 @@
 
         <!-- Mobile Buttons -->
         <div class="flex items-center gap-2 md:hidden">
-            <a href="#book-appointment" aria-label="Book Appointment" class="btn-primary !p-2 rounded-full shadow-sm no-underline flex items-center justify-center">
+            <a href="#book-appointment" aria-label="Book Appointment" class="btn-primary !p-2 min-w-[44px] min-h-[44px] rounded-full shadow-sm no-underline flex items-center justify-center">
                 <span aria-hidden="true" class="material-symbols-outlined text-[18px]">calendar_month</span>
             </a>
-            <button class="nav-pill rounded-full p-2.5 text-on-surface flex items-center justify-center" id="mobile-menu-btn" aria-label="Toggle mobile menu">
+            <button class="nav-pill rounded-full p-2.5 min-w-[44px] min-h-[44px] text-on-surface flex items-center justify-center" id="mobile-menu-btn" aria-label="Toggle mobile menu">
                 <span aria-hidden="true" class="material-symbols-outlined text-xl">menu</span>
             </button>
         </div>
@@ -1670,7 +1670,7 @@
     </section>
 
     <!-- 13. Footer Redesign -->
-    <footer id="contact" class="bg-surface-variant/50 border-t border-outline/20 pt-20 pb-10">
+    <footer id="contact" class="bg-surface-variant/50 border-t border-outline/20 pt-16 sm:pt-20 pb-28 sm:pb-12">
         <div class="max-w-7xl mx-auto px-6">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
                 
@@ -1749,9 +1749,9 @@
             <div class="border-t border-outline/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
                 <p class="text-sm text-on-surface-variant">&copy; 2026 Cube Cad Center. All rights reserved.</p>
                 <div class="flex gap-3 text-on-surface-variant items-center">
-                    <button type="button" onclick="copyPageUrl()" title="Copy Page Link" aria-label="Copy page link" class="hover:text-primary transition-colors p-1"><span aria-hidden="true" class="material-symbols-outlined text-[20px]">link</span></button>
-                    <button type="button" onclick="shareWebsite()" title="Share Website" aria-label="Share website" class="hover:text-primary transition-colors p-1"><span aria-hidden="true" class="material-symbols-outlined text-[20px]">share</span></button>
-                    <a href="https://wa.me/919978999694" target="_blank" rel="noopener" title="WhatsApp" aria-label="Chat on WhatsApp" class="hover:text-green-600 transition-colors p-1"><span aria-hidden="true" class="material-symbols-outlined text-[20px]">chat</span></a>
+                    <button type="button" onclick="copyPageUrl()" title="Copy Page Link" aria-label="Copy page link" class="hover:text-primary transition-colors p-2 min-w-[44px] min-h-[44px] flex items-center justify-center"><span aria-hidden="true" class="material-symbols-outlined text-[20px]">link</span></button>
+                    <button type="button" onclick="shareWebsite()" title="Share Website" aria-label="Share website" class="hover:text-primary transition-colors p-2 min-w-[44px] min-h-[44px] flex items-center justify-center"><span aria-hidden="true" class="material-symbols-outlined text-[20px]">share</span></button>
+                    <a href="https://wa.me/919978999694" target="_blank" rel="noopener" title="WhatsApp" aria-label="Chat on WhatsApp" class="hover:text-green-600 transition-colors p-2 min-w-[44px] min-h-[44px] flex items-center justify-center"><span aria-hidden="true" class="material-symbols-outlined text-[20px]">chat</span></a>
                 </div>
             </div>
         </div>
@@ -3704,19 +3704,19 @@
         }
     </script>
     <!-- Sticky Mobile Bottom Action Bar (Call, WhatsApp, Book) -->
-    <aside aria-label="Quick Contact Actions" class="block md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur border-t border-slate-200 p-2.5 shadow-2xl">
+    <aside aria-label="Quick Contact Actions" class="block md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur border-t border-slate-200 p-2 pb-[calc(0.5rem+env(safe-area-inset-bottom,0px))] shadow-2xl">
         <div class="max-w-md mx-auto grid grid-cols-3 gap-2 text-center text-xs">
-            <a href="tel:+919978999694" class="py-2.5 px-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-on-surface font-bold flex flex-col items-center justify-center gap-1 no-underline">
-                <span class="material-symbols-outlined text-[18px] text-primary">call</span>
-                <span>Call Now</span>
+            <a href="tel:+919978999694" class="min-h-[48px] py-2 px-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-on-surface font-bold flex flex-col items-center justify-center gap-0.5 no-underline active:scale-95 transition-transform">
+                <span class="material-symbols-outlined text-[20px] text-primary">call</span>
+                <span class="text-[11px]">Call Now</span>
             </a>
-            <a href="https://wa.me/919978999694?text=Hi%20Cube%20Cad%20Center%2C%20I%20would%20like%20to%20inquire%20about%20courses" target="_blank" rel="noopener" class="py-2.5 px-2 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 font-bold flex flex-col items-center justify-center gap-1 no-underline">
-                <span class="material-symbols-outlined text-[18px] text-emerald-600">chat</span>
-                <span>WhatsApp</span>
+            <a href="https://wa.me/919978999694?text=Hi%20Cube%20Cad%20Center%2C%20I%20would%20like%20to%20inquire%20about%20courses" target="_blank" rel="noopener" class="min-h-[48px] py-2 px-2 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 font-bold flex flex-col items-center justify-center gap-0.5 no-underline active:scale-95 transition-transform">
+                <span class="material-symbols-outlined text-[20px] text-emerald-600">chat</span>
+                <span class="text-[11px]">WhatsApp</span>
             </a>
-            <a href="#book-appointment" class="py-2.5 px-2 rounded-xl bg-primary text-white font-bold flex flex-col items-center justify-center gap-1 no-underline shadow-sm">
-                <span class="material-symbols-outlined text-[18px]">calendar_month</span>
-                <span>Book Slot</span>
+            <a href="#book-appointment" class="min-h-[48px] py-2 px-2 rounded-xl bg-primary text-white font-bold flex flex-col items-center justify-center gap-0.5 no-underline shadow-sm active:scale-95 transition-transform">
+                <span class="material-symbols-outlined text-[20px]">calendar_month</span>
+                <span class="text-[11px]">Book Slot</span>
             </a>
         </div>
     </aside>
