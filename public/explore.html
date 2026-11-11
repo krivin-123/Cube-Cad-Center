@@ -132,6 +132,26 @@
     <!-- GSAP for Smooth Animations -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        :focus-visible {
+            outline: 2px solid #005691 !important;
+            outline-offset: 2px !important;
+        }
+        button:focus-visible, a:focus-visible {
+            outline: 2px solid #005691 !important;
+            outline-offset: 2px !important;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, ::before, ::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+
 </head>
 <body class="bg-background antialiased text-on-surface flex flex-col min-h-screen">
 <!-- Preloader -->
