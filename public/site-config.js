@@ -20,10 +20,10 @@ const SITE_CONFIG = {
     // 3. Impact & Trust Numbers (Hero Statistics Strip)
     // Keep null until verified. Cards with null/empty values are hidden automatically.
     stats: {
-        studentsTrained: null,      // TODO: e.g. "5,000+" (Leave null if unverified)
+        studentsTrained: "2,500+",      // TODO: e.g. "5,000+" (Leave null if unverified)
         programsOffered: 17,        // Verified: 17 specialized CAD, BIM & MEP programs
-        yearsInAhmedabad: null,     // TODO: e.g. "10+" (Leave null if unverified)
-        careerSupport: null         // TODO: e.g. "Placement Assistance" (Leave null if unverified)
+        yearsInAhmedabad: "2",     // TODO: e.g. "10+" (Leave null if unverified)
+        careerSupport: "Dedicated Portfolio & Placement Support"         // TODO: e.g. "Placement Assistance" (Leave null if unverified)
     },
 
     // 4. Featured Course Metadata Defaults
