@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Architectural Design - Cube Cad Center</title>
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="192x192" href="assets/images/logo-icon.png">
@@ -109,8 +109,6 @@
         
         body {
             background-color: #F5F5F7;
-            padding-left: env(safe-area-inset-left);
-            padding-right: env(safe-area-inset-right);
             color: #1a1c1d;
             font-family: 'Inter', sans-serif;
             scroll-behavior: smooth;
@@ -127,7 +125,7 @@
 </head>
 <body class="bg-background antialiased text-on-surface flex flex-col min-h-screen">
 <!-- Preloader -->
-    <div id="preloader" class="fixed inset-0 z-[100] bg-background blueprint-grid flex flex-col items-center justify-center" style="display: none;">
+    <div id="preloader" class="fixed inset-0 z-[100] bg-background blueprint-grid flex flex-col items-center justify-center">
         <div class="flex flex-col items-center gap-8 w-full max-w-xs px-6">
             <img src="assets/images/logo.png" alt="Cube Cad Center Logo" class="h-20 w-20 object-contain rounded-full animate-pulse shadow-md">
             
@@ -153,38 +151,38 @@
     
     <!-- Top Navigation -->
     <header class="w-full bg-surface/90 backdrop-blur-md border-b border-outline/20 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 py-3.5 sm:py-4 flex flex-wrap justify-between items-center gap-3">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 py-4 flex justify-between items-center">
             <a href="index.html" class="flex items-center gap-3 no-underline">
                 <img src="assets/images/logo.png" alt="Cube Cad Center" class="h-9 w-9 object-contain rounded-full shadow-sm">
                 <div class="font-headline-md text-xl font-bold text-on-surface tracking-tight">Cube Cad Center</div>
             </a>
             <a href="explore.html" class="font-button text-sm font-semibold text-primary hover:text-primary-container transition-colors flex items-center gap-1">
-                <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_back</span> Back to Catalog
+                <span class="material-symbols-outlined text-[18px]">arrow_back</span> Back to Catalog
             </a>
         </div>
     </header>
 
     <main class="flex-grow">
         <!-- Hero Section -->
-        <section class="bg-surface-container-highest py-12 sm:py-20 px-4 sm:px-6 md:px-12 blueprint-grid relative border-b border-outline/20">
+        <section class="bg-surface-container-highest py-20 px-6 md:px-12 blueprint-grid relative border-b border-outline/20">
             <div class="max-w-7xl mx-auto relative z-10">
                 <span class="inline-block bg-primary text-on-primary font-label-caps text-xs px-3 py-1 mb-4 rounded-sm tracking-widest">COURSE SYLLABUS</span>
-                <h1 class="font-headline-xl text-3xl sm:text-5xl md:text-6xl font-extrabold text-on-surface mb-4 sm:mb-6 leading-tight">Architectural Design</h1>
+                <h1 class="font-headline-xl text-5xl md:text-6xl font-extrabold text-on-surface mb-6">Architectural Design</h1>
                 <p class="font-body-lg text-lg text-on-surface-variant max-w-2xl">Master the art and science of architectural drafting and 3D modeling. Learn to translate conceptual designs into precise, construction-ready blueprints and immersive BIM models.</p>
             </div>
         </section>
 
         <!-- Course Content -->
-        <section class="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 py-10 sm:py-16">
-            <div class="surface-card p-5 sm:p-8 md:p-12 border-t-4 border-t-primary">
+        <section class="max-w-7xl mx-auto px-6 md:px-12 py-16">
+            <div class="surface-card p-8 md:p-12 border-t-4 border-t-primary">
                 
         <div class="flex items-center gap-3 mb-8">
-            <span class="material-symbols-outlined text-primary text-4xl" style="font-variation-settings: 'FILL' 1;" aria-hidden="true">architecture</span>
+            <span class="material-symbols-outlined text-primary text-4xl" style="font-variation-settings: 'FILL' 1;">architecture</span>
             <h2 class="font-headline-lg text-4xl text-on-surface font-bold">AutoCAD • Revit • SketchUp</h2>
         </div>
         
         <div class="space-y-12">
-            <div id="autocad">
+            <div>
                 <h3 class="font-headline-md text-2xl text-on-surface mb-4 border-b border-outline/20 pb-2">Module 1: 2D Drafting with AutoCAD</h3>
                 <ul class="list-disc pl-6 space-y-2 font-body-md text-on-surface-variant">
                     <li>Introduction to AutoCAD Interface and Navigation</li>
@@ -196,7 +194,7 @@
                 </ul>
             </div>
             
-            <div id="sketchup">
+            <div>
                 <h3 class="font-headline-md text-2xl text-on-surface mb-4 border-b border-outline/20 pb-2">Module 2: 3D Conceptual Modeling with SketchUp</h3>
                 <ul class="list-disc pl-6 space-y-2 font-body-md text-on-surface-variant">
                     <li>Push/Pull Mechanics and 3D Forms</li>
@@ -207,7 +205,7 @@
                 </ul>
             </div>
             
-            <div id="revit">
+            <div>
                 <h3 class="font-headline-md text-2xl text-on-surface mb-4 border-b border-outline/20 pb-2">Module 3: Building Information Modeling with Revit</h3>
                 <ul class="list-disc pl-6 space-y-2 font-body-md text-on-surface-variant">
                     <li>Understanding BIM vs. CAD</li>
@@ -247,10 +245,10 @@
                     <li class="text-on-surface-variant font-body-sm text-xs leading-relaxed">310, Iscon Emporio,<br>Beside Star Bazaar,<br>Near Jodhpur Cross Road, Satellite,<br>Ahmedabad,<br>Gujarat 380015, India.</li>
                     <li class="font-body-sm font-semibold text-on-surface mt-2.5">BOPAL BRANCH</li>
                     <li class="text-on-surface-variant font-body-sm text-xs leading-relaxed">C449, 4th Floor, SoBo Center,<br>South Bopal,<br>Above Gwalia,<br>Ahmedabad,<br>Gujarat 380058, India.</li>
-                    <li class="text-on-surface-variant font-body-sm mt-3"><a href="tel:+919978999694" class="hover:text-primary transition-colors font-semibold flex items-center gap-2"><span class="material-symbols-outlined text-[18px]" aria-hidden="true">call</span> +91 9978999694</a></li>
-                    <li class="text-on-surface-variant font-body-sm"><a href="tel:+919909996285" class="hover:text-primary transition-colors font-semibold flex items-center gap-2"><span class="material-symbols-outlined text-[18px]" aria-hidden="true">call</span> +91 9909996285</a></li>
-                    <li class="text-on-surface-variant font-body-sm"><a href="tel:+919909997285" class="hover:text-primary transition-colors font-semibold flex items-center gap-2"><span class="material-symbols-outlined text-[18px]" aria-hidden="true">call</span> +91 9909997285</a></li>
-                    <li class="text-on-surface-variant font-body-sm mt-1"><a href="mailto:info@cubecadcenter.co" class="hover:text-primary transition-colors font-semibold flex items-center gap-2"><span class="material-symbols-outlined text-[18px]" aria-hidden="true">email</span> info@cubecadcenter.co</a></li>
+                    <li class="text-on-surface-variant font-body-sm mt-3"><a href="tel:+919978999694" class="hover:text-primary transition-colors font-semibold flex items-center gap-2"><span class="material-symbols-outlined text-[18px]">call</span> +91 9978999694</a></li>
+                    <li class="text-on-surface-variant font-body-sm"><a href="tel:+919909996285" class="hover:text-primary transition-colors font-semibold flex items-center gap-2"><span class="material-symbols-outlined text-[18px]">call</span> +91 9909996285</a></li>
+                    <li class="text-on-surface-variant font-body-sm"><a href="tel:+919909997285" class="hover:text-primary transition-colors font-semibold flex items-center gap-2"><span class="material-symbols-outlined text-[18px]">call</span> +91 9909997285</a></li>
+                    <li class="text-on-surface-variant font-body-sm mt-1"><a href="mailto:info@cubecadcenter.co" class="hover:text-primary transition-colors font-semibold flex items-center gap-2"><span class="material-symbols-outlined text-[18px]">email</span> info@cubecadcenter.co</a></li>
                 </ul>
             </div>
         </div>
@@ -314,7 +312,6 @@
                                     onComplete: () => {
                                         sessionStorage.setItem('loaderPlayed', 'true');
                                         preloader.style.display = 'none';
-                                        scrollToHashTarget();
                                     }
                                 });
                             }
@@ -323,24 +320,11 @@
                 });
             }
 
-            function scrollToHashTarget() {
-                if (window.location.hash) {
-                    const target = document.querySelector(window.location.hash);
-                    if (target) {
-                        setTimeout(() => {
-                            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                        }, 50);
-                    }
-                }
-            }
-            window.addEventListener('hashchange', scrollToHashTarget);
-
             // Preload
             const loaderPlayed = sessionStorage.getItem('loaderPlayed') === 'true';
             
             if (loaderPlayed && preloader) {
                 preloader.style.display = 'none';
-                scrollToHashTarget();
             }
 
             for (let i = 0; i < frameCount; i++) {
