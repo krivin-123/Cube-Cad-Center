@@ -139,7 +139,8 @@ async function run() {
         assert(typeof res2.body === 'string' && !res2.body.includes('Certificate of completion'), 'No certificate HTML delivered to normal user');
 
         // Verify public pages do not contain the admin nav link
-        const indexHtml = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf8');
+        const indexHtmlPath = fs.existsSync(path.join(__dirname, 'public', 'index.html')) ? path.join(__dirname, 'public', 'index.html') : path.join(__dirname, 'index.html');
+        const indexHtml = fs.readFileSync(indexHtmlPath, 'utf8');
         assert(!indexHtml.includes('/admin/certificates') && !indexHtml.includes('Create certificate'), 'Public homepage does not contain certificate admin link');
 
         // --- CHECK 3: Signed in as admin redirects to /admin#certificates (302) ---
@@ -153,7 +154,8 @@ async function run() {
         assert(res3Cookie.headers.location === '/admin#certificates', 'Redirects to /admin#certificates');
 
         // Verify Admin navigation has "Create certificate" calling switchPage and no openCertificateAdmin
-        const adminHtml = fs.readFileSync(path.join(__dirname, 'admin.html'), 'utf8');
+        const adminHtmlPath = fs.existsSync(path.join(__dirname, 'public', 'admin.html')) ? path.join(__dirname, 'public', 'admin.html') : path.join(__dirname, 'admin.html');
+        const adminHtml = fs.readFileSync(adminHtmlPath, 'utf8');
         assert(adminHtml.includes('Create certificate') && adminHtml.includes("switchPage('certificates')"), 'Admin navigation includes "Create certificate" calling switchPage');
         assert(!adminHtml.includes('openCertificateAdmin'), 'openCertificateAdmin() is completely removed');
         assert(adminHtml.includes('id="page-certificates"'), 'admin.html contains page-certificates container');

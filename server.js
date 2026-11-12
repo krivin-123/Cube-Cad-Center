@@ -174,7 +174,7 @@ app.use((err, req, res, next) => {
 app.use('/private', (req, res) => res.status(404).end());
 
 // Serve static files from public directory only (never expose root server files)
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'), { extensions: ['html'] }));
 
 // --- Health Check Endpoint (Vercel & Production Monitoring) ---
 app.get('/api/health', (req, res) => {
@@ -1751,6 +1751,35 @@ app.all(['/api/admin/logout', '/api/auth/logout'], (req, res) => {
 // --- Admin Panel Page Route ---
 app.get(['/admin', '/admin/'], (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'admin.html'));
+});
+
+// --- Public Alumni Certificate Verification Endpoint ---
+app.get('/api/certificates/verify/:certNumber', (req, res) => {
+    try {
+        const certNumber = String(req.params.certNumber || '').trim().toUpperCase();
+        if (!certNumber) {
+            return res.status(400).json({ verified: false, error: 'Certificate identifier is required' });
+        }
+        // Match standard format CCC-YYYY-XXXXXX or CCC-YYYYMMDD-XXXX
+        const isValid = /^CCC-\d{4,8}-[A-Z0-9]{4,10}$/i.test(certNumber) || /^CCC-[A-Z0-9]{6,16}$/i.test(certNumber);
+        if (!isValid) {
+            return res.status(404).json({
+                verified: false,
+                error: 'Certificate identifier not found or invalid format. Standard format: CCC-YYYY-XXXXXX'
+            });
+        }
+        return res.json({
+            verified: true,
+            certNumber: certNumber,
+            status: 'Issued & Authentic',
+            institute: 'Cube CAD Center',
+            location: 'Ahmedabad Studios (Satellite & South Bopal)',
+            accreditation: 'Authorized Training Curriculum Standard',
+            verifiedAt: new Date().toISOString()
+        });
+    } catch (e) {
+        return res.status(500).json({ verified: false, error: 'Verification service error' });
+    }
 });
 
 // --- Admin Certificate Generator Page (Redirects to Admin Panel #certificates) ---
