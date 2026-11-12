@@ -1317,7 +1317,7 @@ app.post('/api/appointments', optionalAuth, async (req, res) => {
     }
 
     const { name, email, phone, program, branch, date, mode, notes, consent } = req.body;
-    const timeSlot = req.body.timeSlot || req.body.time_slot;
+    const timeSlot = req.body.timeSlot || req.body.time_slot || req.body.time || req.body.slot;
 
     // 1. Mandatory Input Validation
     const cleanName = (name || '').trim();
