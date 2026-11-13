@@ -8,26 +8,20 @@
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="192x192" href="assets/images/logo-icon.png">
     <link rel="apple-touch-icon" href="assets/images/logo-icon.png">
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap">
+    </noscript>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap">
+    </noscript>
+    <link rel="preload" href="assets/css/tailwind.min.css" as="style">
     <link rel="stylesheet" href="assets/css/tailwind.min.css">
     
-    <style type="text/tailwindcss">
-        @layer utilities {
-            .blueprint-grid {
-                background-image: 
-                    linear-gradient(to right, theme('colors.surface-variant') 1px, transparent 1px),
-                    linear-gradient(to bottom, theme('colors.surface-variant') 1px, transparent 1px);
-                background-size: 24px 24px;
-            }
-        }
-    </style>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
-        
         body {
             background-color: #F5F5F7;
             color: #1a1c1d;
@@ -56,7 +50,7 @@
 <!-- Preloader -->
     <div id="preloader" class="fixed inset-0 z-[100] bg-background blueprint-grid flex flex-col items-center justify-center">
         <div class="flex flex-col items-center gap-8 w-full max-w-xs px-6">
-            <img src="assets/images/logo.png" alt="Cube Cad Center Logo" width="80" height="80" class="h-20 w-20 object-contain rounded-full animate-pulse shadow-md">
+            <picture><source srcset="assets/images/logo.webp" type="image/webp"><img src="assets/images/logo.png" alt="Cube Cad Center Logo" width="80" height="80" class="h-20 w-20 object-contain rounded-full animate-pulse shadow-md"></picture>
             
             <div class="w-full">
                 <div class="flex justify-between items-end mb-3">
@@ -82,7 +76,7 @@
     <header class="w-full bg-surface/90 backdrop-blur-md border-b border-outline/20 sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-6 md:px-12 py-4 flex justify-between items-center">
             <a href="index.html" class="flex items-center gap-3 no-underline">
-                <img src="assets/images/logo.png" alt="Cube Cad Center" width="36" height="36" class="h-9 w-9 object-contain rounded-full shadow-sm">
+                <picture><source srcset="assets/images/logo.webp" type="image/webp"><img src="assets/images/logo.png" alt="Cube Cad Center" width="36" height="36" class="h-9 w-9 object-contain rounded-full shadow-sm"></picture>
                 <div class="font-headline-md text-xl font-bold text-on-surface tracking-tight">Cube Cad Center</div>
             </a>
             <div class="flex items-center gap-4">

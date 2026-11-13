@@ -41,10 +41,10 @@ window.FirebaseDB = {
       }
 
       try {
-        this.analytics = firebase.analytics();
-      } catch (ae) {
-        // Analytics may be ignored on local environments
-      }
+        if (typeof firebase.analytics === 'function') {
+          this.analytics = firebase.analytics();
+        }
+      } catch (ae) {}
 
       this.isReady = true;
       console.log("🔥 Firebase connected successfully: cube-cad-center");
