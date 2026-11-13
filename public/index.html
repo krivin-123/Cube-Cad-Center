@@ -4,13 +4,17 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Cube Cad Center</title>
+    <meta name="description" content="Cube Cad Center offers certified CAD, BIM, Architectural, Mechanical, and Interior Design training programs in Ahmedabad with hands-on practical learning.">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="192x192" href="assets/images/logo-icon.png">
     <link rel="apple-touch-icon" href="assets/images/logo-icon.png">
     
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link rel="stylesheet" href="assets/css/tailwind.min.css">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries" defer></script>
     
     <script id="tailwind-config">
         
@@ -197,14 +201,12 @@
 
     </script>
     
-    <style type="text/tailwindcss">
-        @layer utilities {
-            .blueprint-grid {
-                background-image: 
-                    linear-gradient(to right, theme('colors.surface-variant') 1px, transparent 1px),
-                    linear-gradient(to bottom, theme('colors.surface-variant') 1px, transparent 1px);
-                background-size: 24px 24px;
-            }
+    <style>
+        .blueprint-grid {
+            background-image: 
+                linear-gradient(to right, #e2e2e4 1px, transparent 1px),
+                linear-gradient(to bottom, #e2e2e4 1px, transparent 1px);
+            background-size: 24px 24px;
         }
     
         /* --- STRICTLY SCOPED DEMONSTRATION VIEWPORT CSS (#cad-demo-showcase) --- */
@@ -351,7 +353,7 @@
         }
 
         .btn-primary {
-            background-color: #FF7900;
+            background-color: #C45100;
             color: #ffffff;
             border-radius: 9999px;
             padding: 13px 26px;
@@ -365,14 +367,14 @@
             justify-content: center;
             gap: 8px;
             transition: all 0.2s ease;
-            box-shadow: 0 4px 12px rgba(255, 121, 0, 0.2);
+            box-shadow: 0 4px 12px rgba(196, 81, 0, 0.25);
             text-decoration: none;
         }
         
         .btn-primary:hover {
-            background-color: #e66d00;
+            background-color: #AB4200;
             transform: translateY(-1px);
-            box-shadow: 0 6px 16px rgba(255, 121, 0, 0.3);
+            box-shadow: 0 6px 16px rgba(196, 81, 0, 0.35);
         }
 
         .btn-secondary {
@@ -448,7 +450,7 @@
     <nav class="fixed top-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-6xl flex justify-between items-center z-[100]">
         <!-- Left: Logo Box -->
         <a class="nav-pill rounded-full px-5 py-2.5 flex items-center gap-3 transition-transform hover:scale-[0.99] no-underline" href="index.html">
-            <img src="assets/images/logo.png" alt="Cube Cad Center Logo" class="h-9 w-9 object-contain rounded-full shadow-sm">
+            <img src="assets/images/logo.png" alt="Cube Cad Center Logo" width="36" height="36" class="h-9 w-9 object-contain rounded-full shadow-sm">
             <span class="font-headline-md text-base font-bold text-on-surface tracking-tight">Cube Cad Center</span>
         </a>
         
@@ -559,6 +561,9 @@
         </div>
     </nav>
 
+    <!-- Main Content Landmark -->
+    <main id="main-content">
+
     <!-- 2. Hero Section -->
     <section id="hero" class="relative min-h-[85vh] flex flex-col justify-center overflow-hidden bg-background pt-32 pb-16 z-20">
         <canvas id="waves-canvas" class="absolute inset-0 w-full h-full z-0 opacity-30 pointer-events-none"></canvas>
@@ -635,7 +640,7 @@
             <!-- Course Card 1: AutoCAD -->
             <div class="course-card surface-card flex flex-col rounded-2xl overflow-hidden group cursor-pointer transition-all duration-300" data-category="architecture">
                 <div class="h-52 overflow-hidden relative">
-                    <img src="assets/images/architectural_render.jpg" alt="AutoCAD" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                    <img src="assets/images/architectural_render.jpg" alt="AutoCAD" width="400" height="208" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                     <div class="absolute top-4 left-4 bg-surface/90 backdrop-blur text-xs font-bold px-3 py-1 rounded-full text-on-surface border border-outline/20">Architectural & Interior</div>
                     <div class="absolute top-4 right-4 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full shadow-sm">Beginner Friendly</div>
                 </div>
@@ -661,7 +666,7 @@
             <!-- Course Card 2: Revit Architecture -->
             <div class="course-card surface-card flex flex-col rounded-2xl overflow-hidden group cursor-pointer transition-all duration-300" data-category="architecture">
                 <div class="h-52 overflow-hidden relative">
-                    <img src="assets/images/architecture_hero.jpg" alt="Revit Architecture" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                    <img src="assets/images/architecture_hero.jpg" alt="Revit Architecture" width="400" height="208" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                     <div class="absolute top-4 left-4 bg-surface/90 backdrop-blur text-xs font-bold px-3 py-1 rounded-full text-on-surface border border-outline/20">Architectural & Interior</div>
                     <div class="absolute top-4 right-4 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full shadow-sm">Intermediate</div>
                 </div>
@@ -687,7 +692,7 @@
             <!-- Course Card 3: SketchUp & Interior Design -->
             <div class="course-card surface-card flex flex-col rounded-2xl overflow-hidden group cursor-pointer transition-all duration-300" data-category="architecture">
                 <div class="h-52 overflow-hidden relative">
-                    <img src="assets/images/interior_design.jpg" alt="SketchUp & Interior 3D" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                    <img src="assets/images/interior_design.jpg" alt="SketchUp & Interior 3D" width="400" height="208" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                     <div class="absolute top-4 left-4 bg-surface/90 backdrop-blur text-xs font-bold px-3 py-1 rounded-full text-on-surface border border-outline/20">Architectural & Interior</div>
                     <div class="absolute top-4 right-4 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full shadow-sm">Beginner to Advanced</div>
                 </div>
@@ -836,28 +841,28 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <!-- Project 1 -->
                 <div class="group relative overflow-hidden rounded-xl h-80 cursor-pointer">
-                    <img src="assets/images/architecture_hero.jpg" alt="Architectural BIM Design" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100">
+                    <img src="assets/images/architecture_hero.jpg" alt="Architectural BIM Design" width="400" height="320" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
                     <div class="absolute bottom-0 left-0 p-6">
-                        <span class="text-primary font-bold text-xs uppercase tracking-widest mb-1 block">Revit Architecture</span>
+                        <span class="text-orange-400 font-bold text-xs uppercase tracking-widest mb-1 block">Revit Architecture</span>
                         <h3 class="text-2xl font-bold">Commercial Tower BIM</h3>
                     </div>
                 </div>
                 <!-- Project 2 -->
                 <div class="group relative overflow-hidden rounded-xl h-80 cursor-pointer">
-                    <img src="assets/images/hvac_render.jpg" alt="Mechanical Component" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100">
+                    <img src="assets/images/hvac_render.jpg" alt="Mechanical Component" width="400" height="320" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
                     <div class="absolute bottom-0 left-0 p-6">
-                        <span class="text-primary font-bold text-xs uppercase tracking-widest mb-1 block">SolidWorks</span>
+                        <span class="text-orange-400 font-bold text-xs uppercase tracking-widest mb-1 block">SolidWorks</span>
                         <h3 class="text-2xl font-bold">Industrial HVAC System</h3>
                     </div>
                 </div>
                 <!-- Project 3 -->
                 <div class="group relative overflow-hidden rounded-xl h-80 cursor-pointer">
-                    <img src="assets/images/interior_design.jpg" alt="Spatial Interior Design" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100">
+                    <img src="assets/images/interior_design.jpg" alt="Spatial Interior Design" width="400" height="320" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
                     <div class="absolute bottom-0 left-0 p-6">
-                        <span class="text-primary font-bold text-xs uppercase tracking-widest mb-1 block">3ds Max & Interior BIM</span>
+                        <span class="text-orange-400 font-bold text-xs uppercase tracking-widest mb-1 block">3ds Max & Interior BIM</span>
                         <h3 class="text-2xl font-bold">Luxury Interior Visualization</h3>
                     </div>
                 </div>
@@ -870,7 +875,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
             <div class="relative group">
                 <div class="absolute inset-0 architectural-grid opacity-20 -z-10 translate-x-4 translate-y-4 rounded-2xl"></div>
-                <img class="w-full h-auto object-cover rounded-2xl border border-outline/20 shadow-2xl transition-transform duration-700 group-hover:scale-[1.02]" src="assets/images/architecture_hero.jpg" alt="Cube Cad Center Studio">
+                <img class="w-full h-auto object-cover rounded-2xl border border-outline/20 shadow-2xl transition-transform duration-700 group-hover:scale-[1.02]" src="assets/images/architecture_hero.jpg" alt="Cube Cad Center Studio" width="600" height="400" loading="lazy">
             </div>
             <div>
                 <div class="chip mb-6">OUR STORY</div>
@@ -898,17 +903,17 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
                 <div class="bg-white/10 p-6 rounded-xl backdrop-blur-sm border border-white/20">
                     <span class="material-symbols-outlined text-3xl mb-4">design_services</span>
-                    <h4 class="text-xl font-bold mb-2">Practical Knowledge</h4>
+                    <h3 class="text-xl font-bold mb-2">Practical Knowledge</h3>
                     <p class="text-sm opacity-80">Transition from basic theory to applied engineering design.</p>
                 </div>
                 <div class="bg-white/10 p-6 rounded-xl backdrop-blur-sm border border-white/20">
                     <span class="material-symbols-outlined text-3xl mb-4">folder_special</span>
-                    <h4 class="text-xl font-bold mb-2">Portfolio Building</h4>
+                    <h3 class="text-xl font-bold mb-2">Portfolio Building</h3>
                     <p class="text-sm opacity-80">Graduate with tangible assets to prove your software competency.</p>
                 </div>
                 <div class="bg-white/10 p-6 rounded-xl backdrop-blur-sm border border-white/20">
                     <span class="material-symbols-outlined text-3xl mb-4">psychology</span>
-                    <h4 class="text-xl font-bold mb-2">Workflow Mastery</h4>
+                    <h3 class="text-xl font-bold mb-2">Workflow Mastery</h3>
                     <p class="text-sm opacity-80">Understand how large firms manage massive CAD assemblies.</p>
                 </div>
             </div>
@@ -1043,12 +1048,12 @@
                         <label for="appt-service" class="block text-sm font-bold text-on-surface mb-2 flex items-center justify-between">
                             <span class="flex items-center gap-1.5">
                                 <span class="material-symbols-outlined text-primary text-[19px]">category</span>
-                                2. Select Service <span class="text-error text-xs">*</span>
+                                1. Select Service <span class="text-error text-xs">*</span>
                             </span>
                             <span class="text-xs font-normal text-on-surface-variant">1-on-1 Guidance</span>
                         </label>
                         <div class="relative">
-                            <select id="appt-service" required class="w-full px-4 py-3.5 bg-surface-container-low rounded-2xl border border-outline/20 text-on-surface text-sm sm:text-base font-medium focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all appearance-none cursor-pointer">
+                            <select id="appt-service" required aria-label="Select counseling program or demo" class="w-full px-4 py-3.5 bg-surface-container-low rounded-2xl border border-outline/20 text-on-surface text-sm sm:text-base font-medium focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all appearance-none cursor-pointer">
                                 <option value="" disabled selected>Choose a counseling program or demo…</option>
                                 <option value="Architectural & Interior Design Consultation">📐 Architectural & Interior Design Consultation</option>
                                 <option value="Structural & Civil Engineering Consultation">🏗️ Structural & Civil Engineering Consultation</option>
@@ -1065,9 +1070,9 @@
                     <!-- 2. Select Date (Next 7 Days, Sundays Closed) -->
                     <div class="mb-6">
                         <div class="flex items-center justify-between mb-2">
-                            <label class="block text-sm font-bold text-on-surface flex items-center gap-1.5">
+                            <label for="appt-date" class="block text-sm font-bold text-on-surface flex items-center gap-1.5">
                                 <span class="material-symbols-outlined text-primary text-[19px]">calendar_today</span>
-                                3. Select Date <span class="text-error text-xs">*</span>
+                                2. Select Date <span class="text-error text-xs">*</span>
                             </label>
                             <span class="text-xs text-on-surface-variant font-medium">Next 7 days (Sundays closed)</span>
                         </div>
@@ -1080,7 +1085,7 @@
                         <!-- Native Date Picker Input for manual selection/accessibility -->
                         <div class="flex items-center gap-2">
                             <div class="relative w-full">
-                                <input type="date" id="appt-date" required class="w-full px-4 py-2.5 bg-surface-container-low rounded-xl border border-outline/20 text-on-surface text-sm font-medium focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all cursor-pointer">
+                                <input type="date" id="appt-date" aria-label="Select appointment date" required class="w-full px-4 py-2.5 bg-surface-container-low rounded-xl border border-outline/20 text-on-surface text-sm font-medium focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all cursor-pointer">
                             </div>
                         </div>
                     </div>
@@ -1090,7 +1095,7 @@
                         <div class="flex items-center justify-between mb-2.5">
                             <label class="block text-sm font-bold text-on-surface flex items-center gap-1.5">
                                 <span class="material-symbols-outlined text-primary text-[19px]">schedule</span>
-                                4. Select Available Time Slot <span class="text-error text-xs">*</span>
+                                3. Select Available Time Slot <span class="text-error text-xs">*</span>
                             </label>
                             <span id="appt-slots-summary" class="text-xs text-on-surface-variant font-medium">Max 3 users / slot</span>
                         </div>
@@ -1102,12 +1107,12 @@
                         <input type="hidden" id="appt-time" required>
                     </div>
 
-                    <!-- 5. Contact Details -->
+                    <!-- 4. Contact Details -->
                     <div class="p-5 rounded-2xl bg-surface-container-low/60 border border-outline/10 mb-7">
-                        <h4 class="text-xs font-bold text-on-surface uppercase tracking-wider mb-3.5 flex items-center gap-1.5">
+                        <h3 class="text-xs font-bold text-on-surface uppercase tracking-wider mb-3.5 flex items-center gap-1.5">
                             <span class="material-symbols-outlined text-primary text-base">person</span>
                             4. YOUR CONTACT INFORMATION
-                        </h4>
+                        </h3>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 mb-3.5">
                             <div>
                                 <label for="appt-name" class="block text-xs font-bold text-on-surface mb-1.5">
@@ -1234,9 +1239,9 @@
                             <span>ADMISSIONS OPEN • STUDIO LABS</span>
                         </div>
 
-                        <h1 class="font-display font-extrabold text-3xl sm:text-4xl md:text-5xl leading-[1.08] tracking-tight text-white mb-5">
+                        <h2 class="font-display font-extrabold text-3xl sm:text-4xl md:text-5xl leading-[1.08] tracking-tight text-white mb-5">
                             Draft in Millimeters. <span class="font-serif italic font-semibold text-brass">Coordinate in 3D BIM.</span> Build for the Field.
-                        </h1>
+                        </h2>
 
                         <p class="font-sans text-sm sm:text-base text-gray-300 leading-relaxed mb-8 max-w-xl">
                             Studio-led CAD, Revit BIM, SolidWorks, and V-Ray training across our Satellite and South Bopal labs in Ahmedabad. Move from 2D municipal drawings to clash-free LOD 400 construction models.
@@ -1307,7 +1312,7 @@
                             
                             <!-- 1. Base Layer: Photorealistic 3D BIM Model / V-Ray Render -->
                             <div class="absolute inset-0 w-full h-full pointer-events-none">
-                                <img id="stage-3d-img" src="assets/images/architecture_hero.jpg" alt="3D Photorealistic BIM Model" class="w-full h-full object-cover">
+                                <img id="stage-3d-img" src="assets/images/architecture_hero.jpg" alt="3D Photorealistic BIM Model" width="800" height="500" loading="lazy" class="w-full h-full object-cover">
                                 <div class="absolute top-4 right-4 bg-obsidian/85 backdrop-blur-md px-2.5 py-1 rounded border hairline-border-dark font-mono text-[10px] text-brass tracking-wider">
                                     3D BIM / V-RAY RENDER
                                 </div>
@@ -1317,7 +1322,7 @@
                             <div id="stage-2d-layer" class="absolute inset-0 w-full h-full pointer-events-none overflow-hidden" style="clip-path: inset(0 calc(100% - var(--split-pct)) 0 0);">
                                 <!-- Blueprint Background with Grid and Vector Drawings -->
                                 <div class="w-full h-full bg-[#0a192f] relative flex items-center justify-center dark-blueprint-grid">
-                                    <img id="stage-2d-img" src="assets/images/drafting_tools.jpg" alt="2D AutoCAD Blueprint Wireframe" class="w-full h-full object-cover mix-blend-screen opacity-70 filter contrast-125">
+                                    <img id="stage-2d-img" src="assets/images/drafting_tools.jpg" alt="2D AutoCAD Blueprint Wireframe" width="800" height="500" loading="lazy" class="w-full h-full object-cover mix-blend-screen opacity-70 filter contrast-125">
                                     
                                     <!-- Dynamic 2D Blueprint Vector Overlay Markings -->
                                     <div class="absolute inset-0 pointer-events-none p-6 flex flex-col justify-between font-mono text-[10px] text-cyan/80">
@@ -1349,7 +1354,7 @@
                             <div id="optical-loupe" class="hidden absolute pointer-events-none z-30 w-[260px] h-[260px] -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-cyan shadow-[0_0_30px_rgba(56,189,248,0.4)] overflow-hidden" style="left: var(--loupe-x); top: var(--loupe-y);">
                                 <!-- Circular Blueprint View Inside Lens -->
                                 <div class="w-full h-full bg-[#0a192f] relative flex items-center justify-center dark-blueprint-grid">
-                                    <img id="loupe-2d-img" src="assets/images/drafting_tools.jpg" alt="Loupe 2D CAD" class="w-[160%] h-[160%] object-cover mix-blend-screen opacity-90">
+                                    <img id="loupe-2d-img" src="assets/images/drafting_tools.jpg" alt="Loupe 2D CAD" width="416" height="416" loading="lazy" class="w-[160%] h-[160%] object-cover mix-blend-screen opacity-90">
                                     <!-- Rotating Protractor Overlay -->
                                     <svg class="absolute inset-0 w-full h-full bezel-rotate opacity-50" viewBox="0 0 200 200">
                                         <circle cx="100" cy="100" r="95" fill="none" stroke="#38BDF8" stroke-width="1" stroke-dasharray="2,4"/>
@@ -1427,6 +1432,7 @@
             </div>
         </div>
     </section>
+    </main>
 
     <!-- 13. Footer Redesign -->
     <footer id="contact" class="bg-surface-variant/50 border-t border-outline/20 pt-20 pb-10">
@@ -1436,7 +1442,7 @@
                 <!-- Column 1: Brand -->
                 <div>
                     <a href="#" class="flex items-center gap-3 mb-6">
-                        <img src="assets/images/logo.png" alt="Cube Cad Center" class="h-12 w-12 object-contain rounded-full shadow-sm">
+                        <img src="assets/images/logo.png" alt="Cube Cad Center" width="48" height="48" loading="lazy" class="h-12 w-12 object-contain rounded-full shadow-sm">
                         <span class="font-bold text-xl text-on-surface">Cube Cad Center</span>
                     </a>
                     <p class="text-on-surface-variant text-sm leading-relaxed">
@@ -1446,7 +1452,7 @@
 
                 <!-- Column 2: Courses -->
                 <div>
-                    <h4 class="font-bold text-on-surface mb-6 uppercase tracking-wider text-sm">Programs</h4>
+                    <h3 class="font-bold text-on-surface mb-6 uppercase tracking-wider text-sm">Programs</h3>
                     <ul class="space-y-4 text-sm text-on-surface-variant">
                         <li><a href="syllabus-architectural.html" class="hover:text-primary transition-colors">Architectural & Interior Design</a></li>
                         <li><a href="syllabus-structural.html" class="hover:text-primary transition-colors">Structural & Civil Engineering</a></li>
@@ -1458,7 +1464,7 @@
 
                 <!-- Column 3: Company -->
                 <div>
-                    <h4 class="font-bold text-on-surface mb-6 uppercase tracking-wider text-sm">Company</h4>
+                    <h3 class="font-bold text-on-surface mb-6 uppercase tracking-wider text-sm">Company</h3>
                     <ul class="space-y-4 text-sm text-on-surface-variant">
                         <li><a href="#about" class="hover:text-primary transition-colors">About Us</a></li>
                         <li><a href="#why-choose-us" class="hover:text-primary transition-colors">Why Choose Us</a></li>
@@ -1470,7 +1476,7 @@
 
                 <!-- Column 4: Contact -->
                 <div>
-                    <h4 class="font-bold text-on-surface mb-6 uppercase tracking-wider text-sm">Contact Us</h4>
+                    <h3 class="font-bold text-on-surface mb-6 uppercase tracking-wider text-sm">Contact Us</h3>
                     <ul class="space-y-4 text-sm text-on-surface-variant">
                         <li class="flex items-start gap-3">
                             <span class="material-symbols-outlined text-[18px] text-primary mt-0.5">location_on</span>
@@ -1780,7 +1786,7 @@
             <!-- Brand Header -->
             <div class="text-center mb-6">
                 <div class="w-16 h-16 mx-auto mb-3 flex items-center justify-center">
-                    <img src="assets/images/logo.png" alt="Cube Cad Center Logo" class="w-14 h-14 object-contain rounded-full shadow-md">
+                    <img src="assets/images/logo.png" alt="Cube Cad Center Logo" width="56" height="56" loading="lazy" class="w-14 h-14 object-contain rounded-full shadow-md">
                 </div>
                 <h3 class="font-headline-md text-2xl font-bold text-on-surface" id="auth-modal-title">Welcome to Cube CAD</h3>
                 <p class="text-xs text-on-surface-variant mt-1" id="auth-modal-subtitle">Sign in or create a new account to book & manage your appointments</p>
